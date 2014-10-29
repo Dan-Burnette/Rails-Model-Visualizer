@@ -62,10 +62,9 @@ class ScrapersController < ApplicationController
         nodes.push(g.add_nodes(m))
       end
 
-      # node1 = g.add_nodes("test1")
-      # node2 = g.add_nodes("test2")
-      # g.add_edges('test1', 'test2')
-      g.output(:png => "test.png")
+      g.add_edges('group', 'match')
+      g.add_edges('match', 'group')
+      g.output(:png => "app/assets/images/test.png")
 
     end
 
