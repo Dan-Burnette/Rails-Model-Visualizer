@@ -24,8 +24,11 @@ raw data
 
 <h2> All Table Data </h2>
 <%=@all_table_data%>
-<h2> Amount of tables </h2>
-<%=@all_table_data.count%>
+
+<% @all_table_data.each_with_index do |x,i|%>
+	<h2> table <%=i%> </h2>
+	<%= @all_table_data[i] %>
+<% end %>
 
 <br><br><br>
 <%=image_tag("test.png")%>

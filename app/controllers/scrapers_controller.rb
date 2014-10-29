@@ -60,6 +60,7 @@ class ScrapersController < ApplicationController
     @db_schema_data = raw_schema_page["data"]
     @db_schema_data.delete('end')
     @db_schema_data.delete("")
+    @db_schema_data = @db_schema_data.select {|x| x.include?("add_index") == false }
     table_starts = @db_schema_data.each_index.select {|i| @db_schema_data[i].include?("create_table") }
     puts table_starts.inspect
 
@@ -70,11 +71,12 @@ class ScrapersController < ApplicationController
       last = table_starts[i+1]
       if last
         table_data = @db_schema_data[first..last]
-        @all_table_data.push(table_data)
       else
-        table_data = @db_schema_data[first..-1]
-        @all_table_data.push(table_data)
+        table_data = @db_schema_data[first...-1]
       end
+      #remove the "create_table first element"
+      table_data = table_data[1..-1]
+      @all_table_data.push(table_data)
     end
     
 
