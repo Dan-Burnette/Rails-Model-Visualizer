@@ -54,19 +54,38 @@ class ScrapersController < ApplicationController
 
       @all_relationships.push(relationships)
 
-      #trying to graph stuff
-      g = GraphViz.new(:G, :type => :digraph )
-      #create a node for each model
-      nodes = []
-      @models.each do |m|
-        nodes.push(g.add_nodes(m))
+    end
+
+    #Graphing logic
+    g = GraphViz.new(:G, :type => :digraph )
+    #Create a node for each model
+    nodes = []
+    @models.each do |m|
+      nodes.push(g.add_nodes(m))
+    end
+
+    puts "ALL RELATIONSHIPS ======="
+      puts @all_relationships.inspect
+      #Generating appropriate edges
+      nodes.each_with_index do |node, i|
+        relationships = @all_relationships[i]
+        puts relationships.inspect
+        relationships.each do |r|
+          relationship_parts = r.split(':', 2)
+          relationship = relationship_parts[0]
+          nodeToConnect = relationship_parts[1].delete(':')
+         
+          puts "RELATIONSHIP PARTS: RELATIONSHIP THEN NODETOCONNECT"
+          puts relationship
+          puts nodeToConnect
+          edge = g.add_edges(node, nodeToConnect)
+          edge[:label => relationship]
+        
+        end
+
       end
 
-      g.add_edges('group', 'match')
-      g.add_edges('match', 'group')
       g.output(:png => "app/assets/images/test.png")
-
-    end
 
   end
   

@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'pry-byebug'
 #Graphing tool
 gem 'ruby-graphviz' 
 # Web scraper
