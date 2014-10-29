@@ -1,23 +1,8 @@
 <h1> Rails Scraper </h1>
 
-<h2> Starting URL </h2>
-<%=@start_url%>
-
-<h2>raw</h2> 
-<%=@raw%>
-
-raw data
-<%=@raw_data%>
-
-<h2>models</h2>
-<%=@models.inspect%>
-
-<h2>model urls</h2>
-<%=@model_urls.inspect%>
-
-<h2>all relationships </h2>
-
-<% @all_relationships.each_with_index do |relationships,i| %>
-	<h3> Model <%=i%>'s relationships </h3>
-	<%= relationships.inspect %>
+<%= form_tag("/show", method: "get") do %> 
+	<label>Enter a rails project's github model's URL </label>
+	<input type="text" name="start_url">
+	<input type="submit">
 <% end %>
+

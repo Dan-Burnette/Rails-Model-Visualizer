@@ -2,10 +2,15 @@ class ScrapersController < ApplicationController
  # GENERATE A DIAGRAM OF A RAILS APP'S MODEL RELATIONSHIPS!
 
   def index
-    @start_url = "https://github.com/Dan-Burnette/ScoreSettler/tree/master/app/models"
 
+  end
+
+  def show
+    start_url = params[:start_url]
+    puts "START URL IS ============="
+    puts start_url
     @raw = Wombat.crawl do
-      base_url "https://github.com/Dan-Burnette/ScoreSettler/tree/master/app/models"
+      base_url start_url
       data({css: ".css-truncate"}, :list)
     end
 
@@ -17,7 +22,7 @@ class ScrapersController < ApplicationController
       if (model_and_extension.include?('rb'))
         model = model_and_extension[0]
         @models.push(model)
-        model_url = @start_url + '/' + model_and_extension.join('.')
+        model_url = start_url + '/' + model_and_extension.join('.')
         @model_urls.push(model_url)
       end
     end
@@ -41,14 +46,10 @@ class ScrapersController < ApplicationController
             relationships.push(line)
         end 
       end
+
       @all_relationships.push(relationships)
 
     end
-
-
-
-
-    
 
   end
   
