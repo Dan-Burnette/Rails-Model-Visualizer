@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+#Graphing tool
+gem 'ruby-graphviz' 
+# Web scraper
 gem 'wombat'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'

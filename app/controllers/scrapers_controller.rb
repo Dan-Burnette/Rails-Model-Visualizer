@@ -1,4 +1,5 @@
 class ScrapersController < ApplicationController
+  require 'graphviz'
  # GENERATE A DIAGRAM OF A RAILS APP'S MODEL RELATIONSHIPS!
 
   def index
@@ -7,8 +8,8 @@ class ScrapersController < ApplicationController
 
   def show
     start_url = params[:start_url]
-    puts "START URL IS ============="
-    puts start_url
+
+    #Scrape for the models
     @raw = Wombat.crawl do
       base_url start_url
       data({css: ".css-truncate"}, :list)
@@ -17,6 +18,8 @@ class ScrapersController < ApplicationController
     @models = []
     @model_urls = []
     @raw_data = @raw["data"]
+
+    #Process raw data into models and URLS to their pages
     @raw_data.each do |item|
       model_and_extension = item.split('.')
       if (model_and_extension.include?('rb'))
@@ -29,6 +32,8 @@ class ScrapersController < ApplicationController
 
     @all_lines = []
     @all_relationships = []
+    
+    #Scrape each model page for their activeRecord assocations
     @model_urls.each do |url|
 
       lines = Wombat.crawl do 
@@ -48,6 +53,19 @@ class ScrapersController < ApplicationController
       end
 
       @all_relationships.push(relationships)
+
+      #trying to graph stuff
+      g = GraphViz.new(:G, :type => :digraph )
+      #create a node for each model
+      nodes = []
+      @models.each do |m|
+        nodes.push(g.add_nodes(m))
+      end
+
+      # node1 = g.add_nodes("test1")
+      # node2 = g.add_nodes("test2")
+      # g.add_edges('test1', 'test2')
+      g.output(:png => "test.png")
 
     end
 
