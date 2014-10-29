@@ -1,10 +1,23 @@
-<h1> scrapers </h1>
-<br><br><br>
+<h1> Rails Scraper </h1>
+
+<h2> Starting URL </h2>
+<%=@start_url%>
+
+<h2>raw</h2> 
 <%=@raw%>
-<br><br><br>
+
+raw data
 <%=@raw_data%>
-<br><br><br>
+
+<h2>models</h2>
 <%=@models.inspect%>
-<br><br><br>
+
+<h2>model urls</h2>
 <%=@model_urls.inspect%>
-<br><br><br>
+
+<h2>all relationships </h2>
+
+<% @all_relationships.each_with_index do |relationships,i| %>
+	<h3> Model <%=i%>'s relationships </h3>
+	<%= relationships.inspect %>
+<% end %>
