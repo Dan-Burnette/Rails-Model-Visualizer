@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  get '/index', to: 'scrapers#index'
+  get '/show', to: 'scrapers#show_model_graph'
 
-  get '/show', to: 'scrapers#show'
+  root to: 'scrapers#index'
 end
