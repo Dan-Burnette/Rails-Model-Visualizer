@@ -123,29 +123,17 @@ class ScrapersController < ApplicationController
           join_model = nodeToConnect.split()[-1]
           relationship += "through #{join_model}"
           index = nodeNames.find_index(nodeToConnect.split()[0][0..-3]) 
-          nodeToConnect = nodes[index]
+
+        #if plural find the singular model node
+        elsif (nodeToConnect.singularize != nodeToConnect)
+          index = nodeNames.find_index(nodeToConnect.singularize)
       
-        #If it ends in a es, find that node (which won't be plural)
-        elsif (nodeToConnect[-2..-1] == "es")
-          puts "thing".pluralize
-          puts "NODE TO CONNECT IS"
-          puts nodeToConnect.inspect
-          puts "Node names are"
-          puts nodeNames.inspect
-          index = nodeNames.find_index(nodeToConnect[0..-3])
-          nodeToConnect = nodes[index]
-        
-        #If it ends in a s, find that node (which won't be plural)
-        elsif (nodeToConnect[-1] == "s")
-          index = nodeNames.find_index(nodeToConnect[0..-2])
-          nodeToConnect = nodes[index]
-      
-        #If it is singular, connect to that node
+        #If it is singular, find that model node
         elsif (nodeNames.include?(nodeToConnect))
           index = nodeNames.find_index(nodeToConnect)
-          nodeToConnect = nodes[index]
         end
 
+        nodeToConnect = nodes[index]
         edge = g.add_edges(node, nodeToConnect)
         edge[:label => relationship]
         puts "NODE TO CONNECT IS===="
