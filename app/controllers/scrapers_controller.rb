@@ -77,7 +77,7 @@ class ScrapersController < ApplicationController
       end
       #remove the "create_table first element"
       table_data = table_data[1...-1]
-      table_data_str = ""
+      table_data_str = '<BR ALIGN="LEFT"/>'
       table_data.each do |d|
         table_data_str += d.to_s + '<BR ALIGN="LEFT"/>'
       end
@@ -98,7 +98,7 @@ class ScrapersController < ApplicationController
       model_and_attrs = "#{m}" + '<br/>' + "#{@all_table_data_strs[i]}"
       models_and_attrs.push(model_and_attrs)
       node = g.add_nodes(m)
-      node[:label] = '<<b>' + "#{m}" + '</b> <br/><br/>' + " #{@all_table_data_strs[i]}" + '>'
+      node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + " #{@all_table_data_strs[i]}" + '>'
       node[:shape => 'regular']
       nodes.push(node)
     end
