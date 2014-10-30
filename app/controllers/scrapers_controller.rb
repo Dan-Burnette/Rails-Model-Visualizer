@@ -89,6 +89,10 @@ class ScrapersController < ApplicationController
     #Graphing logic ---------------------------------------------------------
     g = GraphViz.new(:G, :type => :digraph )
     
+
+    # a[label=<Birth of George Washington<BR />
+    #     <FONT POINT-SIZE="10">See also: American Revolution</FONT>>];
+
     #Create a node for each model
     nodes = []
     models_and_attrs = []
@@ -97,8 +101,10 @@ class ScrapersController < ApplicationController
       models_and_attrs.push(model_and_attrs)
       node = g.add_nodes(model_and_attrs)
       node[:shape => 'regular']
+      node[:label => "#{model_and_attrs}"]
       node[:size => 0.20]
       node[:fontsize => 10]
+
       nodes.push(node)
     end
 
@@ -110,9 +116,8 @@ class ScrapersController < ApplicationController
         x = x.split('\n')
         nodeNames.push(x[0])
       end
-      puts "Nde names ======"
-      puts nodeNames.inspect
   
+      #Connect the nodes
       nodes.each_with_index do |node, i|
         relationships = @all_relationships[i]
         relationships.each do |r|
@@ -123,19 +128,14 @@ class ScrapersController < ApplicationController
             index = nodeNames.find_index(nodeToConnect)
             nodeToConnect = nodes[index]
             edge = g.add_edges(node, nodeToConnect)
-            edge 
           else
             edge = g.add_edges(node, nodeToConnect)
           end
           edge[:label => relationship]
-          puts "NODE ====="
-          puts node.inspect
-          puts "NODE TO CONNECT====="
-          puts nodeToConnect.inspect
         end
       end
 
-
+      #Output the graph
       g.output(:png => "app/assets/images/test.png")
   end
 
