@@ -76,7 +76,7 @@ class ScrapersController < ApplicationController
         table_data = @db_schema_data[first...-1]
       end
       #remove the "create_table first element"
-      table_data = table_data[1..-1]
+      table_data = table_data[1...-1]
       table_data_str = ""
       table_data.each do |d|
         table_data_str += d.to_s + '\n'
@@ -88,10 +88,13 @@ class ScrapersController < ApplicationController
 
     #Graphing logic ---------------------------------------------------------
     g = GraphViz.new(:G, :type => :digraph )
+    
     #Create a node for each model
     nodes = []
+    models_and_attrs = []
     @models.each_with_index do |m,i|
-      model_and_attrs = "#{m}" + "#{@all_table_data_strs[i]}"
+      model_and_attrs = "#{m}" + '\n' + "#{@all_table_data_strs[i]}"
+      models_and_attrs.push(model_and_attrs)
       node = g.add_nodes(model_and_attrs)
       node[:shape => 'regular']
       node[:size => 0.20]
@@ -100,17 +103,39 @@ class ScrapersController < ApplicationController
     end
 
       #Generating appropriate edges
+
+      #Determine names of nodes already created (our non-plural models)
+      nodeNames = []
+      models_and_attrs.each do |x|
+        x = x.split('\n')
+        nodeNames.push(x[0])
+      end
+      puts "Nde names ======"
+      puts nodeNames.inspect
+  
       nodes.each_with_index do |node, i|
         relationships = @all_relationships[i]
-        puts relationships.inspect
         relationships.each do |r|
           relationship_parts = r.split(':', 2)
           relationship = relationship_parts[0]
           nodeToConnect = relationship_parts[1].delete(':')
-          edge = g.add_edges(node, nodeToConnect)
+          if (nodeNames.include?(nodeToConnect))
+            index = nodeNames.find_index(nodeToConnect)
+            nodeToConnect = nodes[index]
+            edge = g.add_edges(node, nodeToConnect)
+            edge 
+          else
+            edge = g.add_edges(node, nodeToConnect)
+          end
           edge[:label => relationship]
+          puts "NODE ====="
+          puts node.inspect
+          puts "NODE TO CONNECT====="
+          puts nodeToConnect.inspect
         end
       end
+
+
       g.output(:png => "app/assets/images/test.png")
   end
 
