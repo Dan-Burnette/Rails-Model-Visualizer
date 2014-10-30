@@ -100,7 +100,6 @@ class ScrapersController < ApplicationController
       node = g.add_nodes(m)
       node[:label] = '<<b>' + "#{m}" + '</b> <br/><br/>' + " #{@all_table_data_strs[i]}" + '>'
       node[:shape => 'regular']
-      node[:size => 0.20]
       nodes.push(node)
     end
 
@@ -115,7 +114,7 @@ class ScrapersController < ApplicationController
       relationships = @all_relationships[i]
       relationships.each do |r|
         relationship_parts = r.split(':', 2)
-        relationship = relationship_parts[0]
+        relationship = relationship_parts[0] + '\n'
         nodeToConnect = relationship_parts[1].delete(':').delete(',')
 
         # processing for a "through" association
@@ -128,6 +127,8 @@ class ScrapersController < ApplicationController
         #processing for polymorphic "as" association
         elsif (nodeToConnect.include?("as"))
           relationship += nodeToConnect.split()[1..-1].join(" ")
+          puts "RELATIONSHIPpsdasds"
+          puts relationship
           index = nodeNames.find_index(nodeToConnect.split()[0].singularize)
           nodeToConnect = nodes[index]
 
@@ -143,12 +144,12 @@ class ScrapersController < ApplicationController
         end
 
         edge = g.add_edges(node, nodeToConnect)
-        edge[:label => relationship]
-        puts "NODE TO CONNECT IS===="
+        edge[:label] =   "#{relationship}" 
+        edge[:fontsize] = 10
       end
     end
 
-      #Output the graph
+    #Output the graph
     g.output(:png => "app/assets/images/test.png")
   end
 
