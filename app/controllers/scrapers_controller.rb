@@ -110,7 +110,8 @@ class ScrapersController < ApplicationController
       nodeNames.push(x)
     end
   
-    #Connect the nodes
+    #Connect the nodes with appropriately labeled edges
+    puts nodeNames.inspect
     nodes.each_with_index do |node, i|
       relationships = @all_relationships[i]
       relationships.each do |r|
@@ -122,19 +123,22 @@ class ScrapersController < ApplicationController
         if (nodeToConnect.include?("through"))
           join_model = nodeToConnect.split()[-1]
           relationship += "through #{join_model}"
-          puts "we got a through! =========="
           index = nodeNames.find_index(nodeToConnect.split()[0][0..-3]) 
-          puts "THING ====!!!!!!"
-          puts nodeToConnect.split()[0][0..-3]
           nodeToConnect = nodes[index]
           edge = g.add_edges(node, nodeToConnect)
-          puts "Join model is +====+++++"
-          puts join_model.inspect
 
         #If it ends in a s, find that node (which won't be plural)
-        elsif (nodeToConnect[-1] == "s")
-          puts "we got an s! =========="
+        elsif (nodeToConnect[-2..-1] == "es")
+          puts "THINGTHING=-sdajsasjkdasldjasdawj"
+          puts nodeToConnect.inspect
+          puts nodeToConnect[0..-3]
+          index = nodeNames.find_index(nodeToConnect[0..-3])
+          nodeToConnect = nodes[index]
           edge = g.add_edges(node, nodeToConnect)
+
+        #If it ends in a es, find that node (which won't be plural)
+        # elsif (nodeToConnect[-1] == "s")
+
         #If it is singular, connect to that node
         elsif (nodeNames.include?(nodeToConnect))
           index = nodeNames.find_index(nodeToConnect)
