@@ -116,24 +116,31 @@ class ScrapersController < ApplicationController
       relationships.each do |r|
         relationship_parts = r.split(':', 2)
         relationship = relationship_parts[0]
-        nodeToConnect = relationship_parts[1].delete(':')
+        nodeToConnect = relationship_parts[1].delete(':').delete(',')
 
         # processing for a "through" association
         if (nodeToConnect.include?("through"))
           join_model = nodeToConnect.split()[-1]
           relationship += "through #{join_model}"
-          index = nodeNames.find_index(nodeToConnect.split()[0][0..-3]) 
+          index = nodeNames.find_index(nodeToConnect.split()[0].singularize) 
+          nodeToConnect = nodes[index]
 
+
+        # processing for polymorphic "as" association
+        # elsif (nodeToConnect.include?("as"))
+        #   index = nodeNames.find_index(nodeToConnect.split()[0].singularize)
+        #   nodeToConnect = nodes[index]
         #if plural find the singular model node
         elsif (nodeToConnect.singularize != nodeToConnect)
           index = nodeNames.find_index(nodeToConnect.singularize)
-      
+          nodeToConnect = nodes[index]
+
         #If it is singular, find that model node
         elsif (nodeNames.include?(nodeToConnect))
           index = nodeNames.find_index(nodeToConnect)
+          nodeToConnect = nodes[index]
         end
 
-        nodeToConnect = nodes[index]
         edge = g.add_edges(node, nodeToConnect)
         edge[:label => relationship]
         puts "NODE TO CONNECT IS===="
