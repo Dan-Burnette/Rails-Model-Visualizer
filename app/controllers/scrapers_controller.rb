@@ -79,7 +79,7 @@ class ScrapersController < ApplicationController
       table_data = table_data[1...-1]
       table_data_str = ""
       table_data.each do |d|
-        table_data_str += d.to_s + '\n'
+        table_data_str += d.to_s + '<br/>'
       end
       @all_table_data_strs.push(table_data_str)
       @all_table_data.push(table_data)
@@ -88,23 +88,18 @@ class ScrapersController < ApplicationController
 
     #Graphing logic ---------------------------------------------------------
     g = GraphViz.new(:G, :type => :digraph )
-    
-
-    # a[label=<Birth of George Washington<BR />
-    #     <FONT POINT-SIZE="10">See also: American Revolution</FONT>>];
+    g[:label] = "<<b>This</b> is <i>a</i> <b>test</b> ass>"
 
     #Create a node for each model
     nodes = []
     models_and_attrs = []
     @models.each_with_index do |m,i|
-      model_and_attrs = "#{m}" + '\n' + "#{@all_table_data_strs[i]}"
+      model_and_attrs = "#{m}" + '<br/>' + "#{@all_table_data_strs[i]}"
       models_and_attrs.push(model_and_attrs)
-      node = g.add_nodes(model_and_attrs)
+      node = g.add_nodes(m)
+      node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + "<i>#{@all_table_data_strs[i]}</i>" + '>'
       node[:shape => 'regular']
-      node[:label => "#{model_and_attrs}"]
       node[:size => 0.20]
-      node[:fontsize => 10]
-
       nodes.push(node)
     end
 
@@ -112,9 +107,8 @@ class ScrapersController < ApplicationController
 
       #Determine names of nodes already created (our non-plural models)
       nodeNames = []
-      models_and_attrs.each do |x|
-        x = x.split('\n')
-        nodeNames.push(x[0])
+      @models.each do |x|
+        nodeNames.push(x)
       end
   
       #Connect the nodes
