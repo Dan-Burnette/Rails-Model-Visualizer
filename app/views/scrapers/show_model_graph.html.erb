@@ -25,9 +25,10 @@ raw data
 <h2> All Table Data </h2>
 <%=@all_table_data%>
 
-<% @all_table_data.each_with_index do |x,i|%>
+
+<% @all_table_data_strs.each_with_index do |x,i|%>
 	<h2> table <%=i%> </h2>
-	<%= @all_table_data[i] %>
+	<%= @all_table_data_strs[i] %>
 <% end %>
 
 <br><br><br>

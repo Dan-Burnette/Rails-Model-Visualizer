@@ -66,6 +66,7 @@ class ScrapersController < ApplicationController
 
     #Grabbing each table's data out
     @all_table_data = []
+    @all_table_data_strs= []
     table_starts.each_with_index do |x,i|
       first = x
       last = table_starts[i+1]
@@ -76,6 +77,11 @@ class ScrapersController < ApplicationController
       end
       #remove the "create_table first element"
       table_data = table_data[1..-1]
+      table_data_str = ""
+      table_data.each do |d|
+        table_data_str += d.to_s + '\n'
+      end
+      @all_table_data_strs.push(table_data_str)
       @all_table_data.push(table_data)
     end
     
@@ -84,8 +90,13 @@ class ScrapersController < ApplicationController
     g = GraphViz.new(:G, :type => :digraph )
     #Create a node for each model
     nodes = []
-    @models.each do |m|
-      nodes.push(g.add_nodes(m))
+    @models.each_with_index do |m,i|
+      model_and_attrs = "#{m}" + "#{@all_table_data_strs[i]}"
+      node = g.add_nodes(model_and_attrs)
+      node[:shape => 'regular']
+      node[:size => 0.20]
+      node[:fontsize => 10]
+      nodes.push(node)
     end
 
       #Generating appropriate edges
