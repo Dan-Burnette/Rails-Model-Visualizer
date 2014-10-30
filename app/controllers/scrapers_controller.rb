@@ -151,8 +151,19 @@ class ScrapersController < ApplicationController
 
     #Output the graph
     g.output(:png => "app/assets/images/test.png")
+
+    #PDF Creation logic ---------------------------
+    width = Dimensions.width("app/assets/images/test.png")
+    height = Dimensions.height("app/assets/images/test.png")
+
+    puts "WIDTH IS HEIGHT IS"
+    puts width
+    puts height
+
+    Prawn::Document.generate("#{graph_title}.pdf", :page_size => [width+100, height+100]) do
+      pic = "app/assets/images/test.png"
+      image(pic, :width => width, :height => height)
+    end
   end
 
-
-  
 end
