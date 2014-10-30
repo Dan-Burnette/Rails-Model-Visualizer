@@ -87,9 +87,9 @@ class ScrapersController < ApplicationController
     
 
     #Graphing logic ---------------------------------------------------------
-    graph_title = params[:start_url].split('/')[-1]
+    @graph_title = params[:start_url].split('/')[-1]
     g = GraphViz.new(:G, :type => :digraph )
-    g[:label] = "< <FONT POINT-SIZE='50'>" + "#{graph_title}" + "</FONT> >"
+    g[:label] = "< <FONT POINT-SIZE='50'>" + "#{@graph_title}" + "</FONT> >"
     
     #Create a node for each model
     nodes = []
@@ -150,18 +150,14 @@ class ScrapersController < ApplicationController
     end
 
     #Output the graph
-    g.output(:png => "app/assets/images/test.png")
+    g.output(:png => "app/assets/images/graph.png")
 
     #PDF Creation logic ---------------------------
-    width = Dimensions.width("app/assets/images/test.png")
-    height = Dimensions.height("app/assets/images/test.png")
+    width = Dimensions.width("app/assets/images/graph.png")
+    height = Dimensions.height("app/assets/images/graph.png")
 
-    puts "WIDTH IS HEIGHT IS"
-    puts width
-    puts height
-
-    Prawn::Document.generate("#{graph_title}.pdf", :page_size => [width+100, height+100]) do
-      pic = "app/assets/images/test.png"
+    Prawn::Document.generate("public/#{@graph_title}.pdf", :page_size => [width+100, height+100]) do
+      pic = "app/assets/images/graph.png"
       image(pic, :width => width, :height => height)
     end
   end
