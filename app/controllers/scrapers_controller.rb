@@ -125,11 +125,12 @@ class ScrapersController < ApplicationController
           index = nodeNames.find_index(nodeToConnect.split()[0].singularize) 
           nodeToConnect = nodes[index]
 
+        #processing for polymorphic "as" association
+        elsif (nodeToConnect.include?("as"))
+          relationship += nodeToConnect.split()[1..-1].join(" ")
+          index = nodeNames.find_index(nodeToConnect.split()[0].singularize)
+          nodeToConnect = nodes[index]
 
-        # processing for polymorphic "as" association
-        # elsif (nodeToConnect.include?("as"))
-        #   index = nodeNames.find_index(nodeToConnect.split()[0].singularize)
-        #   nodeToConnect = nodes[index]
         #if plural find the singular model node
         elsif (nodeToConnect.singularize != nodeToConnect)
           index = nodeNames.find_index(nodeToConnect.singularize)
