@@ -87,9 +87,10 @@ class ScrapersController < ApplicationController
     
 
     #Graphing logic ---------------------------------------------------------
+    graph_title = params[:start_url].split('/')[-1]
     g = GraphViz.new(:G, :type => :digraph )
-    g[:label] = "<<b>This</b> is <i>a</i> <b>test</b> ass>"
-
+    g[:label] = "< <FONT POINT-SIZE='50'>" + "#{graph_title}" + "</FONT> >"
+    
     #Create a node for each model
     nodes = []
     models_and_attrs = []
@@ -103,34 +104,53 @@ class ScrapersController < ApplicationController
       nodes.push(node)
     end
 
-      #Generating appropriate edges
-
-      #Determine names of nodes already created (our non-plural models)
-      nodeNames = []
-      @models.each do |x|
-        nodeNames.push(x)
-      end
+    #Determine names of nodes already created (our non-plural models)
+    nodeNames = []
+    @models.each do |x|
+      nodeNames.push(x)
+    end
   
-      #Connect the nodes
-      nodes.each_with_index do |node, i|
-        relationships = @all_relationships[i]
-        relationships.each do |r|
-          relationship_parts = r.split(':', 2)
-          relationship = relationship_parts[0]
-          nodeToConnect = relationship_parts[1].delete(':')
-          if (nodeNames.include?(nodeToConnect))
-            index = nodeNames.find_index(nodeToConnect)
-            nodeToConnect = nodes[index]
-            edge = g.add_edges(node, nodeToConnect)
-          else
-            edge = g.add_edges(node, nodeToConnect)
-          end
-          edge[:label => relationship]
+    #Connect the nodes
+    nodes.each_with_index do |node, i|
+      relationships = @all_relationships[i]
+      relationships.each do |r|
+        relationship_parts = r.split(':', 2)
+        relationship = relationship_parts[0]
+        nodeToConnect = relationship_parts[1].delete(':')
+
+        # processing for a "through" association
+        if (nodeToConnect.include?("through"))
+          join_model = nodeToConnect.split()[-1]
+          relationship += "through #{join_model}"
+          puts "we got a through! =========="
+          index = nodeNames.find_index(nodeToConnect.split()[0][0..-3]) 
+          puts "THING ====!!!!!!"
+          puts nodeToConnect.split()[0][0..-3]
+          nodeToConnect = nodes[index]
+          edge = g.add_edges(node, nodeToConnect)
+          puts "Join model is +====+++++"
+          puts join_model.inspect
+
+        #If it ends in a s, find that node (which won't be plural)
+        elsif (nodeToConnect[-1] == "s")
+          puts "we got an s! =========="
+          edge = g.add_edges(node, nodeToConnect)
+        #If it is singular, connect to that node
+        elsif (nodeNames.include?(nodeToConnect))
+          index = nodeNames.find_index(nodeToConnect)
+          nodeToConnect = nodes[index]
+          edge = g.add_edges(node, nodeToConnect)
+        else
+          edge = g.add_edges(node, nodeToConnect)
         end
+        edge[:label => relationship]
+        puts "NODE TO CONNECT IS===="
+        # puts nodeToConnect.inspect
       end
+    end
 
       #Output the graph
-      g.output(:png => "app/assets/images/test.png")
+    g.output(:png => "app/assets/images/test.png")
   end
 
 
