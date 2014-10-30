@@ -79,7 +79,7 @@ class ScrapersController < ApplicationController
       table_data = table_data[1...-1]
       table_data_str = ""
       table_data.each do |d|
-        table_data_str += d.to_s + '<br/>'
+        table_data_str += d.to_s + '<BR ALIGN="LEFT"/>'
       end
       @all_table_data_strs.push(table_data_str)
       @all_table_data.push(table_data)
@@ -97,7 +97,7 @@ class ScrapersController < ApplicationController
       model_and_attrs = "#{m}" + '<br/>' + "#{@all_table_data_strs[i]}"
       models_and_attrs.push(model_and_attrs)
       node = g.add_nodes(m)
-      node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + "<i>#{@all_table_data_strs[i]}</i>" + '>'
+      node[:label] = '<<b>' + "#{m}" + '</b> <br/><br/>' + " #{@all_table_data_strs[i]}" + '>'
       node[:shape => 'regular']
       node[:size => 0.20]
       nodes.push(node)
