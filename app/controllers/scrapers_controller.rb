@@ -127,18 +127,17 @@ class ScrapersController < ApplicationController
           nodeToConnect = nodes[index]
           edge = g.add_edges(node, nodeToConnect)
 
-        #If it ends in a s, find that node (which won't be plural)
+        #If it ends in a es, find that node (which won't be plural)
         elsif (nodeToConnect[-2..-1] == "es")
-          puts "THINGTHING=-sdajsasjkdasldjasdawj"
-          puts nodeToConnect.inspect
-          puts nodeToConnect[0..-3]
           index = nodeNames.find_index(nodeToConnect[0..-3])
           nodeToConnect = nodes[index]
           edge = g.add_edges(node, nodeToConnect)
 
-        #If it ends in a es, find that node (which won't be plural)
-        # elsif (nodeToConnect[-1] == "s")
-
+        #If it ends in a s, find that node (which won't be plural)
+        elsif (nodeToConnect[-1] == "s")
+          index = nodeNames.find_index(nodeToConnect[0..-2])
+          nodeToConnect = nodes[index]
+          edge = g.add_edges(node, nodeToConnect)
         #If it is singular, connect to that node
         elsif (nodeNames.include?(nodeToConnect))
           index = nodeNames.find_index(nodeToConnect)
