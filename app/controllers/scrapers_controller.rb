@@ -92,9 +92,9 @@ class ScrapersController < ApplicationController
         @all_table_data_strs.push(table_data_str)
         @all_table_data.push(table_data)
       end
-      
-
     end
+
+     #delete models that do not have tables
     
 
     #Graphing logic ---------------------------------------------------------
