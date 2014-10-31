@@ -50,6 +50,14 @@ class ScrapersController < ApplicationController
       @all_relationships.push(relationships)
     end
 
+    puts "BEFORE SLICING!!!!!!!!!!!!"
+    puts "REL COUNT"
+    puts @all_relationships.count
+    @all_relationships.each do |r|
+      puts r.inspect
+    end
+
+
     #Schema Scraping Logic----------------------------------------------------
     schema_url = params[:start_url] + '/blob/master/db/schema.rb'
     raw_schema_page = Wombat.crawl do
@@ -66,6 +74,7 @@ class ScrapersController < ApplicationController
     #Grabbing each table's data out
     @all_table_data = []
     @all_table_data_strs= []
+    @model_to_data = {}
     table_starts.each_with_index do |x,i|
       first = x
       last = table_starts[i+1]
@@ -74,29 +83,34 @@ class ScrapersController < ApplicationController
       else
         table_data = @db_schema_data[first...-1]
       end
+
       #make sure the table matches a model, otherwise we don't care about it
-      possible_model = table_data[0].split()[1].delete(',')
-      possible_model.tr!('"', '')
-      possible_model = possible_model.singularize
-      puts "possible model"
-      puts possible_model.inspect
-      if (@models.include?(possible_model))
-        puts "THE PROMISED LAND!!!!!!!!!!!!"
-        #remove the "create_table first element"
-        table_data = table_data[1...-1]
+      model_name = table_data[0].split()[1].tr!('"', '')
+      model_name = model_name.delete(',')
+      model_name = model_name.singularize
+  
+      #remove the "create_table first element"
+      table_data = table_data[1...-1]
 
-        table_data_str = '<BR ALIGN="LEFT"/>'
-        table_data.each do |d|
-          table_data_str += d.to_s + '<BR ALIGN="LEFT"/>'
-        end
-        @all_table_data_strs.push(table_data_str)
-        @all_table_data.push(table_data)
+      table_data_str = '<BR ALIGN="LEFT"/>'
+      table_data.each do |d|
+        table_data_str += d.to_s + '<BR ALIGN="LEFT"/>'
       end
+      @all_table_data_strs.push(table_data_str)
+      @all_table_data.push(table_data)
+      @model_to_data.store(model_name, table_data_str)
+     
+      
     end
+    puts table_starts.inspect
+    puts table_starts.count
 
-     #delete models that do not have tables
+    puts @all_relationships.count
+    puts "all relationships after"
+    @all_relationships.each do |r|
+      puts r.inspect 
+    end
     
-
     #Graphing logic ---------------------------------------------------------
     @graph_title = params[:start_url].split('/')[-1]
     g = GraphViz.new(:G, :type => :digraph )
@@ -106,10 +120,8 @@ class ScrapersController < ApplicationController
     nodes = []
     models_and_attrs = []
     @models.each_with_index do |m,i|
-      model_and_attrs = "#{m}" + '<br/>' + "#{@all_table_data_strs[i]}"
-      models_and_attrs.push(model_and_attrs)
       node = g.add_nodes(m)
-      node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + " #{@all_table_data_strs[i]}" + '>'
+      node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + " #{@model_to_data[m]}" + '>'
       node[:shape => 'regular']
       nodes.push(node)
     end
@@ -123,76 +135,84 @@ class ScrapersController < ApplicationController
     #Connect the nodes with appropriately labeled edges
     nodes.each_with_index do |node, i|
       relationships = @all_relationships[i]
-      relationships.each do |r|
-        relationship_parts = r.split(':', 2)
-        relationship = relationship_parts[0] + '\n'
-        nodeToConnect = relationship_parts[1].delete(':').delete(',')
         
-        # processing for a "through" association
-        if (nodeToConnect.include?("through"))
-          if (nodeToConnect.include?("source"))
-            join_model = nodeToConnect.split()[-4]
-            relationship += "through #{join_model}"
-            index = nodeNames.find_index(nodeToConnect.split()[-1])
-          else 
-            join_model = nodeToConnect.split()[-1]
-            relationship += "through #{join_model}"
-            index = nodeNames.find_index(nodeToConnect.split()[0].singularize) 
+        puts relationships.inspect
+        puts "NODE IS"
+        puts nodeNames[i]
+        puts "RELATIONSHIP IS======="
+        puts @all_relationships[i]  
+        if (relationships != nil )
+          relationships.each do |r|
+            relationship_parts = r.split(':', 2)
+            relationship = relationship_parts[0] + '\n'
+            nodeToConnect = relationship_parts[1].delete(':').delete(',')
+            
+            # processing for a "through" association
+            if (nodeToConnect.include?("through"))
+              if (nodeToConnect.include?("source"))
+                join_model = nodeToConnect.split()[-4]
+                relationship += "through #{join_model}"
+                index = nodeNames.find_index(nodeToConnect.split()[-1])
+              else 
+                join_model = nodeToConnect.split()[-1]
+                relationship += "through #{join_model}"
+                index = nodeNames.find_index(nodeToConnect.split()[0].singularize) 
+              end
+              nodeToConnect = nodes[index]
+              # puts "relationship"
+              # puts relationship
+              # puts "connecting"
+              # puts nodeNames[i].inspect
+              # puts "and"
+              # puts nodeNames[index].inspect
+              # puts 
+            
+            #processing for polymorphic "as" association
+            elsif (nodeToConnect.include?("as"))
+              relationship += nodeToConnect.split()[1..-1].join(" ")
+              index = nodeNames.find_index(nodeToConnect.split()[0].singularize)
+              nodeToConnect = nodes[index]
+              # puts relationship
+              # puts "connecting"
+              # puts nodeNames[i].inspect
+              # puts "and"
+              # puts nodeNames[index].inspect
+              # puts 
+
+            #if plural find the singular model node
+            elsif (nodeToConnect.singularize != nodeToConnect)
+              index = nodeNames.find_index(nodeToConnect.singularize)
+              nodeToConnect = nodes[index]
+
+              # puts relationship
+              # puts "connecting"
+              # puts nodeNames[i].inspect
+              # puts "and"
+              # puts nodeNames[index].inspect
+              # puts 
+
+            #If it is singular, find that model node
+            elsif (nodeNames.include?(nodeToConnect))
+              index = nodeNames.find_index(nodeToConnect)
+              nodeToConnect = nodes[index]
+
+              # puts relationship
+              # puts "connecting"
+              # puts nodeNames[i].inspect
+              # puts "and"
+              # puts nodeNames[index].inspect
+              # puts 
+            else
+              puts "WHAT GOT DOWN HERE"
+              puts relationship
+              puts nodeToConnect
+            end
+
+            edge = g.add_edges(node, nodeToConnect)
+
+            edge[:label] =  "#{relationship}" 
+            edge[:fontsize] = 10
           end
-          nodeToConnect = nodes[index]
-          # puts "relationship"
-          # puts relationship
-          # puts "connecting"
-          # puts nodeNames[i].inspect
-          # puts "and"
-          # puts nodeNames[index].inspect
-          # puts 
-        
-        #processing for polymorphic "as" association
-        elsif (nodeToConnect.include?("as"))
-          relationship += nodeToConnect.split()[1..-1].join(" ")
-          index = nodeNames.find_index(nodeToConnect.split()[0].singularize)
-          nodeToConnect = nodes[index]
-          # puts relationship
-          # puts "connecting"
-          # puts nodeNames[i].inspect
-          # puts "and"
-          # puts nodeNames[index].inspect
-          # puts 
-
-        #if plural find the singular model node
-        elsif (nodeToConnect.singularize != nodeToConnect)
-          index = nodeNames.find_index(nodeToConnect.singularize)
-          nodeToConnect = nodes[index]
-
-          # puts relationship
-          # puts "connecting"
-          # puts nodeNames[i].inspect
-          # puts "and"
-          # puts nodeNames[index].inspect
-          # puts 
-
-        #If it is singular, find that model node
-        elsif (nodeNames.include?(nodeToConnect))
-          index = nodeNames.find_index(nodeToConnect)
-          nodeToConnect = nodes[index]
-
-          # puts relationship
-          # puts "connecting"
-          # puts nodeNames[i].inspect
-          # puts "and"
-          # puts nodeNames[index].inspect
-          # puts 
-        else
-          puts "WHAT GOT DOWN HERE"
-          puts relationship
-          puts nodeToConnect
-        end
-
-        edge = g.add_edges(node, nodeToConnect)
-
-        edge[:label] =  "#{relationship}" 
-        edge[:fontsize] = 10
       end
     end
 

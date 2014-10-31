@@ -12,10 +12,11 @@ raw data
 <h2>model urls</h2>
 <%=@model_urls.inspect%>
 
+
 <h2>all relationships </h2>
 
 <% @all_relationships.each_with_index do |relationships,i| %>
-	<h3> Model <%=i%>'s relationships </h3>
+	<h3> Model <%=@models[i]%>'s relationships </h3>
 	<%= relationships.inspect %>
 <% end %>
 

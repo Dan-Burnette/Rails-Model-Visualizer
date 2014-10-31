@@ -1,6 +1,8 @@
 <h1> ActiveRecord Model Visualizer </h1>
+
 <h2> Only works for rails apps with schema files and model files in the default locations using
-ActiveRecord (no extra subdirectories) </h2>
+ActiveRecord (no extra subdirectories). Pluralization conventions must also be followed precisely... </h2>
+
 <%= form_tag("/show", method: "get") do %> 
 	<label>Enter a Rails project's github URL </label>
 	<input type="text" name="start_url">
