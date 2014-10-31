@@ -3,8 +3,3 @@ $(window).load(function () {
 		console.log("YER A WINNER");
 	})
 });
-
-
-
-
-console.log("BUTTS!!!!")
