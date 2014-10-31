@@ -111,7 +111,7 @@ class ScrapersController < ApplicationController
       else
         node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + '>'  #+ " #{@model_to_data[m]}" + '>'
       end
-      node[:URL => "google.com"] 
+      # node[:URL => "google.com"] 
       node[:shape => 'regular']
       nodes.push(node)
     end
@@ -200,10 +200,6 @@ class ScrapersController < ApplicationController
 
     #Output the graph
     g.output(:svg => "app/assets/images/graph.svg")
-
-    @svg = File.read("app/assets/images/graph.svg")
-    puts "FILEEE_---------------------------------------------------"
-    puts @svg
 
     #PDF Creation logic ---------------------------
     # width = Dimensions.width("app/assets/images/graph.png")

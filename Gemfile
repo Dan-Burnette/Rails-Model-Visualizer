@@ -4,7 +4,8 @@ source 'https://rubygems.org'
 #Debugging
 gem 'pry-byebug'
 
-
+#So I can manipulate nodes of the SVG graph
+gem 'jquerysvg'
 #Graphing tool
 gem 'ruby-graphviz' 
 # Web scraper

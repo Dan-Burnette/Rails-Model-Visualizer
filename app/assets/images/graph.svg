@@ -14,12 +14,9 @@
 <text text-anchor="start" x="447.5" y="-20" font-family="Times,serif" font-size="14.00"> </text>
 <!-- comment -->
 <g id="node1" class="node"><title>comment</title>
-<g id="a_node1"><a xlink:href="google.com" xlink:title="&lt;b&gt;comment&lt;/b&gt; &lt;br/&gt;">
 <polygon fill="none" stroke="black" points="219.25,-183 144.75,-183 144.75,-147 219.25,-147 219.25,-183"/>
 <text text-anchor="start" x="152.5" y="-162.3" font-family="Times,serif" font-weight="bold" font-size="14.00">comment</text>
 <text text-anchor="start" x="207.5" y="-162.3" font-family="Times,serif" font-size="14.00"> </text>
-</a>
-</g>
 </g>
 <!-- commentable polymorphic =&gt; true -->
 <g id="node8" class="node"><title>commentable polymorphic =&gt; true</title>
@@ -34,12 +31,9 @@
 </g>
 <!-- movie -->
 <g id="node2" class="node"><title>movie</title>
-<g id="a_node2"><a xlink:href="google.com" xlink:title="&lt;b&gt;movie&lt;/b&gt; &lt;br/&gt;">
 <polygon fill="none" stroke="black" points="55.5,-277 0.5,-277 0.5,-241 55.5,-241 55.5,-277"/>
 <text text-anchor="start" x="8" y="-256.3" font-family="Times,serif" font-weight="bold" font-size="14.00">movie</text>
 <text text-anchor="start" x="44" y="-256.3" font-family="Times,serif" font-size="14.00"> </text>
-</a>
-</g>
 </g>
 <!-- movie&#45;&gt;comment -->
 <g id="edge2" class="edge"><title>movie&#45;&gt;comment</title>
@@ -50,12 +44,9 @@
 </g>
 <!-- show -->
 <g id="node3" class="node"><title>show</title>
-<g id="a_node3"><a xlink:href="google.com" xlink:title="&lt;b&gt;show&lt;/b&gt; &lt;br/&gt;">
 <polygon fill="none" stroke="black" points="158,-277 104,-277 104,-241 158,-241 158,-277"/>
 <text text-anchor="start" x="114" y="-256.3" font-family="Times,serif" font-weight="bold" font-size="14.00">show</text>
 <text text-anchor="start" x="144" y="-256.3" font-family="Times,serif" font-size="14.00"> </text>
-</a>
-</g>
 </g>
 <!-- show&#45;&gt;comment -->
 <g id="edge3" class="edge"><title>show&#45;&gt;comment</title>
@@ -66,12 +57,9 @@
 </g>
 <!-- sound -->
 <g id="node4" class="node"><title>sound</title>
-<g id="a_node4"><a xlink:href="google.com" xlink:title="&lt;b&gt;sound&lt;/b&gt; &lt;br/&gt;">
 <polygon fill="none" stroke="black" points="261.25,-277 206.75,-277 206.75,-241 261.25,-241 261.25,-277"/>
 <text text-anchor="start" x="214.5" y="-256.3" font-family="Times,serif" font-weight="bold" font-size="14.00">sound</text>
 <text text-anchor="start" x="249.5" y="-256.3" font-family="Times,serif" font-size="14.00"> </text>
-</a>
-</g>
 </g>
 <!-- sound&#45;&gt;comment -->
 <g id="edge4" class="edge"><title>sound&#45;&gt;comment</title>
@@ -82,21 +70,15 @@
 </g>
 <!-- user -->
 <g id="node5" class="node"><title>user</title>
-<g id="a_node5"><a xlink:href="google.com" xlink:title="&lt;b&gt;user&lt;/b&gt; &lt;br/&gt;">
 <polygon fill="none" stroke="black" points="558,-183 504,-183 504,-147 558,-147 558,-183"/>
 <text text-anchor="start" x="516.5" y="-162.3" font-family="Times,serif" font-weight="bold" font-size="14.00">user</text>
 <text text-anchor="start" x="541.5" y="-162.3" font-family="Times,serif" font-size="14.00"> </text>
-</a>
-</g>
 </g>
 <!-- user_video -->
 <g id="node6" class="node"><title>user_video</title>
-<g id="a_node6"><a xlink:href="google.com" xlink:title="&lt;b&gt;user_video&lt;/b&gt; &lt;br/&gt;">
 <polygon fill="none" stroke="black" points="655.25,-99 572.75,-99 572.75,-63 655.25,-63 655.25,-99"/>
 <text text-anchor="start" x="580.5" y="-78.3" font-family="Times,serif" font-weight="bold" font-size="14.00">user_video</text>
 <text text-anchor="start" x="643.5" y="-78.3" font-family="Times,serif" font-size="14.00"> </text>
-</a>
-</g>
 </g>
 <!-- user&#45;&gt;user_video -->
 <g id="edge5" class="edge"><title>user&#45;&gt;user_video</title>
@@ -106,12 +88,9 @@
 </g>
 <!-- video -->
 <g id="node7" class="node"><title>video</title>
-<g id="a_node7"><a xlink:href="google.com" xlink:title="&lt;b&gt;video&lt;/b&gt; &lt;br/&gt;">
 <polygon fill="none" stroke="black" points="574,-277 520,-277 520,-241 574,-241 574,-277"/>
 <text text-anchor="start" x="529.5" y="-256.3" font-family="Times,serif" font-weight="bold" font-size="14.00">video</text>
 <text text-anchor="start" x="560.5" y="-256.3" font-family="Times,serif" font-size="14.00"> </text>
-</a>
-</g>
 </g>
 <!-- user&#45;&gt;video -->
 <g id="edge6" class="edge"><title>user&#45;&gt;video</title>

@@ -58,6 +58,9 @@ GEM
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquerysvg (1.4.5)
+      railties (>= 3.0)
+      sass (>= 3.2)
     json (1.8.1)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
@@ -166,6 +169,7 @@ DEPENDENCIES
   dimensions
   jbuilder (~> 2.0)
   jquery-rails
+  jquerysvg
   prawn
   pry-byebug
   rails (= 4.1.6)
