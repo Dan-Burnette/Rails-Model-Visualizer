@@ -27,13 +27,13 @@ raw data
 <%=@all_table_data%>
 
 
-<% @all_table_data_strs.each_with_index do |x,i|%>
-	<h2> table <%=i%> </h2>
-	<%= @all_table_data_strs[i] %>
+<% @model_to_data.each do |k,v|%>
+	<h2>Model <%=k%> </h2>
+	<%= @model_to_data[k] %>
 <% end %>
 
 <br><br><br>
+
 <%= link_to "Download PDF", "#{@graph_title}" + ".pdf" %>
-<%=image_tag("graph.png")%>
 
-
+<%= inline_svg("graph.svg") %>

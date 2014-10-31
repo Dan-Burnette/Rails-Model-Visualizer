@@ -50,13 +50,6 @@ class ScrapersController < ApplicationController
       @all_relationships.push(relationships)
     end
 
-    puts "BEFORE SLICING!!!!!!!!!!!!"
-    puts "REL COUNT"
-    puts @all_relationships.count
-    @all_relationships.each do |r|
-      puts r.inspect
-    end
-
 
     #Schema Scraping Logic----------------------------------------------------
     schema_url = params[:start_url] + '/blob/master/db/schema.rb'
@@ -99,17 +92,9 @@ class ScrapersController < ApplicationController
       @all_table_data_strs.push(table_data_str)
       @all_table_data.push(table_data)
       @model_to_data.store(model_name, table_data_str)
-     
-      
+    
     end
-    puts table_starts.inspect
-    puts table_starts.count
 
-    puts @all_relationships.count
-    puts "all relationships after"
-    @all_relationships.each do |r|
-      puts r.inspect 
-    end
     
     #Graphing logic ---------------------------------------------------------
     @graph_title = params[:start_url].split('/')[-1]
@@ -121,7 +106,12 @@ class ScrapersController < ApplicationController
     models_and_attrs = []
     @models.each_with_index do |m,i|
       node = g.add_nodes(m)
-      node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + " #{@model_to_data[m]}" + '>'
+      if (@model_to_data[m] == nil)
+        node[:label] = '<<b>' + "#{m}" + '</b> <br/> >'
+      else
+        node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + '>'  #+ " #{@model_to_data[m]}" + '>'
+      end
+      node[:URL => "google.com"] 
       node[:shape => 'regular']
       nodes.push(node)
     end
@@ -135,12 +125,6 @@ class ScrapersController < ApplicationController
     #Connect the nodes with appropriately labeled edges
     nodes.each_with_index do |node, i|
       relationships = @all_relationships[i]
-        
-        puts relationships.inspect
-        puts "NODE IS"
-        puts nodeNames[i]
-        puts "RELATIONSHIP IS======="
-        puts @all_relationships[i]  
         if (relationships != nil )
           relationships.each do |r|
             relationship_parts = r.split(':', 2)
@@ -203,9 +187,7 @@ class ScrapersController < ApplicationController
               # puts nodeNames[index].inspect
               # puts 
             else
-              puts "WHAT GOT DOWN HERE"
-              puts relationship
-              puts nodeToConnect
+
             end
 
             edge = g.add_edges(node, nodeToConnect)
@@ -217,16 +199,20 @@ class ScrapersController < ApplicationController
     end
 
     #Output the graph
-    g.output(:png => "app/assets/images/graph.png")
+    g.output(:svg => "app/assets/images/graph.svg")
+
+    @svg = File.read("app/assets/images/graph.svg")
+    puts "FILEEE_---------------------------------------------------"
+    puts @svg
 
     #PDF Creation logic ---------------------------
-    width = Dimensions.width("app/assets/images/graph.png")
-    height = Dimensions.height("app/assets/images/graph.png")
+    # width = Dimensions.width("app/assets/images/graph.png")
+    # height = Dimensions.height("app/assets/images/graph.png")
 
-    Prawn::Document.generate("public/#{@graph_title}.pdf", :page_size => [width+100, height+100]) do
-      pic = "app/assets/images/graph.png"
-      image(pic, :width => width, :height => height)
-    end
+    # Prawn::Document.generate("public/#{@graph_title}.pdf", :page_size => [width+100, height+100]) do
+    #   pic = "app/assets/images/graph.png"
+    #   image(pic, :width => width, :height => height)
+    # end
   end
 
 end
