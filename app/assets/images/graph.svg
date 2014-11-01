@@ -14,15 +14,21 @@
 <text text-anchor="start" x="368" y="-20" font-family="Times,serif" font-size="14.00"> </text>
 <!-- group -->
 <g id="node1" class="node"><title>group</title>
-<polygon fill="none" stroke="black" points="243.25,-267 188.75,-267 188.75,-231 243.25,-231 243.25,-267"/>
+<g id="a_node1"><a xlink:title="\nt.string &#160;&#160;&#160;name \nt.datetime &#160;created_at \nt.datetime &#160;updated_at \nt.integer &#160;&#160;admin_id \n">
+<polygon fill="white" stroke="black" points="243.25,-267 188.75,-267 188.75,-231 243.25,-231 243.25,-267"/>
 <text text-anchor="start" x="196.5" y="-246.3" font-family="Times,serif" font-weight="bold" font-size="14.00">group</text>
 <text text-anchor="start" x="231.5" y="-246.3" font-family="Times,serif" font-size="14.00"> </text>
+</a>
+</g>
 </g>
 <!-- membership -->
 <g id="node3" class="node"><title>membership</title>
-<polygon fill="none" stroke="black" points="94,-183 -7.10543e-15,-183 -7.10543e-15,-147 94,-147 94,-183"/>
+<g id="a_node3"><a xlink:title="\nt.integer &#160;&#160;user_id \nt.integer &#160;&#160;group_id \nt.datetime &#160;created_at \nt.datetime &#160;updated_at \nt.string &#160;&#160;&#160;status \n">
+<polygon fill="white" stroke="black" points="94,-183 -7.10543e-15,-183 -7.10543e-15,-147 94,-147 94,-183"/>
 <text text-anchor="start" x="8" y="-162.3" font-family="Times,serif" font-weight="bold" font-size="14.00">membership</text>
 <text text-anchor="start" x="82" y="-162.3" font-family="Times,serif" font-size="14.00"> </text>
+</a>
+</g>
 </g>
 <!-- group&#45;&gt;membership -->
 <g id="edge1" class="edge"><title>group&#45;&gt;membership</title>
@@ -32,9 +38,12 @@
 </g>
 <!-- tournament -->
 <g id="node4" class="node"><title>tournament</title>
-<polygon fill="none" stroke="black" points="474,-183 384,-183 384,-147 474,-147 474,-183"/>
+<g id="a_node4"><a xlink:title="\nt.integer &#160;&#160;champion_id \nt.string &#160;&#160;&#160;game_type \nt.integer &#160;&#160;group_id \nt.datetime &#160;created_at \nt.datetime &#160;updated_at \nt.string &#160;&#160;&#160;name \nt.integer &#160;&#160;size \n">
+<polygon fill="white" stroke="black" points="474,-183 384,-183 384,-147 474,-147 474,-183"/>
 <text text-anchor="start" x="392" y="-162.3" font-family="Times,serif" font-weight="bold" font-size="14.00">tournament</text>
 <text text-anchor="start" x="462" y="-162.3" font-family="Times,serif" font-size="14.00"> </text>
+</a>
+</g>
 </g>
 <!-- group&#45;&gt;tournament -->
 <g id="edge3" class="edge"><title>group&#45;&gt;tournament</title>
@@ -44,9 +53,12 @@
 </g>
 <!-- user -->
 <g id="node5" class="node"><title>user</title>
-<polygon fill="none" stroke="black" points="151,-99 97,-99 97,-63 151,-63 151,-99"/>
+<g id="a_node5"><a xlink:title="\nt.datetime &#160;created_at \nt.datetime &#160;updated_at \nt.string &#160;&#160;&#160;email , &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;default: &#160;&#160;, null: false\nt.string &#160;&#160;&#160;encrypted_password , &#160;&#160;&#160;&#160;default: &#160;&#160;, null: false\nt.string &#160;&#160;&#160;reset_password_token \nt.datetime &#160;reset_password_sent_at \nt.datetime &#160;remember_created_at \nt.integer &#160;&#160;sign_in_count , &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;default: 0, &#160;null: false\nt.datetime &#160;current_sign_in_at \nt.datetime &#160;last_sign_in_at \nt.string &#160;&#160;&#160;current_sign_in_ip \n">
+<polygon fill="white" stroke="black" points="151,-99 97,-99 97,-63 151,-63 151,-99"/>
 <text text-anchor="start" x="109.5" y="-78.3" font-family="Times,serif" font-weight="bold" font-size="14.00">user</text>
 <text text-anchor="start" x="134.5" y="-78.3" font-family="Times,serif" font-size="14.00"> </text>
+</a>
+</g>
 </g>
 <!-- group&#45;&gt;user -->
 <g id="edge2" class="edge"><title>group&#45;&gt;user</title>
@@ -57,9 +69,12 @@
 </g>
 <!-- match -->
 <g id="node2" class="node"><title>match</title>
-<polygon fill="none" stroke="black" points="456.25,-99 399.75,-99 399.75,-63 456.25,-63 456.25,-99"/>
+<g id="a_node2"><a xlink:title="\nt.integer &#160;&#160;winner_id \nt.integer &#160;&#160;player_1 \nt.integer &#160;&#160;player_2 \nt.datetime &#160;created_at \nt.datetime &#160;updated_at \nt.integer &#160;&#160;tournament_id \n">
+<polygon fill="white" stroke="black" points="456.25,-99 399.75,-99 399.75,-63 456.25,-63 456.25,-99"/>
 <text text-anchor="start" x="407.5" y="-78.3" font-family="Times,serif" font-weight="bold" font-size="14.00">match</text>
 <text text-anchor="start" x="444.5" y="-78.3" font-family="Times,serif" font-size="14.00"> </text>
+</a>
+</g>
 </g>
 <!-- match&#45;&gt;tournament -->
 <g id="edge4" class="edge"><title>match&#45;&gt;tournament</title>

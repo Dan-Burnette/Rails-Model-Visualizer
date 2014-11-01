@@ -85,9 +85,10 @@ class ScrapersController < ApplicationController
       #remove the "create_table first element"
       table_data = table_data[1...-1]
 
-      table_data_str = '<BR ALIGN="LEFT"/>'
+      table_data_str = '\n'
       table_data.each do |d|
-        table_data_str += d.to_s + '<BR ALIGN="LEFT"/>'
+        table_data_str += d.to_s + '\n'
+        table_data_str.gsub! /"/, ' '
       end
       @all_table_data_strs.push(table_data_str)
       @all_table_data.push(table_data)
@@ -111,8 +112,10 @@ class ScrapersController < ApplicationController
       else
         node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + '>'  #+ " #{@model_to_data[m]}" + '>'
       end
-      # node[:URL => "google.com"] 
+      node[:tooltip => "#{@model_to_data[m]}"]
       node[:shape => 'regular']
+      node[:style => 'filled']
+      node[:fillcolor => "white"]
       nodes.push(node)
     end
 
@@ -143,55 +146,26 @@ class ScrapersController < ApplicationController
                 index = nodeNames.find_index(nodeToConnect.split()[0].singularize) 
               end
               nodeToConnect = nodes[index]
-              # puts "relationship"
-              # puts relationship
-              # puts "connecting"
-              # puts nodeNames[i].inspect
-              # puts "and"
-              # puts nodeNames[index].inspect
-              # puts 
-            
+ 
             #processing for polymorphic "as" association
             elsif (nodeToConnect.include?("as"))
               relationship += nodeToConnect.split()[1..-1].join(" ")
               index = nodeNames.find_index(nodeToConnect.split()[0].singularize)
               nodeToConnect = nodes[index]
-              # puts relationship
-              # puts "connecting"
-              # puts nodeNames[i].inspect
-              # puts "and"
-              # puts nodeNames[index].inspect
-              # puts 
-
+   
             #if plural find the singular model node
             elsif (nodeToConnect.singularize != nodeToConnect)
               index = nodeNames.find_index(nodeToConnect.singularize)
               nodeToConnect = nodes[index]
-
-              # puts relationship
-              # puts "connecting"
-              # puts nodeNames[i].inspect
-              # puts "and"
-              # puts nodeNames[index].inspect
-              # puts 
 
             #If it is singular, find that model node
             elsif (nodeNames.include?(nodeToConnect))
               index = nodeNames.find_index(nodeToConnect)
               nodeToConnect = nodes[index]
 
-              # puts relationship
-              # puts "connecting"
-              # puts nodeNames[i].inspect
-              # puts "and"
-              # puts nodeNames[index].inspect
-              # puts 
-            else
-
             end
 
             edge = g.add_edges(node, nodeToConnect)
-
             edge[:label] =  "#{relationship}" 
             edge[:fontsize] = 10
           end
