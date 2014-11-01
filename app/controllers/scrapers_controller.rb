@@ -79,6 +79,8 @@ class ScrapersController < ApplicationController
       end
 
       model_name = table_data[0].split()[1].tr!('"', '')
+      puts "MODEL NAME-------------"
+      puts model_name
       model_name = model_name.delete(',')
       model_name = model_name.singularize
   
