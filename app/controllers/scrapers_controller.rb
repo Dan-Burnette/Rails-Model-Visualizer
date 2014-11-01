@@ -85,9 +85,9 @@ class ScrapersController < ApplicationController
       #remove the "create_table first element"
       table_data = table_data[1...-1]
 
-      table_data_str = '\n'
+      table_data_str = '<b>Schema</b><br/>'
       table_data.each do |d|
-        table_data_str += d.to_s + '\n'
+        table_data_str += d.to_s + '<br/>'
         table_data_str.gsub! /"/, ' '
       end
       @all_table_data_strs.push(table_data_str)
@@ -112,8 +112,8 @@ class ScrapersController < ApplicationController
       else
         node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + '>'  #+ " #{@model_to_data[m]}" + '>'
       end
-      node[:tooltip => "#{@model_to_data[m]}"]
-      node[:shape => 'regular']
+      
+      # node[:shape => 'regular']
       node[:style => 'filled']
       node[:fillcolor => "white"]
       nodes.push(node)

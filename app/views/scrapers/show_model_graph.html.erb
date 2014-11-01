@@ -27,15 +27,17 @@ raw data
 <%=@all_table_data%>
 
 
-<% @model_to_data.each do |k,v|%>
-	<h2>Model <%=k%> </h2>
-	<%= @model_to_data[k] %>
+<% @model_to_data.each do |m, data|%>
+	<h2>Model <%=m%> </h2>
+	<%= data %>
+	<div hidden class=<%=m%>> <%=data %> </div>
 <% end %>
 
 <br><br><br>
 
 <div class="mouse tooltip" >Mouse-tracking HTML Tip</div>
 
+<
 
 <%= link_to "Download PDF", "#{@graph_title}" + ".pdf" %>
 

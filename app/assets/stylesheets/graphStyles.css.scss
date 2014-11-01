@@ -9,9 +9,9 @@ div.tooltip {
     background: lightblue;
     border:solid gray;
     position: absolute;
-    max-width: 8em;
-    text-align:center;
+    text-align:left;
 }
+
 
 g.tooltip:not(.css) {
   fill:currentColor;
