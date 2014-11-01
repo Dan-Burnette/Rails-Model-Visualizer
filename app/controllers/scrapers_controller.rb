@@ -73,7 +73,7 @@ class ScrapersController < ApplicationController
       first = x
       last = table_starts[i+1]
       if last
-        table_data = @db_schema_data[first..last]
+        table_data = @db_schema_data[first...last]
       else
         table_data = @db_schema_data[first..-1]
       end
