@@ -61,6 +61,7 @@ class ScrapersController < ApplicationController
     @db_schema_data = raw_schema_page["data"]
     @db_schema_data.delete('end')
     @db_schema_data.delete("")
+    #remove the lines with add index, we don't want unneeded details like that
     @db_schema_data = @db_schema_data.select {|x| x.include?("add_index") == false }
     table_starts = @db_schema_data.each_index.select {|i| @db_schema_data[i].include?("create_table") }
 
@@ -74,16 +75,15 @@ class ScrapersController < ApplicationController
       if last
         table_data = @db_schema_data[first..last]
       else
-        table_data = @db_schema_data[first...-1]
+        table_data = @db_schema_data[first..-1]
       end
 
-      #make sure the table matches a model, otherwise we don't care about it
       model_name = table_data[0].split()[1].tr!('"', '')
       model_name = model_name.delete(',')
       model_name = model_name.singularize
   
       #remove the "create_table first element"
-      table_data = table_data[1...-1]
+      table_data = table_data[1..-1]
 
       table_data_str = '<b>Schema</b><br/>'
       table_data.each do |d|
@@ -110,7 +110,7 @@ class ScrapersController < ApplicationController
       if (@model_to_data[m] == nil)
         node[:label] = '<<b>' + "#{m}" + '</b> <br/> >'
       else
-        node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + '>'  #+ " #{@model_to_data[m]}" + '>'
+        node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + '>'  
       end
       
       # node[:shape => 'regular']

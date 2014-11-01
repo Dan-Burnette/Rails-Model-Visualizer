@@ -1,11 +1,8 @@
 $(window).load(function () {
 
-	//Gets rid of title tooltips on the node that we don't want
-	$('[title]').removeAttr('title');
-	
-	$('.node').on('click', function() {
-		console.log("YER A WINNER");
-	})
+	//Get rid of title tooltips on the node that we don't want
+	//How to do !
+
 
 	//Stuff for tooltip
 
@@ -17,7 +14,10 @@ $(window).load(function () {
 		.on("mouseover", function() {
 			var title = $(this).children().first().text();
 			var data = $('.' + title).text();
-			console.log(data);
+			if (data == ""){
+				data = "This model doesn't have a table";
+			}
+	
 			tooltip.style("opacity", "1");
 		 	tooltip.style("color", this.getAttribute("fill"));
 		 	tooltip.html(data);
