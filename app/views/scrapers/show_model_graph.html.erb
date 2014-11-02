@@ -1,6 +1,6 @@
 <h1> Dan's DB Scraper </h1>
 
-<h2>raw</h2> 
+<!-- <h2>raw</h2> 
 <%=@raw%>
 
 raw data
@@ -10,10 +10,10 @@ raw data
 <%=@models.inspect%>
 
 <h2>model urls</h2>
-<%=@model_urls.inspect%>
+<%=@model_urls.inspect%> -->
 
 
-<h2>all relationships </h2>
+<!-- <h2>all relationships </h2>
 
 <% @all_relationships.each_with_index do |relationships,i| %>
 	<h3> Model <%=@models[i]%>'s relationships </h3>
@@ -25,11 +25,12 @@ raw data
 
 <h2> All Table Data </h2>
 <%=@all_table_data%>
-
+ -->
+<%= @directory_urls%>
 
 <% @model_to_data.each do |m, data|%>
-	<h2>Model <%=m%> </h2>
-	<%= data %>
+<!-- 	<h2>Model <%=m%> </h2>
+	<%= data %> -->
 	<div hidden class=<%=m%>> <%=data %> </div>
 <% end %>
 
@@ -38,6 +39,6 @@ raw data
 <div class="mouse tooltip" >Mouse-tracking HTML Tip</div>
 
 
-<%= link_to "Download PDF", "#{@graph_title}" + ".pdf" %>
+
 
 <%= inline_svg("graph.svg") %>

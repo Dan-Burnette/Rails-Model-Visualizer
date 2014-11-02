@@ -4,5 +4,7 @@ module ScrapersHelper
     file = File.open("app/assets/images/#{path}", "rb")
     raw file.read
   end
+
+
   
 end

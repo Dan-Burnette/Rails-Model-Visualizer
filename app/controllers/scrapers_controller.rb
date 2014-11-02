@@ -1,9 +1,20 @@
 class ScrapersController < ApplicationController
 
+
   def index
   end
 
   def show_model_graph
+      @directory_urls = []
+    #Trying to implement searching all folders
+   new_start_url = params[:start_url] + '/tree/master/app'
+   scrape_directory_urls(new_start_url)
+   #scrape_file_urls(new_start_url)
+
+
+
+
+    #===============================================
     #Scrape for models ---------------------------------------
     start_url = params[:start_url] + '/tree/master/app/models'
 
@@ -102,7 +113,7 @@ class ScrapersController < ApplicationController
     #Graphing logic ---------------------------------------------------------
     @graph_title = params[:start_url].split('/')[-1]
     g = GraphViz.new(:G, :type => :digraph )
-    g[:label] = "< <FONT POINT-SIZE='50'>" + "#{@graph_title}" + "</FONT> >"
+    g[:label] = "< <FONT POINT-SIZE='80'>" + "#{@graph_title}" + "</FONT> >"
     
     #Create a node for each model
     nodes = []
@@ -117,7 +128,7 @@ class ScrapersController < ApplicationController
       
       # node[:shape => 'regular']
       node[:style => 'filled']
-      node[:fillcolor => "white"]
+      node[:fillcolor => "teal"]
       nodes.push(node)
     end
 
@@ -148,7 +159,8 @@ class ScrapersController < ApplicationController
                 index = nodeNames.find_index(nodeToConnect.split()[0].singularize) 
               end
               nodeToConnect = nodes[index]
- 
+
+
             #processing for polymorphic "as" association
             elsif (nodeToConnect.include?("as"))
               relationship += nodeToConnect.split()[1..-1].join(" ")
