@@ -95,14 +95,14 @@ class ScrapersController < ApplicationController
     @graph_title = params[:start_url].split('/')[-1]
     g = GraphViz.new(:G, :type => :digraph )
     g[:label] = "< <FONT POINT-SIZE='80'>" + "#{@graph_title}" + "</FONT> >"
-    
+
+
     #Create a node for each model
     nodes = []
     models_and_attrs = []
     @models.each do |m|
       node = g.add_nodes(m)
       node[:label] = '<<b>' + "#{m}" + '</b> <br/> >'
-      # node[:shape => 'regular']
       node[:style => 'filled']
       node[:fillcolor => "teal"]
       nodes.push(node)
@@ -168,8 +168,9 @@ class ScrapersController < ApplicationController
             edge = g.add_edges(node, nodeToConnect)
             edge[:label] =  "#{relationship}" 
             edge[:fontsize] = 10
+
             if (dotted_edge)
-              edge[:style] = "dotted"
+              edge[:style] = "dashed"
             end
 
           end
