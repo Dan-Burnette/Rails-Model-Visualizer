@@ -5,10 +5,14 @@ class ScrapersController < ApplicationController
   end
 
   def show_model_graph
-      @directory_urls = []
+    #Filled by scrape_all_urls
+    @directory_urls = []
+    @test_models = []
+    @model_urls_test = []
     #Trying to implement searching all folders
    new_start_url = params[:start_url] + '/tree/master/app'
-   scrape_directory_urls(new_start_url)
+   scrape_all_urls(new_start_url)
+   get_models(@directory_urls)
    #scrape_file_urls(new_start_url)
 
 
