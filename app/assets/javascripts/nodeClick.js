@@ -2,10 +2,11 @@ $(window).load(function () {
 
 	//Get rid of title tooltips on the node that we don't want
 	//How to do !
+	
+
 
 
 	//Stuff for tooltip
-
 	var tooltip = d3.selectAll(".tooltip:not(.css)");
 	var HTMLmouseTip = d3.select("div.tooltip.mouse");
 

@@ -10,10 +10,6 @@ gem 'pry-byebug'
 gem 'ruby-graphviz' 
 # Web scraper
 gem 'wombat'
-#For going graph image => PDF 
-gem 'prawn'
-#For reading the height, width of images so I can make PDF
-gem 'dimensions'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
 # Use sqlite3 as the database for Active Record
