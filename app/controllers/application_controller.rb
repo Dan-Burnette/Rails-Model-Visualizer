@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-
   def scrape_all_urls(github_url)
     #Get directory URLS
     raw_directories = Wombat.crawl do
@@ -23,15 +22,15 @@ class ApplicationController < ActionController::Base
       directories_to_check.each do |d|
         scrape_all_urls(d)
       end
-
-    #No deeper directories to check out , scrape the files 
+    #BASE CASE - no deeper directories to check
     else
       return
     end
   end
 
-  def get_models(url_array)
- 
+  #Pass in a list of all URLs and it will find all the models and URLS
+  def get_models_and_urls(url_array)
+  
     url_array.each do |url|
       if (url.include?('.rb'))
         raw = Wombat.crawl do
@@ -43,13 +42,12 @@ class ApplicationController < ActionController::Base
         raw_data.each do |item|
           if (item.include?('< ActiveRecord::Base'))
             model = item.split("<")[0].split()[-1].split(/(?=[A-Z])/).join("_").downcase
-            @test_models.push(model)
-            @model_urls_test.push(url)
+            @models.push(model)
+            @model_urls.push(url)
           end
         end
       end
     end
-
   end
 
 

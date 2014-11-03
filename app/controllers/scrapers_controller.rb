@@ -5,47 +5,26 @@ class ScrapersController < ApplicationController
   end
 
   def show_model_graph
-    #Filled by scrape_all_urls
+
+
+    # Scrape for models and their URLS ---------------------------------------
     @directory_urls = []
-    @test_models = []
-    @model_urls_test = []
-    #Trying to implement searching all folders
-   new_start_url = params[:start_url] + '/tree/master/app'
-   scrape_all_urls(new_start_url)
-   get_models(@directory_urls)
-   #scrape_file_urls(new_start_url)
-
-
-
-
-    #===============================================
-    #Scrape for models ---------------------------------------
-    start_url = params[:start_url] + '/tree/master/app/models'
-
-    @raw = Wombat.crawl do
-      base_url start_url
-      data({css: ".css-truncate"}, :list)
-    end
-
     @models = []
     @model_urls = []
-    @raw_data = @raw["data"]
 
-    #Process raw data into models and URLS to their pages
-    @raw_data.each do |item|
-      model_and_extension = item.split('.')
-      if (model_and_extension.include?('rb'))
-        model = model_and_extension[0]
-        @models.push(model)
-        model_url = start_url + '/' + model_and_extension.join('.')
-        @model_urls.push(model_url)
-      end
-    end
+    # Initial is githubprojecturl/tree/master/app
+    new_start_url = params[:start_url] + '/tree/master/app'
+    # Go through all directories recursively and grab the URLS for each file,
+    # pushing them into @directory_urls
+    scrape_all_urls(new_start_url)
+    # From these URLS, find the models and their URLs, pushing them into @model_urls
+    get_models_and_urls(@directory_urls)
 
+
+
+    # Scrape each model page for their ActiveRecord assocations
     @all_lines = []
     @all_relationships = []
-    
-    #Scrape each model page for their activeRecord assocations
     @model_urls.each do |url|
       lines = Wombat.crawl do 
         base_url url
@@ -94,8 +73,6 @@ class ScrapersController < ApplicationController
       end
 
       model_name = table_data[0].split()[1].tr!('"', '')
-      puts "MODEL NAME-------------"
-      puts model_name
       model_name = model_name.delete(',')
       model_name = model_name.singularize
   
@@ -122,14 +99,9 @@ class ScrapersController < ApplicationController
     #Create a node for each model
     nodes = []
     models_and_attrs = []
-    @models.each_with_index do |m,i|
+    @models.each do |m|
       node = g.add_nodes(m)
-      if (@model_to_data[m] == nil)
-        node[:label] = '<<b>' + "#{m}" + '</b> <br/> >'
-      else
-        node[:label] = '<<b>' + "#{m}" + '</b> <br/>' + '>'  
-      end
-      
+      node[:label] = '<<b>' + "#{m}" + '</b> <br/> >'
       # node[:shape => 'regular']
       node[:style => 'filled']
       node[:fillcolor => "teal"]
@@ -143,6 +115,7 @@ class ScrapersController < ApplicationController
     end
   
     #Connect the nodes with appropriately labeled edges
+    puts @models.inspect
     nodes.each_with_index do |node, i|
       relationships = @all_relationships[i]
         if (relationships != nil )
@@ -169,6 +142,10 @@ class ScrapersController < ApplicationController
             elsif (nodeToConnect.include?("as"))
               relationship += nodeToConnect.split()[1..-1].join(" ")
               index = nodeNames.find_index(nodeToConnect.split()[0].singularize)
+              puts "PROBLEM THING=--------------------------------------"
+              puts nodeToConnect.inspect
+              puts "RELATIONSHIP-------------------------------------"
+              puts relationship 
               nodeToConnect = nodes[index]
    
             #if plural find the singular model node
