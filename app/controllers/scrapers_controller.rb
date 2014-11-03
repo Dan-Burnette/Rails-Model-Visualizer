@@ -6,7 +6,6 @@ class ScrapersController < ApplicationController
 
   def show_model_graph
 
-
     # Scrape for models and their URLS ---------------------------------------
     @directory_urls = []
     @models = []
@@ -38,7 +37,9 @@ class ScrapersController < ApplicationController
       lines.each do |line|
         if (line.include?("belongs_to") || line.include?("has_one") ||
             line.include?("has_many") || line.include?("belongs_to"))
+          if (line.include?("validates") == false)
             relationships.push(line)
+          end
         end 
       end
       @all_relationships.push(relationships)
@@ -121,10 +122,22 @@ class ScrapersController < ApplicationController
       relationships = @all_relationships[i]
         if (relationships != nil )
           relationships.each do |r|
-            relationship_parts = r.split(':', 2)
-            relationship = relationship_parts[0] + '\n'
-            nodeToConnect = relationship_parts[1].delete(':').delete(',')
-            
+            #Different processing if you have a :class_name option
+            if (r.include?(':class_name'))
+              relationship_parts = r.split(':')
+              relationship = relationship_parts[0]
+              nodeToConnect = relationship_parts[-1].split('=>')[-1].gsub(/\s|"|'/, '').downcase
+            #else do the standard processing
+            else
+              relationship_parts = r.split(':', 2)
+              relationship = relationship_parts[0] + '\n'
+              nodeToConnect = relationship_parts[1].delete(':').delete(',')
+            end
+            #Strange edges cases where we have extra words
+            if (nodeToConnect.split().size != 1)
+              nodeToConnect = nodeToConnect.split()[0].singularize
+            end
+          
             # processing for a "through" association
             if (nodeToConnect.include?("through"))
               dotted_edge = true
