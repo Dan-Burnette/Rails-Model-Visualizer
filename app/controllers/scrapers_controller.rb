@@ -117,6 +117,7 @@ class ScrapersController < ApplicationController
     #Connect the nodes with appropriately labeled edges
     puts @models.inspect
     nodes.each_with_index do |node, i|
+      dotted_edge = false
       relationships = @all_relationships[i]
         if (relationships != nil )
           relationships.each do |r|
@@ -126,6 +127,7 @@ class ScrapersController < ApplicationController
             
             # processing for a "through" association
             if (nodeToConnect.include?("through"))
+              dotted_edge = true
               if (nodeToConnect.include?("source"))
                 join_model = nodeToConnect.split()[-4]
                 relationship += "through #{join_model}"
@@ -140,6 +142,7 @@ class ScrapersController < ApplicationController
 
             #processing for polymorphic "as" association
             elsif (nodeToConnect.include?("as"))
+              dotted_edge = false
               relationship += nodeToConnect.split()[1..-1].join(" ")
               index = nodeNames.find_index(nodeToConnect.split()[0].singularize)
               puts "PROBLEM THING=--------------------------------------"
@@ -150,11 +153,13 @@ class ScrapersController < ApplicationController
    
             #if plural find the singular model node
             elsif (nodeToConnect.singularize != nodeToConnect)
+              dotted_edge = false
               index = nodeNames.find_index(nodeToConnect.singularize)
               nodeToConnect = nodes[index]
 
             #If it is singular, find that model node
             elsif (nodeNames.include?(nodeToConnect))
+              dotted_edge = false
               index = nodeNames.find_index(nodeToConnect)
               nodeToConnect = nodes[index]
 
@@ -163,6 +168,10 @@ class ScrapersController < ApplicationController
             edge = g.add_edges(node, nodeToConnect)
             edge[:label] =  "#{relationship}" 
             edge[:fontsize] = 10
+            if (dotted_edge)
+              edge[:style] = "dotted"
+            end
+
           end
       end
     end
