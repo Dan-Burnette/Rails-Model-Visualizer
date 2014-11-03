@@ -133,8 +133,9 @@ class ScrapersController < ApplicationController
               relationship = relationship_parts[0] + '\n'
               nodeToConnect = relationship_parts[1].delete(':').delete(',')
             end
+
             #Strange edges cases where we have extra words
-            if (nodeToConnect.split().size != 1)
+            if (nodeToConnect.split().size != 1 && !nodeToConnect.include?("through"))
               nodeToConnect = nodeToConnect.split()[0].singularize
             end
           
@@ -158,10 +159,6 @@ class ScrapersController < ApplicationController
               dotted_edge = false
               relationship += nodeToConnect.split()[1..-1].join(" ")
               index = nodeNames.find_index(nodeToConnect.split()[0].singularize)
-              puts "PROBLEM THING=--------------------------------------"
-              puts nodeToConnect.inspect
-              puts "RELATIONSHIP-------------------------------------"
-              puts relationship 
               nodeToConnect = nodes[index]
    
             #if plural find the singular model node
