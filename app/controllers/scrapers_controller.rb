@@ -85,12 +85,13 @@ class ScrapersController < ApplicationController
         @model_to_data.store(model_name, table_data_str)
       end
     end
-      #Graphing logic ---------------------------------------------------------
+
+      # Graphing logic -------------------------------------------------
       @graph_title = params[:start_url].split('/')[-1]
       g = GraphViz.new(:G, :type => :digraph )
       g[:label] = "< <FONT POINT-SIZE='80'>" + "#{@graph_title}" + "</FONT> >"
 
-      #Create a node for each model
+      # Create a node for each model
       nodes = []
       models_and_attrs = []
       @models.each do |m|
@@ -101,8 +102,7 @@ class ScrapersController < ApplicationController
         nodes.push(node)
       end
     
-
-    # Determine names of nodes already created (our non-plural models)
+    # Determine names of nodes created (all the models)
     nodeNames = []
     @models.each do |x|
       nodeNames.push(x)
@@ -111,89 +111,48 @@ class ScrapersController < ApplicationController
     # Connect the nodes with appropriately labeled edges
     puts "models"
     puts @models.inspect
+
     nodes.each_with_index do |node, i|
       dotted_edge = false
       relationships = @all_relationships[i]
         if (relationships != nil )
           relationships.each do |r|
-            #THING ATTEMPT
+            #Refactor ATTEMPT----------------------------------------------
             puts "relationship is -------"
             puts r
-            nodes_involved_raw = r.split(" ").select {|x| nodeNames.include?( "#{x}".delete(':').delete(',').singularize) }
+            nodes_involved_raw = 
+            r.split(" ").select do |x|
+               nodeNames.include?( "#{x}".delete(':').delete(',').delete("'").singularize.downcase) 
+            end
             nodes_involved = []
             nodes_involved_raw.each do |n|
-              n = n.delete(':').delete(',').singularize
+              n = n.delete(':').delete(',').singularize.downcase
               nodes_involved.push(n)
             end
             puts "nodes_involved"
             puts nodes_involved.inspect
 
-            # Different processing if you have a :class_name option
-            if (r.include?(':class_name'))
-              relationship_parts = r.split(':')
-              relationship = relationship_parts[0]
-              nodeToConnect = relationship_parts[-1].split('=>')[-1].gsub(/\s|"|'/, '').downcase
+            #---------------------------------------------------------------------
+            # The standard processing
+            relationship = r.split(':', 2)[0] + '\n'
+            
+            #If only one node is found, it is the one we want to connect to
+            if (nodes_involved.size == 1)
+              nodeToConnect = nodes_involved[0]
 
-            # Else do the standard processing
-            else
-              relationship_parts = r.split(':', 2)
-              relationship = relationship_parts[0] + '\n'
-              nodeToConnect = relationship_parts[1].delete(':').delete(',')
-            end
-
-            # Strange edges cases where we have extra words
-            if (nodeToConnect.split().size != 1 && !nodeToConnect.include?("through"))
-              nodeToConnect = nodeToConnect.split()[0].singularize
+            #If two nodes are found, there must be a "through" relationship going on
+            elsif (nodes_involved.size == 2)
+              dotted_edge = true
+              if (r.include?("source") && r.include?("through"))
+                join_model = nodes_involved[0].pluralize
+                nodeToConnect = nodes_involved[1]
+              elsif (r.include?("through"))
+                join_model = nodes_involved[1].pluralize
+                nodeToConnect = nodes_involved[0]
+              end
+              relationship += "through #{join_model}"
             end
           
-            # Processing for a "through" association
-            if (nodeToConnect.include?("through"))
-              dotted_edge = true
-              if (nodeToConnect.include?("source"))
-                if (nodeToConnect.include?("conditions"))
-                  join_model = nodeToConnect.split()[3]
-                  relationship += "through #{join_model}"
-                  index = nodeNames.find_index(nodeToConnect.split()[-6].singularize)
-                else
-                  join_model = nodeToConnect.split()[-4]
-                  relationship += "through #{join_model}"
-                  index = nodeNames.find_index(nodeToConnect.split()[-1].singularize)
-                  puts "possibly bad nodeToConnect:"
-                  puts nodeToConnect
-                end
-              else 
-                join_model = nodeToConnect.split()[-1]
-                relationship += "through #{join_model}"
-                index = nodeNames.find_index(nodeToConnect.split()[0].singularize) 
-                puts "possibly bad nodeToConnect:"
-                puts nodeToConnect
-              end
-              nodeToConnect = nodes[index]
-
-            # Processing for polymorphic "as" association
-            elsif (nodeToConnect.include?("as"))
-              dotted_edge = false
-              relationship += nodeToConnect.split()[1..-1].join(" ")
-              index = nodeNames.find_index(nodeToConnect.split()[0].singularize)
-              puts "possibly bad nodeToConnect:"
-              puts nodeToConnect
-              nodeToConnect = nodes[index]
-   
-            # If plural find the singular model node
-            elsif (nodeToConnect.singularize != nodeToConnect)
-              puts "possibly bad nodeToConnect:"
-              puts nodeToConnect
-              dotted_edge = false
-              index = nodeNames.find_index(nodeToConnect.singularize)
-              nodeToConnect = nodes[index]
-
-            # If it is singular, find that model node
-            elsif (nodeNames.include?(nodeToConnect))
-              dotted_edge = false
-              index = nodeNames.find_index(nodeToConnect)
-              nodeToConnect = nodes[index]
-            end
-
             edge = g.add_edges(node, nodeToConnect)
             edge[:label] =  "#{relationship}" 
             edge[:fontsize] = 10

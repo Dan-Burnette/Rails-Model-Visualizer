@@ -61,7 +61,7 @@
 </g>
 <!-- company&#45;&gt;employment -->
 <g id="edge6" class="edge"><title>company&#45;&gt;employment</title>
-<path fill="none" stroke="black" d="M820.671,-632.603C849.976,-626.117 887.248,-615.262 917,-598 929.235,-590.901 927.247,-582.12 940,-576 994.971,-549.623 1016.59,-571.702 1076,-558 1082.14,-556.583 1088.5,-554.87 1094.79,-553.012"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M820.671,-632.603C849.976,-626.117 887.248,-615.262 917,-598 929.235,-590.901 927.247,-582.12 940,-576 994.971,-549.623 1016.59,-571.702 1076,-558 1082.14,-556.583 1088.5,-554.87 1094.79,-553.012"/>
 <polygon fill="black" stroke="black" points="1096.06,-556.284 1104.58,-549.995 1094,-549.594 1096.06,-556.284"/>
 <text text-anchor="middle" x="962" y="-584.5" font-family="Times,serif" font-size="10.00">has_many </text>
 </g>
@@ -116,7 +116,7 @@
 </g>
 <!-- company&#45;&gt;sponsorship -->
 <g id="edge4" class="edge"><title>company&#45;&gt;sponsorship</title>
-<path fill="none" stroke="black" d="M720.148,-639.221C547.056,-632.601 0,-605.911 0,-533 0,-533 0,-533 0,-221 0,-161.399 184.703,-136.962 290.604,-127.85"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M720.148,-639.221C547.056,-632.601 0,-605.911 0,-533 0,-533 0,-533 0,-221 0,-161.399 184.703,-136.962 290.604,-127.85"/>
 <polygon fill="black" stroke="black" points="290.924,-131.335 300.598,-127.015 290.341,-124.359 290.924,-131.335"/>
 <text text-anchor="middle" x="22" y="-369.5" font-family="Times,serif" font-size="10.00">has_many </text>
 </g>
@@ -160,7 +160,7 @@
 </g>
 <!-- group&#45;&gt;group_membership -->
 <g id="edge14" class="edge"><title>group&#45;&gt;group_membership</title>
-<path fill="none" stroke="black" d="M695.469,-215.236C793.915,-200.09 1062.05,-158.839 1204.01,-136.998"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M695.469,-215.236C793.915,-200.09 1062.05,-158.839 1204.01,-136.998"/>
 <polygon fill="black" stroke="black" points="1204.66,-140.44 1214.01,-135.46 1203.6,-133.521 1204.66,-140.44"/>
 <text text-anchor="middle" x="1037" y="-169.5" font-family="Times,serif" font-size="10.00">has_many </text>
 </g>
@@ -193,7 +193,7 @@
 </g>
 <!-- group&#45;&gt;sponsorship -->
 <g id="edge16" class="edge"><title>group&#45;&gt;sponsorship</title>
-<path fill="none" stroke="black" d="M622.4,-211.916C591.417,-203.776 545.42,-191.126 506,-178 475.769,-167.934 442.519,-155.245 415.695,-144.593"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M622.4,-211.916C591.417,-203.776 545.42,-191.126 506,-178 475.769,-167.934 442.519,-155.245 415.695,-144.593"/>
 <polygon fill="black" stroke="black" points="416.705,-141.228 406.12,-140.769 414.109,-147.729 416.705,-141.228"/>
 <text text-anchor="middle" x="528" y="-169.5" font-family="Times,serif" font-size="10.00">has_many </text>
 </g>
@@ -230,7 +230,7 @@
 </g>
 <!-- person&#45;&gt;employment -->
 <g id="edge27" class="edge"><title>person&#45;&gt;employment</title>
-<path fill="none" stroke="black" d="M1063.3,-731.507C1081.47,-716.168 1105.12,-693.226 1119,-668 1136.24,-636.655 1144.25,-596.24 1147.93,-567.83"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M1063.3,-731.507C1081.47,-716.168 1105.12,-693.226 1119,-668 1136.24,-636.655 1144.25,-596.24 1147.93,-567.83"/>
 <polygon fill="black" stroke="black" points="1151.45,-567.914 1149.14,-557.573 1144.5,-567.094 1151.45,-567.914"/>
 <text text-anchor="middle" x="1161" y="-639.5" font-family="Times,serif" font-size="10.00">has_many </text>
 </g>
@@ -243,7 +243,7 @@
 </g>
 <!-- person&#45;&gt;group_membership -->
 <g id="edge25" class="edge"><title>person&#45;&gt;group_membership</title>
-<path fill="none" stroke="black" d="M1080.17,-749.976C1193.31,-746.092 1495,-727.787 1495,-643 1495,-643 1495,-643 1495,-221 1495,-170.689 1443.33,-146.204 1392.52,-134.289"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M1080.17,-749.976C1193.31,-746.092 1495,-727.787 1495,-643 1495,-643 1495,-643 1495,-221 1495,-170.689 1443.33,-146.204 1392.52,-134.289"/>
 <polygon fill="black" stroke="black" points="1393.24,-130.864 1382.72,-132.139 1391.74,-137.701 1393.24,-130.864"/>
 <text text-anchor="middle" x="1517" y="-419.5" font-family="Times,serif" font-size="10.00">has_many </text>
 </g>
@@ -282,7 +282,7 @@
 </g>
 <!-- project&#45;&gt;company_project -->
 <g id="edge31" class="edge"><title>project&#45;&gt;company_project</title>
-<path fill="none" stroke="black" d="M881.363,-431.823C903.187,-438.279 929.398,-448.962 948,-466 957.167,-474.397 964.158,-485.919 969.293,-496.933"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M881.363,-431.823C903.187,-438.279 929.398,-448.962 948,-466 957.167,-474.397 964.158,-485.919 969.293,-496.933"/>
 <polygon fill="black" stroke="black" points="966.186,-498.57 973.335,-506.389 972.622,-495.818 966.186,-498.57"/>
 <text text-anchor="middle" x="987" y="-474.5" font-family="Times,serif" font-size="10.00">has_many </text>
 </g>
@@ -295,7 +295,7 @@
 </g>
 <!-- project&#45;&gt;group_project -->
 <g id="edge33" class="edge"><title>project&#45;&gt;group_project</title>
-<path fill="none" stroke="black" d="M824.34,-398.265C816.465,-388.034 806.681,-376.031 797,-366 792.565,-361.405 787.689,-356.77 782.774,-352.332"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M824.34,-398.265C816.465,-388.034 806.681,-376.031 797,-366 792.565,-361.405 787.689,-356.77 782.774,-352.332"/>
 <polygon fill="black" stroke="black" points="784.895,-349.536 775.078,-345.553 780.269,-354.789 784.895,-349.536"/>
 <text text-anchor="middle" x="830" y="-369.5" font-family="Times,serif" font-size="10.00">has_many </text>
 </g>
