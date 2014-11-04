@@ -28,13 +28,19 @@ class ScrapersController < ApplicationController
       @all_lines.push(lines)
 
       relationships = []
+      #Filter out bad relationships
       lines.each do |line|
-        if (line.include?("belongs_to") || line.include?("has_one") ||
-            line.include?("has_many") || line.include?("belongs_to"))
-          if (line.include?("validates") == false)
-            relationships.push(line)
-          end
-        end 
+        line_split = line.split(' ')
+        #eliminating lines such as "attachment_fake_belongs_to_group(a)"
+        #23 is the length of has_and_belongs_to_many, the biggest relationship
+        if (line_split[0] != nil && line_split[0].length <= 23)
+          if (line_split[0].include?("belongs_to") || line_split[0].include?("has_one") ||
+              line_split[0].include?("has_many") || line_split[0].include?("belongs_to"))
+            if (!line.include?("validates") && !line.include?('#'))
+              relationships.push(line)
+            end
+          end 
+        end
       end
       @all_relationships.push(relationships)
     end
@@ -96,7 +102,7 @@ class ScrapersController < ApplicationController
       models_and_attrs = []
       @models.each do |m|
         node = g.add_nodes(m)
-        node[:label] = '<<b>' + "#{m}" + '</b> <br/> >'
+        node[:label] = "#{m}" 
         node[:style => 'filled']
         node[:fillcolor => "teal"]
         nodes.push(node)
@@ -131,28 +137,40 @@ class ScrapersController < ApplicationController
             end
             puts "nodes_involved"
             puts nodes_involved.inspect
+            puts nodes_involved.count
 
             #---------------------------------------------------------------------
             # The standard processing
-            relationship = r.split(':', 2)[0] + '\n'
+            relationship_parts  = r.split(':', 2)
+            relationship = relationship_parts[0] + '\n'
+            other_parts = relationship_parts[1]
             
             #If only one node is found, it is the one we want to connect to
             if (nodes_involved.size == 1)
               nodeToConnect = nodes_involved[0]
 
-            #If two nodes are found, there must be a "through" relationship going on
+            #If two nodes are found
             elsif (nodes_involved.size == 2)
               dotted_edge = true
               if (r.include?("source") && r.include?("through"))
                 join_model = nodes_involved[0].pluralize
                 nodeToConnect = nodes_involved[1]
+                relationship += "through #{join_model}"
               elsif (r.include?("through"))
                 join_model = nodes_involved[1].pluralize
                 nodeToConnect = nodes_involved[0]
+                relationship += "through #{join_model}"
+              elsif (r.include?("include"))
+                nodeToConnect = nodes_involved[0]
+              #Possible unaccounted for things here...?
+              else 
+                nodeToConnect = nodes_involved[0]
               end
-              relationship += "through #{join_model}"
+              
+            else
+              nodeToConnect = other_parts
             end
-          
+
             edge = g.add_edges(node, nodeToConnect)
             edge[:label] =  "#{relationship}" 
             edge[:fontsize] = 10
