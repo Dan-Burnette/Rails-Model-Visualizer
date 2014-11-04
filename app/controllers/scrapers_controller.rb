@@ -116,6 +116,18 @@ class ScrapersController < ApplicationController
       relationships = @all_relationships[i]
         if (relationships != nil )
           relationships.each do |r|
+            #THING ATTEMPT
+            puts "relationship is -------"
+            puts r
+            nodes_involved_raw = r.split(" ").select {|x| nodeNames.include?( "#{x}".delete(':').delete(',').singularize) }
+            nodes_involved = []
+            nodes_involved_raw.each do |n|
+              n = n.delete(':').delete(',').singularize
+              nodes_involved.push(n)
+            end
+            puts "nodes_involved"
+            puts nodes_involved.inspect
+
             # Different processing if you have a :class_name option
             if (r.include?(':class_name'))
               relationship_parts = r.split(':')
