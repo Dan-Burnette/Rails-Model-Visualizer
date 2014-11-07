@@ -5,6 +5,8 @@ class ScrapersController < ApplicationController
     # Scrape for models and their URLS ---------------------------------------
     @directory_urls = []
     @models = []
+    @models_that_extend_active_record_base = []
+    @model_to_model_it_extends = {}
     @model_urls = []
 
     # Initial is githubprojecturl/tree/master/app
@@ -92,6 +94,13 @@ class ScrapersController < ApplicationController
       end
     end
 
+    # Classes that extend classes which extend activeRecord base must also have their schemas
+    # populated with the schema of the class they extend
+    @model_to_model_it_extends.each do |model, extends|
+      data = @model_to_data[extends]
+      @model_to_data.store(model, data)
+    end
+
       # Graphing logic -------------------------------------------------
       @graph_title = params[:start_url].split('/')[-1]
       g = GraphViz.new(:G, :type => :digraph )
@@ -123,16 +132,15 @@ class ScrapersController < ApplicationController
       relationships = @all_relationships[i]
         if (relationships != nil )
           relationships.each do |r|
-            #Refactor ATTEMPT----------------------------------------------
             puts "relationship is -------"
             puts r
             nodes_involved_raw = 
             r.split(" ").select do |x|
-               nodeNames.include?( "#{x}".delete(':').delete(',').delete("'").singularize.downcase) 
+               nodeNames.include?( "#{x}".delete(':').delete(',').delete("'").tableize.singularize.downcase) 
             end
             nodes_involved = []
             nodes_involved_raw.each do |n|
-              n = n.delete(':').delete(',').delete("'").singularize.downcase
+              n = n.delete(':').delete(',').delete("'").tableize.singularize.downcase
               nodes_involved.push(n)
             end
             puts "nodes_involved"

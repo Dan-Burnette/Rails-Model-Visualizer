@@ -31,7 +31,6 @@ class ApplicationController < ActionController::Base
 
   #Pass in a list of all URLs and it will find all the models and URLS
   def get_models_and_urls(url_array)
-    models_that_extend_active_record_base = []
     url_array.each do |url|
       if (url.include?('.rb'))
         raw = Wombat.crawl do
@@ -45,15 +44,16 @@ class ApplicationController < ActionController::Base
             model = item.split("<")[0].split()[-1].split(/(?=[A-Z])/).join("_").downcase
             @models.push(model)
             @model_urls.push(url)
-            models_that_extend_active_record_base.push(model)
+            @models_that_extend_active_record_base.push(model)
           #Catch those models that inherit from a model which inherits from ActiveRecord::Base
           elsif (item.include?('<'))
             split_item = item.split(' ')
-            extends_model = split_item[-1].downcase
-            if (models_that_extend_active_record_base.include?(extends_model))
+            extends_model = split_item[-1].tableize.singularize.downcase
+            if (@models_that_extend_active_record_base.include?(extends_model))
               model = item.split("<")[0].split()[-1].split(/(?=[A-Z])/).join("_").downcase
               @models.push(model)
               @model_urls.push(url)
+              @model_to_model_it_extends.store(model, extends_model)
             end
           end
         end
