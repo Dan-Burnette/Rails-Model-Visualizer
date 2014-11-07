@@ -136,11 +136,11 @@ class ScrapersController < ApplicationController
             puts r
             nodes_involved_raw = 
             r.split(" ").select do |x|
-               nodeNames.include?( "#{x}".delete(':').delete(',').delete("'").tableize.singularize.downcase) 
+               nodeNames.include?( "#{x}".delete(':').delete(',').delete("'").delete('"').tableize.singularize.downcase) 
             end
             nodes_involved = []
             nodes_involved_raw.each do |n|
-              n = n.delete(':').delete(',').delete("'").tableize.singularize.downcase
+              n = n.delete(':').delete(',').delete("'").delete('"').tableize.singularize.downcase
               nodes_involved.push(n)
             end
             puts "nodes_involved"
