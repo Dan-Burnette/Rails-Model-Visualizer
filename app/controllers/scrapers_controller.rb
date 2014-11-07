@@ -45,7 +45,7 @@ class ScrapersController < ApplicationController
       @all_relationships.push(relationships)
     end
 
-    # Schema Scraping Logic----------------------------------------------------
+    # Schema Scraping Logic-----------------------------
     schema_url = params[:start_url] + '/blob/master/db/schema.rb'
     if (url_exist?(schema_url))
       raw_schema_page = Wombat.crawl do
@@ -132,7 +132,7 @@ class ScrapersController < ApplicationController
             end
             nodes_involved = []
             nodes_involved_raw.each do |n|
-              n = n.delete(':').delete(',').singularize.downcase
+              n = n.delete(':').delete(',').delete("'").singularize.downcase
               nodes_involved.push(n)
             end
             puts "nodes_involved"
