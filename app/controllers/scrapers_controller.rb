@@ -11,9 +11,12 @@ class ScrapersController < ApplicationController
 
     # Initial is githubprojecturl/tree/master/app
     new_start_url = params[:start_url] + '/tree/master/app/models'
-    
     #Make sure URL is valid
-
+    if (!url_exist?(new_start_url))
+      flash[:alert] = "An invalid URL was entered"
+      redirect_to :root
+      return
+    end
     # Go through all directories recursively and grab the URLS for each file,
     # pushing them into @directory_urls
     scrape_all_urls(new_start_url)
