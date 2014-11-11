@@ -60,6 +60,7 @@ class ScrapersController < ApplicationController
       @db_schema_data.delete("")
       #remove the lines with add index, we don't want unneeded details like that
       @db_schema_data = @db_schema_data.select {|x| x.include?("add_index") == false }
+
       #Find the indecies of where each table starts
       table_starts = @db_schema_data.each_index.select {|i| @db_schema_data[i].include?("create_table")}
 
@@ -92,6 +93,10 @@ class ScrapersController < ApplicationController
         @all_table_data.push(table_data)
         @model_to_data.store(model_name, table_data_str)
       end
+    else
+      redirect_to :root
+      flash[:alert] = "That project doesn't have a DB schema file! Not going to work...try another!"
+      return
     end
 
     # Classes that extend classes which extend activeRecord base must also have their schemas
@@ -101,21 +106,23 @@ class ScrapersController < ApplicationController
       @model_to_data.store(model, data)
     end
 
-      # Graphing logic -------------------------------------------------
-      @graph_title = params[:start_url].split('/')[-1]
-      g = GraphViz.new(:G, :type => :digraph )
-      g[:label] = "< <FONT POINT-SIZE='80'>" + "#{@graph_title}" + "</FONT> >"
+    # Graphing logic -------------------------------------------------------
+    #///////////////////////////////////////////////////////////////////////
 
-      # Create a node for each model
-      nodes = []
-      models_and_attrs = []
-      @models.each do |m|
-        node = g.add_nodes(m)
-        node[:label] = "#{m}" 
-        node[:style => 'filled']
-        node[:fillcolor => "teal"]
-        nodes.push(node)
-      end
+    @graph_title = params[:start_url].split('/')[-1]
+    g = GraphViz.new(:G, :type => :digraph )
+    g[:label] = "< <FONT POINT-SIZE='80'>" + "#{@graph_title}" + "</FONT> >"
+
+    # Create a node for each model
+    nodes = []
+    models_and_attrs = []
+    @models.each do |m|
+      node = g.add_nodes(m)
+      node[:label] = "#{m}" 
+      node[:style => 'filled']
+      node[:fillcolor => "teal"]
+      nodes.push(node)
+    end
     
     # Determine names of nodes created (all the models)
     nodeNames = []
@@ -124,16 +131,11 @@ class ScrapersController < ApplicationController
     end
   
     # Connect the nodes with appropriately labeled edges
-    puts "models"
-    puts @models.inspect
-
     nodes.each_with_index do |node, i|
       dotted_edge = false
       relationships = @all_relationships[i]
         if (relationships != nil )
           relationships.each do |r|
-            puts "relationship is -------"
-            puts r
             nodes_involved_raw = 
             r.split(" ").select do |x|
                nodeNames.include?( "#{x}".delete(':').delete(',').delete("'").delete('"').tableize.singularize.downcase) 
@@ -143,11 +145,7 @@ class ScrapersController < ApplicationController
               n = n.delete(':').delete(',').delete("'").delete('"').tableize.singularize.downcase
               nodes_involved.push(n)
             end
-            puts "nodes_involved"
-            puts nodes_involved.inspect
-            puts nodes_involved.count
 
-            #---------------------------------------------------------------------
             # The standard processing
             relationship_parts  = r.split(':', 2)
             relationship = relationship_parts[0] + '\n'

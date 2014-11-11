@@ -1,16 +1,26 @@
-<h1> Ruby on Rails ActiveRecord Model Visualizer</h1>
-<h2>To work: </h2>
-<h3> 1. Must have a schema.rb file under /db </h3>
-<h2> It breaks on certain cases where relationships are too complicated  </h2>
-<h4> Here are some examples known to work :</h4>
-<ul>
-	<li>Fulcrum https://github.com/fulcrum-agile/fulcrum </li> 
-	<li> Citizenry https://github.com/reidab/citizenry </li>
-</ul>
 
+<h1 class="title"> Ruby on Rails ActiveRecord Model Visualizer</h1>
+
+<% if flash[:alert] %>
+	<h4 class="error"><%=flash[:alert] %></h4>
+<%end%>
+
+<div class="form-container">
+<label>Enter a Rails project's github URL </label>
 <%= form_tag("/show", method: "get") do %> 
-	<label>Enter a Rails project's github URL </label>
 	<input type="text" name="start_url">
-	<input type="submit">
+	<br>
+	<button type="submit">Visualize</button>
 <% end %>
+</div>
 
+
+<h3 class="disclaimer">Certain cases may not work... yet</h3>
+
+<div class="examples">
+	<h4> Here are some examples known to work :</h4>
+
+	 <p>Fulcrum <br> https://github.com/fulcrum-agile/fulcrum </p>
+	 <p>Citizenry <br> https://github.com/reidab/citizenry </p>
+
+</div>
