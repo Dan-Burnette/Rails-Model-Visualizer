@@ -138,10 +138,10 @@ class ScrapersController < ApplicationController
   
     # Connect the nodes with appropriately labeled edges
     nodes.each_with_index do |node, i|
-      dotted_edge = false
       relationships = @all_relationships[i]
         if (relationships != nil )
           relationships.each do |r|
+            dotted_edge = false
             nodes_involved_raw = 
             r.split(" ").select do |x|
                nodeNames.include?( "#{x}".delete(':').delete(',').delete("'").delete('"').tableize.singularize.downcase) 
