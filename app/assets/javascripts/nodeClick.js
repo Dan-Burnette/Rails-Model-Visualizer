@@ -5,8 +5,9 @@ $(window).load(function () {
 	var HTMLmouseTip = d3.select("div.tooltip.mouse");
 
 	d3.select("svg").selectAll('.node')
-
+	//Fix this.-----------------------------
 		.on("mouseover", function() {
+			// if (e.target == this);
 			var title = $(this).children().first().text();
 			var data = $('.' + title).text();
 			if (data == ""){
