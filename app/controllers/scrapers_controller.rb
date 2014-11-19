@@ -345,10 +345,10 @@ end
             # The standard processing
             puts "relationship--------------"
             puts r
-            nodes_involved = r.split("(")[1].split(" ")[0].gsub!(/\W+/, '').downcase
+            nodes_involved = r.split("(")[1].split(" ")[0].split("(")[-1].delete(")").delete(";").delete("'").downcase
             relationship =  r.split("(")[0].split("->")[-1] + '\n'
             puts "Node to Connect ----- AND ---- RELATIONSHIP"
-            puts nodeToConnect.inspect
+            puts nodesInvolved.inspect
             puts relationship.inspect
             edge = g.add_edges(node, nodeToConnect)
             edge[:label] =  "#{relationship}" 
