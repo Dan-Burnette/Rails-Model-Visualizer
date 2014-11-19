@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   #Pass in a list of all URLs and it will find all the models and URLS
   def get_models_and_urls(url_array)
     url_array.each do |url|
-      if (url.include?('.rb'))
+      if (url.include?('.rb' || url.include?('.php')))
         raw = Wombat.crawl do
           base_url url
           data({css: ".js-file-line"}, :list)
