@@ -6,6 +6,8 @@
 raw data
 <%=@raw_data%>
 
+<h2>All URLS </h2>
+<%=@directory_urls %>
 <h2>models</h2>
 <%=@models.inspect%>
 
@@ -18,7 +20,12 @@ raw data
 	<h3> Model <%=i%>'s relationships </h3>
 	<%= relationships.inspect %>
 <% end %>
+<nav> 
+	<li> <%= link_to "Visualize another project", root_path %>  </li>
+</nav>
 
 
-<br><br><br>
-<%=image_tag("test.png")%>
+
+<div class="mouse tooltip" >Mouse-tracking HTML Tip</div>
+
+<%= inline_svg("graph.svg") %>

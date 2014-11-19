@@ -61,6 +61,37 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #Pass in a list of all URLs and it will find all the models and URLS
+  def get_models_and_urls_laravel(url_array)
+    url_array.each do |url|
+      if (url.include?('.php'))
+        raw = Wombat.crawl do
+          base_url url
+          data({css: ".js-file-line"}, :list)
+        end
+
+        raw_data = raw["data"]
+        raw_data.each do |item|
+          if (item.include?('extends Eloquent'))
+            model = item.split("extends")[0].split()[-1].split(/(?=[A-Z])/).join("_").downcase
+            @models.push(model)
+            @model_urls.push(url)
+            @models_that_extend_active_record_base.push(model)
+          #Catch those models that inherit from a model which inherits from ActiveRecord::Base
+          elsif (item.include?('extends'))
+            split_item = item.split(' ')
+            extends_model = split_item[-1].tableize.singularize.downcase
+            if (@models_that_extend_active_record_base.include?(extends_model))
+              model = item.split("extends")[0].split()[-1].split(/(?=[A-Z])/).join("_").downcase
+              @models.push(model)
+              @model_urls.push(url)
+              @model_to_model_it_extends.store(model, extends_model)
+            end
+          end
+        end
+      end
+    end
+  end
 
   #For checking if the schema can be found
   def url_exist?(url_string)

@@ -197,8 +197,8 @@ class ScrapersController < ApplicationController
 
     #Output the graph
     g.output(:svg => "app/assets/images/graph.svg")
-
-  end
+end
+  
 
   def show_model_graph_laravel
     # Scrape for models and their URLS ---------------------------------------
@@ -220,7 +220,7 @@ class ScrapersController < ApplicationController
     # pushing them into @directory_urls
     scrape_all_urls(new_start_url)
     # From these URLS, find the models and their URLs, pushing them into @model_urls
-    get_models_and_urls(@directory_urls)
+    get_models_and_urls_laravel(@directory_urls)
 
     # Scrape each model page for their ActiveRecord assocations
     @all_lines = []
@@ -240,9 +240,9 @@ class ScrapersController < ApplicationController
         line_split = line.split(' ')
         #eliminating lines such as "attachment_fake_belongs_to_group(a)"
         #23 is the length of has_and_belongs_to_many, the biggest relationship
-        if (line_split[0] != nil && line_split[0].length <= 23)
-          if (line_split[0].include?("belongsTo") || line_split[0].include?("hasOne") ||
-              line_split[0].include?("hasMany") || line_split[0].include?("belongsTo"))
+        if (line_split[1] != nil)
+          if (line_split[1].include?("belongsTo") || line_split[1].include?("hasOne") ||
+              line_split[1].include?("hasMany") || line_split[1].include?("belongsTo"))
             if (!line.include?("validates") && !line.include?('#'))
               relationships.push(line)
             end
@@ -306,10 +306,10 @@ class ScrapersController < ApplicationController
 
     # Classes that extend classes which extend activeRecord base must also have their schemas
     # populated with the schema of the class they extend
-    @model_to_model_it_extends.each do |model, extends|
-      data = @model_to_data[extends]
-      @model_to_data.store(model, data)
-    end
+    # @model_to_model_it_extends.each do |model, extends|
+    #   data = @model_to_data[extends]
+    #   @model_to_data.store(model, data)
+    # end
 
     # Graphing logic -------------------------------------------------------
     #///////////////////////////////////////////////////////////////////////
@@ -338,50 +338,18 @@ class ScrapersController < ApplicationController
     # Connect the nodes with appropriately labeled edges
     nodes.each_with_index do |node, i|
       relationships = @all_relationships[i]
-        if (relationships != nil )
+        if (relationships != nil)
           relationships.each do |r|
             dotted_edge = false
-            nodes_involved_raw = 
-            r.split(" ").select do |x|
-               nodeNames.include?( "#{x}".delete(':').delete(',').delete("'").delete('"').tableize.singularize.downcase) 
-            end
-            nodes_involved = []
-            nodes_involved_raw.each do |n|
-              n = n.delete(':').delete(',').delete("'").delete('"').tableize.singularize.downcase
-              nodes_involved.push(n)
-            end
-
-            # The standard processing
-            relationship_parts  = r.split(':', 2)
-            relationship = relationship_parts[0] + '\n'
-            other_parts = relationship_parts[1]
             
-            #If only one node is found, it is the one we want to connect to
-            if (nodes_involved.size == 1)
-              nodeToConnect = nodes_involved[0]
-
-            #If two nodes are found
-            elsif (nodes_involved.size == 2)
-              dotted_edge = true
-              if (r.include?("source") && r.include?("through"))
-                join_model = nodes_involved[0].pluralize
-                nodeToConnect = nodes_involved[1]
-                relationship += "through #{join_model}"
-              elsif (r.include?("through"))
-                join_model = nodes_involved[1].pluralize
-                nodeToConnect = nodes_involved[0]
-                relationship += "through #{join_model}"
-              elsif (r.include?("include"))
-                nodeToConnect = nodes_involved[0]
-              #Possible unaccounted for things here...?
-              else 
-                nodeToConnect = nodes_involved[0]
-              end
-              
-            else
-              nodeToConnect = other_parts
-            end
-
+            # The standard processing
+            puts "relationship--------------"
+            puts r
+            nodes_involved = r.split("(")[1].split(" ")[0].gsub!(/\W+/, '').downcase
+            relationship =  r.split("(")[0].split("->")[-1] + '\n'
+            puts "Node to Connect ----- AND ---- RELATIONSHIP"
+            puts nodeToConnect.inspect
+            puts relationship.inspect
             edge = g.add_edges(node, nodeToConnect)
             edge[:label] =  "#{relationship}" 
             edge[:fontsize] = 10
@@ -392,6 +360,8 @@ class ScrapersController < ApplicationController
 
           end
       end
+    end
+
   end
 
 end
