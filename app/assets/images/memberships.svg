@@ -16,7 +16,7 @@
 </g>
 <!-- create -->
 <g id="node2" class="node"><title>create</title>
-<ellipse fill="teal" stroke="black" cx="31" cy="-18" rx="31.2735" ry="18"/>
+<ellipse fill="red" stroke="black" cx="31" cy="-18" rx="31.2735" ry="18"/>
 <text text-anchor="middle" x="31" y="-14.3" font-family="Times,serif" font-size="14.00">create</text>
 </g>
 <!-- memberships&#45;&gt;create -->
@@ -26,7 +26,7 @@
 </g>
 <!-- update -->
 <g id="node3" class="node"><title>update</title>
-<ellipse fill="teal" stroke="black" cx="115" cy="-18" rx="34.1708" ry="18"/>
+<ellipse fill="red" stroke="black" cx="115" cy="-18" rx="34.1708" ry="18"/>
 <text text-anchor="middle" x="115" y="-14.3" font-family="Times,serif" font-size="14.00">update</text>
 </g>
 <!-- memberships&#45;&gt;update -->

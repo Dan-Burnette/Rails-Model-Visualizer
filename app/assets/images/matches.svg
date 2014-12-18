@@ -16,7 +16,7 @@
 </g>
 <!-- update -->
 <g id="node2" class="node"><title>update</title>
-<ellipse fill="teal" stroke="black" cx="40" cy="-18" rx="34.1708" ry="18"/>
+<ellipse fill="red" stroke="black" cx="40" cy="-18" rx="34.1708" ry="18"/>
 <text text-anchor="middle" x="40" y="-14.3" font-family="Times,serif" font-size="14.00">update</text>
 </g>
 <!-- matches&#45;&gt;update -->

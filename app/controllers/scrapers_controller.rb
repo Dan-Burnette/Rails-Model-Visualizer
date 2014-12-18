@@ -2,8 +2,8 @@ class ScrapersController < ApplicationController
   require "net/http"
 
   def show_all
-    show_model_graph()
-    show_repo_controllers()
+    show_model_graph
+    show_repo_controllers
   end
 
   def show_model_graph
@@ -234,7 +234,7 @@ class ScrapersController < ApplicationController
         action_node = g.add_nodes(a)
         edge = g.add_edges(controller_node, action_node)
         action_node[:style => 'filled']
-        action_node[:fillcolor => "teal"]
+        action_node[:fillcolor => "red"]
       end
       controller_node[:style => 'filled']
       controller_node[:fillcolor => "blue"]

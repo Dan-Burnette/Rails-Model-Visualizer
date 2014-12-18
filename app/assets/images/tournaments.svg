@@ -16,7 +16,7 @@
 </g>
 <!-- create -->
 <g id="node2" class="node"><title>create</title>
-<ellipse fill="teal" stroke="black" cx="31" cy="-18" rx="31.2735" ry="18"/>
+<ellipse fill="red" stroke="black" cx="31" cy="-18" rx="31.2735" ry="18"/>
 <text text-anchor="middle" x="31" y="-14.3" font-family="Times,serif" font-size="14.00">create</text>
 </g>
 <!-- tournaments&#45;&gt;create -->
@@ -26,7 +26,7 @@
 </g>
 <!-- show -->
 <g id="node3" class="node"><title>show</title>
-<ellipse fill="teal" stroke="black" cx="110" cy="-18" rx="29.3722" ry="18"/>
+<ellipse fill="red" stroke="black" cx="110" cy="-18" rx="29.3722" ry="18"/>
 <text text-anchor="middle" x="110" y="-14.3" font-family="Times,serif" font-size="14.00">show</text>
 </g>
 <!-- tournaments&#45;&gt;show -->
@@ -36,7 +36,7 @@
 </g>
 <!-- update -->
 <g id="node4" class="node"><title>update</title>
-<ellipse fill="teal" stroke="black" cx="192" cy="-18" rx="34.1708" ry="18"/>
+<ellipse fill="red" stroke="black" cx="192" cy="-18" rx="34.1708" ry="18"/>
 <text text-anchor="middle" x="192" y="-14.3" font-family="Times,serif" font-size="14.00">update</text>
 </g>
 <!-- tournaments&#45;&gt;update -->
@@ -46,7 +46,7 @@
 </g>
 <!-- destroy -->
 <g id="node5" class="node"><title>destroy</title>
-<ellipse fill="teal" stroke="black" cx="281" cy="-18" rx="36.096" ry="18"/>
+<ellipse fill="red" stroke="black" cx="281" cy="-18" rx="36.096" ry="18"/>
 <text text-anchor="middle" x="281" y="-14.3" font-family="Times,serif" font-size="14.00">destroy</text>
 </g>
 <!-- tournaments&#45;&gt;destroy -->
@@ -56,7 +56,7 @@
 </g>
 <!-- tournament_params -->
 <g id="node6" class="node"><title>tournament_params</title>
-<ellipse fill="teal" stroke="black" cx="417" cy="-18" rx="81.3646" ry="18"/>
+<ellipse fill="red" stroke="black" cx="417" cy="-18" rx="81.3646" ry="18"/>
 <text text-anchor="middle" x="417" y="-14.3" font-family="Times,serif" font-size="14.00">tournament_params</text>
 </g>
 <!-- tournaments&#45;&gt;tournament_params -->

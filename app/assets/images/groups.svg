@@ -16,7 +16,7 @@
 </g>
 <!-- create -->
 <g id="node2" class="node"><title>create</title>
-<ellipse fill="teal" stroke="black" cx="31" cy="-18" rx="31.2735" ry="18"/>
+<ellipse fill="red" stroke="black" cx="31" cy="-18" rx="31.2735" ry="18"/>
 <text text-anchor="middle" x="31" y="-14.3" font-family="Times,serif" font-size="14.00">create</text>
 </g>
 <!-- groups&#45;&gt;create -->
@@ -26,7 +26,7 @@
 </g>
 <!-- show -->
 <g id="node3" class="node"><title>show</title>
-<ellipse fill="teal" stroke="black" cx="110" cy="-18" rx="29.3722" ry="18"/>
+<ellipse fill="red" stroke="black" cx="110" cy="-18" rx="29.3722" ry="18"/>
 <text text-anchor="middle" x="110" y="-14.3" font-family="Times,serif" font-size="14.00">show</text>
 </g>
 <!-- groups&#45;&gt;show -->
@@ -36,7 +36,7 @@
 </g>
 <!-- ajax_head_to_head -->
 <g id="node4" class="node"><title>ajax_head_to_head</title>
-<ellipse fill="teal" stroke="black" cx="236" cy="-18" rx="78.4642" ry="18"/>
+<ellipse fill="red" stroke="black" cx="236" cy="-18" rx="78.4642" ry="18"/>
 <text text-anchor="middle" x="236" y="-14.3" font-family="Times,serif" font-size="14.00">ajax_head_to_head</text>
 </g>
 <!-- groups&#45;&gt;ajax_head_to_head -->
@@ -46,7 +46,7 @@
 </g>
 <!-- destroy -->
 <g id="node5" class="node"><title>destroy</title>
-<ellipse fill="teal" stroke="black" cx="369" cy="-18" rx="36.096" ry="18"/>
+<ellipse fill="red" stroke="black" cx="369" cy="-18" rx="36.096" ry="18"/>
 <text text-anchor="middle" x="369" y="-14.3" font-family="Times,serif" font-size="14.00">destroy</text>
 </g>
 <!-- groups&#45;&gt;destroy -->
@@ -56,7 +56,7 @@
 </g>
 <!-- group_params -->
 <g id="node6" class="node"><title>group_params</title>
-<ellipse fill="teal" stroke="black" cx="485" cy="-18" rx="61.6163" ry="18"/>
+<ellipse fill="red" stroke="black" cx="485" cy="-18" rx="61.6163" ry="18"/>
 <text text-anchor="middle" x="485" y="-14.3" font-family="Times,serif" font-size="14.00">group_params</text>
 </g>
 <!-- groups&#45;&gt;group_params -->

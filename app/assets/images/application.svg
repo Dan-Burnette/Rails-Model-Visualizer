@@ -16,7 +16,7 @@
 </g>
 <!-- configure_permitted_parameters -->
 <g id="node2" class="node"><title>configure_permitted_parameters</title>
-<ellipse fill="teal" stroke="black" cx="126" cy="-18" rx="126.133" ry="18"/>
+<ellipse fill="red" stroke="black" cx="126" cy="-18" rx="126.133" ry="18"/>
 <text text-anchor="middle" x="126" y="-14.3" font-family="Times,serif" font-size="14.00">configure_permitted_parameters</text>
 </g>
 <!-- application&#45;&gt;configure_permitted_parameters -->
