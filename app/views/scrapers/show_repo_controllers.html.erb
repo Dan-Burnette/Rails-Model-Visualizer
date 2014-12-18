@@ -2,6 +2,7 @@
 	<p> <%=	url %> </p>
 <% end %>
 
-<% @controllers.each do |c|  %>
-	<p> <%=	c %> </p>
+<% @controllers.each do |k,v|  %>
+	<p> <%=	k %> </p>
+	<p> <%= v.inspect %> </p>
 <% end %>

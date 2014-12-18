@@ -74,21 +74,22 @@ class ApplicationController < ActionController::Base
     controller_urls
   end
 
-  def get_controller_actions(controller_urls)
+  def get_controller_actions(controller_url)
     controller_actions = []
-    controller_urls.each do |url|
-      raw = Wombat.crawl do
-        base_url url
-        data({css: ".js-file-line"}, :list)
-      end
-      raw_data = raw["data"]
-      raw_data.each do |item|
-        if item.include?('def')
-          action = item.split[-1]
-          controller_actions.push(action)
-        end
+    raw = Wombat.crawl do
+      base_url controller_url
+      data({css: ".js-file-line"}, :list)
+    end
+
+    raw_data = raw["data"]
+    raw_data.each do |item|
+      if item.include?('def ')
+        action = item.split[-1]
+        controller_actions.push(action)
       end
     end
+   
+    controller_actions
   end
 
   #For checking if the schema can be found

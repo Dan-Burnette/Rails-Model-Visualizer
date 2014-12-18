@@ -208,17 +208,15 @@ class ScrapersController < ApplicationController
     scrape_all_urls(new_start_url)
     @controller_urls = get_controller_urls(@directory_urls)
 
-    #Parse controller names out of their URLS
-    @controllers = []
+    #Parse controller names out of their URLs, and gather their actions
+    #{controller => array of actions}
+    @controllers = {}
     @controller_urls.each do |url|
-      @controllers.push(url.split('/')[-1].split('_')[0])
+      name = url.split('/')[-1].split('_')[0]
+      actions = get_controller_actions(url)
+      @controllers.store(name, actions)
     end
 
-    #Scrape each controller url for that controller's actions 
-
-
-
-    
 
   end
 
