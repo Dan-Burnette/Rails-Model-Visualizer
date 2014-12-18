@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   #Pass in a list of all URLs and it will find all the models and URLS
+  #Used in scrapers_controller#show_model_graph  
   def get_models_and_urls(url_array)
     url_array.each do |url|
       if (url.include?('.rb'))
@@ -59,6 +60,18 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+  end
+
+  # Pass in a list of all urls and it will find those that are rails controllers
+  # used in scrapers_controller#show_repo_controllers
+  def get_controller_urls(url_array)
+    controller_urls = []
+    url_array.each do |url| 
+      if url.include?('controller.rb')
+        controller_urls.push(url)
+      end
+    end
+    controller_urls
   end
 
 

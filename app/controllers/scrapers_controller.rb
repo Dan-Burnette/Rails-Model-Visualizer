@@ -200,4 +200,14 @@ class ScrapersController < ApplicationController
 
   end
 
+  def show_repo_controllers
+
+    new_start_url = params[:start_url] + '/tree/master/app/controllers'
+    @directory_urls = []
+    scrape_all_urls(new_start_url)
+    get_controller_urls(@directory_urls)
+    
+
+  end
+
 end
