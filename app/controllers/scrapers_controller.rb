@@ -202,10 +202,21 @@ class ScrapersController < ApplicationController
 
   def show_repo_controllers
 
+    #Find all the controller URLs
     new_start_url = params[:start_url] + '/tree/master/app/controllers'
     @directory_urls = []
     scrape_all_urls(new_start_url)
     @controller_urls = get_controller_urls(@directory_urls)
+
+    #Parse controller names out of their URLS
+    @controllers = []
+    @controller_urls.each do |url|
+      @controllers.push(url.split('/')[-1].split('_')[0])
+    end
+
+    #Scrape each controller url for that controller's actions 
+
+
 
     
 
