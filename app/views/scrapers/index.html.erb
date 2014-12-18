@@ -24,6 +24,16 @@
 </div>
 
 
+<div class="form-container">
+<label>Controllers Test </label>
+<%= form_tag("/show_all", method: "get") do %> 
+	<input type="text" name="start_url">
+	<br>
+	<button type="submit">Visualize</button>
+<% end %>
+</div>
+
+
 
 <h3 class="disclaimer">Certain cases may not work... yet</h3>
 

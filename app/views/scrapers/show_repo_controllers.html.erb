@@ -1,11 +1,6 @@
-<% @controller_urls.each do |url|  %>
-	<p> <%=	url %> </p>
-<% end %>
 
-<% @controllers.each do |k,v|  %>
-	<p> <%=	k %> </p>
-	<p> <%= v.inspect %> </p>
-<% end %>
+<% @controllers.each do |name, actions| %>
+	<div>&nbsp</div>
+	<div> <%= inline_svg("#{name}.svg") %> <div> 
+<% end %> 
 
-
-<%= inline_svg("controllers.svg") %>

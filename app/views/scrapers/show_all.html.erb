@@ -1,0 +1,18 @@
+
+<nav> 
+	<li> <%= link_to "Visualize another project", root_path %>  </li>
+</nav>
+
+<% @model_to_data.each do |m, data|%>
+	<div hidden class=<%=m%>> <%=data %> </div>
+<% end %>
+
+<div class="mouse tooltip" >Mouse-tracking HTML Tip</div>
+
+<%= inline_svg("graph.svg") %>
+
+<% @controllers.each do |name, actions| %>
+	<div>&nbsp</div>
+	<div> <%= inline_svg("#{name}.svg") %> <div> 
+<% end %> 
+
