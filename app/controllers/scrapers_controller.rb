@@ -217,6 +217,29 @@ class ScrapersController < ApplicationController
       @controllers.store(name, actions)
     end
 
+    #Create a graph to represent controllers and their associated actions
+    g = GraphViz.new(:G, :type => :digraph )
+    g[:label] = "< <FONT POINT-SIZE='80'>" + "Controllers" + "</FONT> >"
+
+    # Create a node for each controller, and create nodes for each action, connecting them to their controller
+    #Must increment nodeID to allow for duplicate action nodes
+    #(such as multiple "create" actions that are common between controllers)
+    nodeIdCounter = 0
+    @controllers.each do |name, actions|
+      controller_node = g.add_nodes(name)
+      actions.each do |a|
+        action_node = g.add_nodes("ID_#{nodeIdCounter}", :label => a)
+        nodeIdCounter+=1
+        edge = g.add_edges(controller_node, action_node)
+        action_node[:style => 'filled']
+        action_node[:fillcolor => "teal"]
+      end
+      controller_node[:style => 'filled']
+      controller_node[:fillcolor => "teal"]
+
+    end
+
+    g.output(:svg => "app/assets/images/controllers.svg")
 
   end
 
