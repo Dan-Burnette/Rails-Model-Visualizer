@@ -205,7 +205,8 @@ class ScrapersController < ApplicationController
     new_start_url = params[:start_url] + '/tree/master/app/controllers'
     @directory_urls = []
     scrape_all_urls(new_start_url)
-    controller_urls = get_controller_urls(@directory_urls)
+    @controller_urls = get_controller_urls(@directory_urls)
+
     
 
   end

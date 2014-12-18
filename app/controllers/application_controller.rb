@@ -91,7 +91,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   #For checking if the schema can be found
   def url_exist?(url_string)
     url = URI.parse(url_string)
