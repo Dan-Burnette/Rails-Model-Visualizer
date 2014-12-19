@@ -1,5 +1,6 @@
 
 <h1 class="title"> Ruby on Rails ActiveRecord Model Visualizer</h1>
+<h3 class="subtitle">Now with controller visualizations!</h3>
 
 <% if flash[:alert] %>
 	<h4 class="error"><%=flash[:alert] %></h4>
@@ -7,19 +8,17 @@
 
 <div class="form-container">
 <label>Enter a Rails project's github URL </label>
-<%= form_tag("/show", method: "get") do %> 
+<%= form_tag("/show_all", method: "get") do %> 
 	<input type="text" name="start_url">
 	<br>
 	<button type="submit">Visualize</button>
 <% end %>
 </div>
 
-
 <h3 class="disclaimer">Certain cases may not work... yet</h3>
 
 <div class="examples">
 	<h4> Here are some open source projects known to work :</h4>
-
 	 <p>Fulcrum <br> https://github.com/fulcrum-agile/fulcrum </p>
 	 <p>Citizenry <br> https://github.com/reidab/citizenry </p>
 </div>

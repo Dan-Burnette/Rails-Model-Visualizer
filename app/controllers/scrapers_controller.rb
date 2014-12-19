@@ -1,8 +1,13 @@
 class ScrapersController < ApplicationController
   require "net/http"
 
+  def show_all
+    show_model_graph
+    show_repo_controllers
+  end
+
   def show_model_graph
-    # Scrape for models and their URLS ---------------------------------------
+    # Scrape for models and their URLS 
     @directory_urls = []
     @models = []
     @models_that_extend_active_record_base = []
@@ -197,6 +202,41 @@ class ScrapersController < ApplicationController
 
     #Output the graph
     g.output(:svg => "app/assets/images/graph.svg")
+
+  end
+
+  def show_repo_controllers
+
+    #Find all the controller URLs
+    new_start_url = params[:start_url] + '/tree/master/app/controllers'
+    @directory_urls = []
+    scrape_all_urls(new_start_url)
+    @controller_urls = get_controller_urls(@directory_urls)
+
+    #Parse controller names out of their URLs, and gather their actions
+    #{controller => array of actions}
+    @controllers = {}
+    @controller_urls.each do |url|
+      name = url.split('/')[-1].split('_')[0]
+      actions = get_controller_actions(url)
+      @controllers.store(name, actions)
+    end
+
+    # Create a graph for each controller representing what actions they have
+    # Create a node for each controller, and create nodes for each action, connecting them to their controller
+    @controllers.each do |name, actions|
+      g = GraphViz.new(:G, :type => :digraph )
+      controller_node = g.add_nodes(name)
+      actions.each do |a|
+        action_node = g.add_nodes(a)
+        edge = g.add_edges(controller_node, action_node)
+        action_node[:style => 'filled']
+        action_node[:fillcolor => "red"]
+      end
+      controller_node[:style => 'filled']
+      controller_node[:fillcolor => "blue"]
+      g.output(:svg => "app/assets/images/#{name}.svg")
+    end
 
   end
 

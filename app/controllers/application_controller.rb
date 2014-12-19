@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   #Pass in a list of all URLs and it will find all the models and URLS
+  #Used in scrapers_controller#show_model_graph  
   def get_models_and_urls(url_array)
     url_array.each do |url|
       if (url.include?('.rb'))
@@ -61,6 +62,35 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Pass in a list of all urls and it will find those that are rails controllers
+  # used in scrapers_controller#show_repo_controllers
+  def get_controller_urls(url_array)
+    controller_urls = []
+    url_array.each do |url| 
+      if url.include?('controller.rb')
+        controller_urls.push(url)
+      end
+    end
+    controller_urls
+  end
+
+  def get_controller_actions(controller_url)
+    controller_actions = []
+    raw = Wombat.crawl do
+      base_url controller_url
+      data({css: ".js-file-line"}, :list)
+    end
+
+    raw_data = raw["data"]
+    raw_data.each do |item|
+      #Get non-commented lines with def in them
+      if item.include?('def ') && !item.include?('#')
+        action = item.split[1]
+        controller_actions.push(action)
+      end
+    end
+    controller_actions
+  end
 
   #For checking if the schema can be found
   def url_exist?(url_string)
