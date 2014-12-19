@@ -83,12 +83,12 @@ class ApplicationController < ActionController::Base
 
     raw_data = raw["data"]
     raw_data.each do |item|
-      if item.include?('def ')
-        action = item.split[-1]
+      #Get non-commented lines with def in them
+      if item.include?('def ') && !item.include?('#')
+        action = item.split[1]
         controller_actions.push(action)
       end
     end
-   
     controller_actions
   end
 

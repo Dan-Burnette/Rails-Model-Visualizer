@@ -7,7 +7,7 @@ class ScrapersController < ApplicationController
   end
 
   def show_model_graph
-    # Scrape for models and their URLS ---------------------------------------
+    # Scrape for models and their URLS 
     @directory_urls = []
     @models = []
     @models_that_extend_active_record_base = []
@@ -224,9 +224,6 @@ class ScrapersController < ApplicationController
 
     # Create a graph for each controller representing what actions they have
     # Create a node for each controller, and create nodes for each action, connecting them to their controller
-    #Must increment nodeID to allow for duplicate action nodes
-    #(such as multiple "create" actions that are common between controllers)
-
     @controllers.each do |name, actions|
       g = GraphViz.new(:G, :type => :digraph )
       controller_node = g.add_nodes(name)
