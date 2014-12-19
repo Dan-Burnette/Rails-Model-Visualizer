@@ -23,4 +23,7 @@ Hovering over each model will produce a tooltip showing what that model's corres
 
 Disclaimer: There are some cases where it won't work, such as certain with_options blocks. 
 
+UPDATE 12/19/2014
+Added a feature which visualizes each controller and their actions.
+
 
