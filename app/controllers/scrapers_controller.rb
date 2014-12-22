@@ -17,26 +17,18 @@ class ScrapersController < ApplicationController
       return
     end
 
-    # Scrape for models and their URLS 
-    # @directory_urls = []
-    @models = []
-    @models_that_extend_active_record_base = []
-    @model_to_model_it_extends = {}
-    @model_urls = []
-
-
-
-
-    # Go through all directories recursively and grab the URLS for each file,
-    # pushing them into @directory_urls
+    # Go through all directories recursively and grab the URLS for each file
     directory_urls = ScrapeAllUrls.run(new_start_url)
 
-
-    # From these URLS, find the models and their URLs, pushing them into @model_urls
-    get_models_and_urls(directory_urls)
+    # From these URLS, find the models and their URLs. Also identify those 
+    # which extend activeRecord::Base through an intermediate class
+    model_info = GetModelsAndUrls.run(directory_urls)
+    models = model_info[:models]
+    model_to_model_it_extends = model_info[:model_to_model_it_extends]
+    model_urls = model_info[:model_urls]
 
     # Scrape each model page for their ActiveRecord assocations
-    all_relationships = GetModelAssociations.run(@model_urls)
+    all_relationships = GetModelAssociations.run(model_urls)
 
     # Scrape the Schema and map each table to its model
     schema_url = params[:start_url] + '/blob/master/db/schema.rb'
@@ -50,14 +42,14 @@ class ScrapersController < ApplicationController
 
     # Classes that extend classes which extend activeRecord base must also have their schemas
     # populated with the schema of the class they extend
-    @model_to_model_it_extends.each do |model, extends|
-      data = @model_to_data[extends]
+    model_to_model_it_extends.each do |model, extends|
+      data = model_to_data[extends]
       @model_to_data.store(model, data)
     end
 
     # Graphing it
     graph_title = params[:start_url].split('/')[-1]
-    graph_information = {graph_title: graph_title, models: @models, all_relationships: all_relationships }
+    graph_information = {graph_title: graph_title, models: models, all_relationships: all_relationships }
     CreateGraph.run(graph_information)
 
   end
