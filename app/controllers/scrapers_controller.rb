@@ -51,27 +51,23 @@ class ScrapersController < ApplicationController
 
     #Find all the controller URLs
     new_start_url = params[:start_url] + '/tree/master/app/controllers'
+
+    #Make sure URL exists
+    if (!url_exist?(new_start_url))
+      flash[:alert] = "An invalid URL was entered"
+      redirect_to :root
+      return
+    end
+    
     directory_urls = ScrapeAllUrls.run(new_start_url)
     controller_urls = GetControllerUrls.run(directory_urls)
 
-    #Parse controller names out of their URLs, and gather their actions
     #{controller => array of actions}
     @controllers = GetControllerActions.run(controller_urls)
 
-    # Create a graph for each controller representing what actions they have
-    # Create a node for each controller, and create nodes for each action, connecting them to their controller
+    #Create a graph for each controller 
     @controllers.each do |name, actions|
-      g = GraphViz.new(:G, :type => :digraph )
-      controller_node = g.add_nodes(name)
-      actions.each do |a|
-        action_node = g.add_nodes(a)
-        edge = g.add_edges(controller_node, action_node)
-        action_node[:style => 'filled']
-        action_node[:fillcolor => "red"]
-      end
-      controller_node[:style => 'filled']
-      controller_node[:fillcolor => "blue"]
-      g.output(:svg => "app/assets/images/#{name}.svg")
+      CreateControllerGraph.run(name, actions)
     end
 
   end
