@@ -1,6 +1,6 @@
 class GetSchemaData
 
-  def self.run(schema_url)
+  def self.run(schema_url, model_to_model_it_extends)
     raw_schema_page = Wombat.crawl do
       base_url schema_url
       data({css: ".js-file-line"}, :list)
@@ -44,6 +44,14 @@ class GetSchemaData
       all_table_data.push(table_data)
       model_to_data.store(model_name, table_data_str)
     end
+
+    # Classes that extend classes which extend activeRecord base must also have their schemas
+    # populated with the schema of the class they extend
+    model_to_model_it_extends.each do |model, extends|
+      data = model_to_data[extends]
+      model_to_data.store(model, data)
+    end
+
     model_to_data
   end
 

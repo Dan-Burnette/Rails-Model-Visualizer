@@ -33,18 +33,11 @@ class ScrapersController < ApplicationController
     # Scrape the Schema and map each table to its model
     schema_url = params[:start_url] + '/blob/master/db/schema.rb'
     if (url_exist?(schema_url))
-      @model_to_data = GetSchemaData.run(schema_url)
+      @model_to_data = GetSchemaData.run(schema_url, model_to_model_it_extends)
     else
       redirect_to :root
       flash[:alert] = "That project doesn't have a DB schema file! Not going to work...try another!"
       return
-    end
-
-    # Classes that extend classes which extend activeRecord base must also have their schemas
-    # populated with the schema of the class they extend
-    model_to_model_it_extends.each do |model, extends|
-      data = model_to_data[extends]
-      @model_to_data.store(model, data)
     end
 
     # Graphing it
@@ -59,16 +52,11 @@ class ScrapersController < ApplicationController
     #Find all the controller URLs
     new_start_url = params[:start_url] + '/tree/master/app/controllers'
     directory_urls = ScrapeAllUrls.run(new_start_url)
-    @controller_urls = get_controller_urls(directory_urls)
+    controller_urls = GetControllerUrls.run(directory_urls)
 
     #Parse controller names out of their URLs, and gather their actions
     #{controller => array of actions}
-    @controllers = {}
-    @controller_urls.each do |url|
-      name = url.split('/')[-1].split('_')[0]
-      actions = get_controller_actions(url)
-      @controllers.store(name, actions)
-    end
+    @controllers = GetControllerActions.run(controller_urls)
 
     # Create a graph for each controller representing what actions they have
     # Create a node for each controller, and create nodes for each action, connecting them to their controller
