@@ -1,3 +1,4 @@
+UPDATE SEPT 2018: This no longer works; probably due to syntax changes since rails 5. Maybe I will fix it sometime but I've got a job and it has served it's purpose for now :)
 
 RARMV: Rails ActiveRecord Model Visualizer
 
