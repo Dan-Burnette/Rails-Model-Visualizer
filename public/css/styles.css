@@ -1,0 +1,69 @@
+body {
+  background-image: url('/images/cubes.png');
+}
+svg {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tooltip {
+  pointer-events: none; /*let mouse events pass through*/
+  opacity: 0;
+  transition: opacity 0.3s;
+  text-shadow: 1px 1px 0px gray;
+}
+
+div.tooltip {
+  background: lightblue;
+  border: solid gray;
+  position: absolute;
+  text-align: left;
+}
+
+g.tooltip:not(.css) {
+  fill: currentColor;
+}
+g.tooltip rect {
+  fill: lightblue;
+  stroke: gray;
+}
+
+.model-graph {
+  text-align: center;
+}
+
+.controller-graph {
+  text-align: center;
+}
+
+.controller-title {
+  text-align: center;
+  font-family: 'Droid Sans Mono';
+}
+
+.title,
+.subtitle,
+.form-container,
+.examples,
+.disclaimer,
+.error,
+.contact {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Droid Sans Mono';
+}
+
+.title {
+  font-size: 5em;
+}
+
+.form-container {
+  margin-top: 7em;
+}
+
+input {
+  width: 20%;
+  height: 20px;
+  border-radius: 0.5em;
+}
