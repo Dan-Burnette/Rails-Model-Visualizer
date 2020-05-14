@@ -5,10 +5,10 @@ class GetModelAssociations
     urls.each do |url|
       lines = Wombat.crawl do 
         base_url url
-        data({css: ".js-file-line"}, :list)
+        the_lines({css: ".js-file-line"}, :list)
       end
 
-      lines = lines["data"]
+      lines = lines["the_lines"]
       relationships = []
 
       #Filter out bad relationships

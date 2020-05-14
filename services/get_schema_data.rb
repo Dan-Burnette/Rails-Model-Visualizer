@@ -3,10 +3,10 @@ class GetSchemaData
   def self.run(schema_url, model_to_model_it_extends)
     raw_schema_page = Wombat.crawl do
       base_url schema_url
-      data({css: ".js-file-line"}, :list)
+      lines({css: ".js-file-line"}, :list)
     end
 
-    db_schema_data = raw_schema_page["data"]
+    db_schema_data = raw_schema_page["lines"]
     db_schema_data.delete('end')
     db_schema_data.delete("")
     #remove the lines with add index, we don't want unneeded details like that

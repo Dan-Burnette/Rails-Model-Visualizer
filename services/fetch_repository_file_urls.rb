@@ -9,7 +9,7 @@ class FetchRepositoryFileUrls < ApplicationService
 
   def call
     begin
-      repo_ruby_file_urls
+      repo_model_file_urls
     rescue Octokit::Error => e
       e.response_body
     end
@@ -27,12 +27,12 @@ class FetchRepositoryFileUrls < ApplicationService
     tree_data[:tree]
   end
 
-  def repo_ruby_files
-    repo_tree.select { |e| e[:type] == "blob" && e[:path].include?(".rb") }
+  def repo_model_files
+    repo_tree.select { |e| e[:type] == "blob" && e[:path].include?("app/models") }
   end
 
-  def repo_ruby_file_urls
-    repo_ruby_files.map { |f| "#{github_repo_url}/{f[:path]}" }
+  def repo_model_file_urls
+    repo_model_files.map { |f| "#{@repo_url}/blob/master/#{f[:path]}" }
   end
 
 end

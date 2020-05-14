@@ -1,6 +1,6 @@
 require "net/http"
+require "active_support/all"
 require_relative "services/fetch_repository_file_urls"
-require_relative "services/scrape_all_urls"
 require_relative "services/get_models_and_urls"
 require_relative "services/get_model_associations"
 require_relative "services/get_schema_data"
@@ -16,32 +16,33 @@ end
 
 def show_model_graph
 
-  # Initial is githubprojecturl/tree/master/app
-  new_start_url = params[:start_url] + '/tree/master/app/models'
-
-  if (!url_exist?(new_start_url))
+  if (!url_exist?(params[:start_url]))
     # flash[:alert] = "An invalid URL was entered"
     # redirect_to :root
     # return
   end
 
-  directory_urls = FetchRepositoryFileUrls.call(params[:start_url])
+  file_urls = FetchRepositoryFileUrls.call(params[:start_url])
 
-  # Go through all directories recursively and grab the URLS for each file
-  # directory_urls = ScrapeAllUrls.run(new_start_url)
-
-  puts "directory urls are"
-  puts directory_urls.inspect
+  puts "files count #{file_urls.count}"
+  puts "file urls are"
+  puts file_urls.inspect
 
   # From these URLS, find the models and their URLs. Also identify those
   # which extend activeRecord::Base through an intermediate class
-  model_info = GetModelsAndUrls.run(directory_urls)
+  model_info = GetModelsAndUrls.run(file_urls)
   models = model_info[:models]
   model_to_model_it_extends = model_info[:model_to_model_it_extends]
   model_urls = model_info[:model_urls]
 
+  puts "Model info"
+  puts model_info.inspect
+
   # Scrape each model page for their ActiveRecord assocations
   all_relationships = GetModelAssociations.run(model_urls)
+
+  puts "all relationships"
+  puts all_relationships.inspect
 
   # Scrape the Schema and map each table to its model
   schema_url = params[:start_url] + '/blob/master/db/schema.rb'
