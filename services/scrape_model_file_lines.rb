@@ -9,9 +9,9 @@ class ScrapeModelFileLines < ApplicationService
   end
 
   def call
-    result = {}
-    @urls.each { |url| result[model_name(url)] = scrape_lines(url) }
-    result
+    models_to_lines = {}
+    @urls.each { |url| models_to_lines[model_name(url)] = scrape_lines(url) }
+    models_to_lines
   end
 
   private

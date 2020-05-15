@@ -1,9 +1,6 @@
 require_relative "services/fetch_repository_model_urls"
-require_relative "services/extract_model_names"
 require_relative "services/extract_model_associations"
-
 require_relative "services/scrape_model_file_lines"
-require_relative "services/scrape_model_data"
 require_relative "services/get_model_associations"
 require_relative "services/get_schema_data"
 require_relative "services/create_graph"
@@ -21,19 +18,11 @@ get '/show_all' do
   end
 
   model_urls = FetchRepositoryModelUrls.call(params[:start_url])
-  model_file_lines = ScrapeModelFileLines.call(model_urls)
+  models_to_file_lines = ScrapeModelFileLines.call(model_urls)
+  models_to_associations = ExtractModelAssociations.call(models_to_file_lines)
 
-  names = ExtractModelNames.call(model_file_lines)
-  associations = ExtractModelAssociations.call(model_file_lines)
-
-  puts "names"
-  puts names.inspect
-
-  puts "extensions"
-  puts extensions.inspect
-
-  puts "associations"
-  puts associations.inspect
+  puts "models_to_associations"
+  puts models_to_associations.inspect
 
   # From these URLS, find the models and their URLs. Also identify those
   # which extend activeRecord::Base through an intermediate class
@@ -62,7 +51,7 @@ get '/show_all' do
 
   # Graphing it
   graph_title = params[:start_url].split('/')[-1]
-  graph_information = {graph_title: graph_title, models: names, all_relationships: associations }
+  graph_information = {graph_title: graph_title, models: models_to_file_lines.keys, all_relationships: models_to_associations.values }
   CreateGraph.run(graph_information)
 
   erb :show_all

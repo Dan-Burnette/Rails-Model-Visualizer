@@ -1,35 +1,31 @@
 class ExtractModelAssociations < ApplicationService
 
-  def initialize(lines)
-    @lines = lines
+  def initialize(models_to_file_lines)
+    @models_to_file_lines = models_to_file_lines
   end
 
   def call
-    all_relationships = []
-    lines = Wombat.crawl do 
-      base_url url
-      the_lines({css: ".js-file-line"}, :list)
+    models_to_associations = {}
+    @models_to_file_lines.each do |model, lines|
+      models_to_associations[model] = associations(lines)
     end
-
-    lines = lines["the_lines"]
-    relationships = []
-
-    #Filter out bad relationships
-    lines.each do |line|
-      line_split = line.split(' ')
-      #eliminating lines such as "attachment_fake_belongs_to_group(a)"
-      #23 is the length of has_and_belongs_to_many, the biggest relationship
-      if (line_split[0] != nil && line_split[0].length <= 23)
-        if (line_split[0].include?("belongs_to") || line_split[0].include?("has_one") ||
-            line_split[0].include?("has_many") || line_split[0].include?("belongs_to"))
-          if (!line.include?("validates") && !line.include?('#'))
-            relationships.push(line)
-          end
-        end 
-      end
-      all_relationships.push(relationships)
-    end
-    all_relationships
+    models_to_associations
   end
+
   private
+
+  def associations(lines)
+    lines.select { |l| defines_association?(l) }
+  end
+
+  def defines_association?(line)
+    return false if line.empty?
+    first_word = line.split(' ')[0]
+    association_roots.any? { |root| first_word.include? root }
+  end
+
+  def association_roots
+    ["belongs_to", "has_one", "has_many"]
+  end
+
 end
