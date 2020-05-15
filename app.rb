@@ -1,7 +1,6 @@
 require_relative "services/fetch_repository_model_urls"
 require_relative "services/extract_model_associations"
 require_relative "services/scrape_model_file_lines"
-require_relative "services/get_model_associations"
 require_relative "services/get_schema_data"
 require_relative "services/create_graph"
 
@@ -51,8 +50,7 @@ get '/show_all' do
 
   # Graphing it
   graph_title = params[:start_url].split('/')[-1]
-  graph_information = {graph_title: graph_title, models: models_to_file_lines.keys, all_relationships: models_to_associations.values }
-  CreateGraph.run(graph_information)
+  CreateGraph.call(graph_title, models_to_associations)
 
   erb :show_all
 end
