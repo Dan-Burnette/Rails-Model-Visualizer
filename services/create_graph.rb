@@ -85,7 +85,7 @@ class CreateGraph
     end
 
     #Output the graph
-    g.output(:svg => "public/graph.svg")
+    g.output(:svg => "public/images/graph.svg")
   end
 
 end

@@ -1,6 +1,6 @@
 require_relative "application_service"
 
-class FetchRepositoryFileUrls < ApplicationService
+class FetchRepositoryModelUrls < ApplicationService
 
   def initialize(github_repo_url)
     @repo_url = github_repo_url
@@ -28,7 +28,7 @@ class FetchRepositoryFileUrls < ApplicationService
   end
 
   def repo_model_files
-    repo_tree.select { |e| e[:type] == "blob" && e[:path].include?("app/models") }
+    repo_tree.select { |e| e[:path].include?("app/models") && e[:path].include?(".rb") }
   end
 
   def repo_model_file_urls

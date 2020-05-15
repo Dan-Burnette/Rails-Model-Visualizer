@@ -1,7 +1,5 @@
-require "net/http"
-require "active_support/all"
-require_relative "services/fetch_repository_file_urls"
-require_relative "services/get_models_and_urls"
+require_relative "services/fetch_repository_model_urls"
+require_relative "services/scrape_model_data"
 require_relative "services/get_model_associations"
 require_relative "services/get_schema_data"
 require_relative "services/create_graph"
@@ -11,10 +9,6 @@ get '/' do
 end
 
 get '/show_all' do
-  show_model_graph
-end
-
-def show_model_graph
 
   if (!url_exist?(params[:start_url]))
     # flash[:alert] = "An invalid URL was entered"
@@ -22,18 +16,13 @@ def show_model_graph
     # return
   end
 
-  file_urls = FetchRepositoryFileUrls.call(params[:start_url])
-
-  puts "files count #{file_urls.count}"
-  puts "file urls are"
-  puts file_urls.inspect
+  model_urls = FetchRepositoryModelUrls.call(params[:start_url])
 
   # From these URLS, find the models and their URLs. Also identify those
   # which extend activeRecord::Base through an intermediate class
-  model_info = GetModelsAndUrls.run(file_urls)
+  model_info = ScrapeModelData.call(model_urls)
   models = model_info[:models]
   model_to_model_it_extends = model_info[:model_to_model_it_extends]
-  model_urls = model_info[:model_urls]
 
   puts "Model info"
   puts model_info.inspect
@@ -59,6 +48,7 @@ def show_model_graph
   graph_information = {graph_title: graph_title, models: models, all_relationships: all_relationships }
   CreateGraph.run(graph_information)
 
+  erb :show_all
 end
 
 #For checking if the schema can be found
@@ -71,5 +61,10 @@ def url_exist?(url_string)
   res.code != "404" # false if returns 404 - not found
 rescue Exception => e
   false # false if can't find the server
+end
+
+def inline_svg(file_name)
+  file_path = "public/images/#{file_name}"
+  File.read(file_path) 
 end
 

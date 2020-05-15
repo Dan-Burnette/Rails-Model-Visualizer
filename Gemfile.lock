@@ -20,6 +20,9 @@ GEM
       domain_name (~> 0.5)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    inline_svg (1.7.1)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     mechanize (2.7.6)
       domain_name (~> 0.5, >= 0.5.1)
       http-cookie (~> 1.0)
@@ -87,6 +90,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  inline_svg
   octokit (~> 4.0)
   ruby-graphviz
   sinatra
