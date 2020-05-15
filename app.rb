@@ -1,4 +1,8 @@
 require_relative "services/fetch_repository_model_urls"
+require_relative "services/extract_model_names"
+require_relative "services/extract_model_associations"
+
+require_relative "services/scrape_model_file_lines"
 require_relative "services/scrape_model_data"
 require_relative "services/get_model_associations"
 require_relative "services/get_schema_data"
@@ -17,26 +21,39 @@ get '/show_all' do
   end
 
   model_urls = FetchRepositoryModelUrls.call(params[:start_url])
+  model_file_lines = ScrapeModelFileLines.call(model_urls)
+
+  names = ExtractModelNames.call(model_file_lines)
+  associations = ExtractModelAssociations.call(model_file_lines)
+
+  puts "names"
+  puts names.inspect
+
+  puts "extensions"
+  puts extensions.inspect
+
+  puts "associations"
+  puts associations.inspect
 
   # From these URLS, find the models and their URLs. Also identify those
   # which extend activeRecord::Base through an intermediate class
-  model_info = ScrapeModelData.call(model_urls)
-  models = model_info[:models]
-  model_to_model_it_extends = model_info[:model_to_model_it_extends]
+  # model_info = ScrapeModelData.call(model_urls)
+  # models = model_info[:models]
+  # model_to_model_it_extends = model_info[:model_to_model_it_extends]
 
-  puts "Model info"
-  puts model_info.inspect
+ # puts "Model info"
+  # puts model_info.inspect
 
   # Scrape each model page for their ActiveRecord assocations
-  all_relationships = GetModelAssociations.run(model_urls)
+  # all_relationships = GetModelAssociations.run(model_urls)
 
-  puts "all relationships"
-  puts all_relationships.inspect
+  # puts "all relationships"
+  # puts all_relationships.inspect
 
   # Scrape the Schema and map each table to its model
   schema_url = params[:start_url] + '/blob/master/db/schema.rb'
   if (url_exist?(schema_url))
-    @model_to_data = GetSchemaData.run(schema_url, model_to_model_it_extends)
+    @model_to_data = GetSchemaData.run(schema_url)
   else
     redirect_to :root
     flash[:alert] = "That project doesn't have a DB schema file! Not going to work...try another!"
@@ -45,7 +62,7 @@ get '/show_all' do
 
   # Graphing it
   graph_title = params[:start_url].split('/')[-1]
-  graph_information = {graph_title: graph_title, models: models, all_relationships: all_relationships }
+  graph_information = {graph_title: graph_title, models: names, all_relationships: associations }
   CreateGraph.run(graph_information)
 
   erb :show_all
