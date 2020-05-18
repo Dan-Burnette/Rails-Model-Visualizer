@@ -8,7 +8,7 @@ get '/' do
   erb :index
 end
 
-get '/show_all' do
+get '/visualize' do
 
   if (!url_exist?(params[:start_url]))
     # flash[:alert] = "An invalid URL was entered"
@@ -17,8 +17,6 @@ get '/show_all' do
   end
 
   models_to_file_contents = FetchRepositoryModelFileContents.call(params[:start_url])
-  puts "models to file contents"
-  puts models_to_file_contents
 
   models_to_associations = {}
   models_to_file_contents.each do |model, file_contents|
