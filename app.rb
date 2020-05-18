@@ -25,9 +25,6 @@ get '/visualize' do
     models_to_associations[model] = associations
   end
 
-  puts "models_to_associations"
-  puts models_to_associations.inspect
-
   # From these URLS, find the models and their URLs. Also identify those
   # which extend activeRecord::Base through an intermediate class
   # model_info = ScrapeModelData.call(model_urls)

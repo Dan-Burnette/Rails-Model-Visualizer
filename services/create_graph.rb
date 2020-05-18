@@ -8,6 +8,8 @@ class CreateGraph < ApplicationService
   end
 
   def call
+    puts "MODELS ARE"
+    puts @models.inspect
     set_graph_title
 
     nodes = create_model_nodes
@@ -36,6 +38,8 @@ class CreateGraph < ApplicationService
 
   def create_association_edges(node, associations)
     associations.each do |association|
+      puts "association is"
+      puts association.inspect
       # dotted_edge = false
       # nodes_involved_raw = 
       #   r.split(" ").select do |x|
@@ -53,37 +57,37 @@ class CreateGraph < ApplicationService
       # other_parts = association_parts[1]
 
       # If only one node is found, it is the one we want to connect to
-      if (nodes_involved.size == 1)
-        nodeToConnect = nodes_involved[0]
+      # if (nodes_involved.size == 1)
+      #   nodeToConnect = nodes_involved[0]
 
         # If two nodes are found
-      elsif (nodes_involved.size == 2)
-        dotted_edge = true
-        if (r.include?("source") && r.include?("through"))
-          join_model = nodes_involved[0].pluralize
-          nodeToConnect = nodes_involved[1]
-          association += "through #{join_model}"
-        elsif (r.include?("through"))
-          join_model = nodes_involved[1].pluralize
-          nodeToConnect = nodes_involved[0]
-          association += "through #{join_model}"
-        elsif (r.include?("include"))
-          nodeToConnect = nodes_involved[0]
-          #Possible unaccounted for things here...?
-        else 
-          nodeToConnect = nodes_involved[0]
-        end
+      # elsif (nodes_involved.size == 2)
+      #   dotted_edge = true
+      #   if (r.include?("source") && r.include?("through"))
+      #     join_model = nodes_involved[0].pluralize
+      #     nodeToConnect = nodes_involved[1]
+      #     association += "through #{join_model}"
+      #   elsif (r.include?("through"))
+      #     join_model = nodes_involved[1].pluralize
+      #     nodeToConnect = nodes_involved[0]
+      #     association += "through #{join_model}"
+      #   elsif (r.include?("include"))
+      #     nodeToConnect = nodes_involved[0]
+      #     #Possible unaccounted for things here...?
+      #   else 
+      #     nodeToConnect = nodes_involved[0]
+      #   end
+      #
+      # else
+      #   nodeToConnect = other_parts
+      # end
 
-      else
-        nodeToConnect = other_parts
-      end
 
-
-      edge = @graph.add_edges(node, nodeToConnect)
-      edge[:label] =  "#{association}" 
+      edge = @graph.add_edges(node, association.to_model)
+      edge[:label] =  "xxx" 
       edge[:fontsize] = 10
 
-      if (dotted_edge)
+      if association.through_model
         edge[:style] = "dashed"
       end
 
