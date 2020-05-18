@@ -20,12 +20,14 @@ class ParseAssociationLine < ApplicationService
   end
 
   def to_model
-    if @line_terms.include?("class_name")
-      class_name_index = @line_terms.index("class_name")
-      @line_terms[class_name_index + 1].downcase
-    else
+    @line_terms.include?("class_name") ?
+      class_name_model :
       @line_terms[1].singularize
-    end
+  end
+
+  def class_name_model
+    class_name_index = @line_terms.index("class_name")
+    @line_terms[class_name_index + 1].downcase
   end
 
   def through_model
