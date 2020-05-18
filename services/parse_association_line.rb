@@ -10,33 +10,28 @@ class ParseAssociationLine < ApplicationService
   end
 
   def call
-    Association.new(
-      parse_type,
-      @model,
-      parse_to_model,
-      parse_through_model
-    )
+    Association.new(type, @model, to_model, through_model)
   end
 
   private
 
-  def parse_type
+  def type
     @line_terms[0]
   end
 
-  def parse_to_model
+  def to_model
     if @line_terms.include?("class_name")
-      class_name_index = @line_terms.index { |term| term == "class_name" }
+      class_name_index = @line_terms.index("class_name")
       @line_terms[class_name_index + 1].downcase
     else
       @line_terms[1].singularize
     end
   end
 
-  def parse_through_model
+  def through_model
     return nil if !@line_terms.include?("through")
-    through_piece_index = @line_terms.index { |term| term == "through" }
-    @line_terms[through_piece_index + 1]
+    through_term_index = @line_terms.index("through")
+    @line_terms[through_term_index + 1]
   end
 
 end

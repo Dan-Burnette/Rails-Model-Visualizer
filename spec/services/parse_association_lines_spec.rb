@@ -7,32 +7,31 @@ describe "ParseAssociationLine" do
     @from_model = "users"
   end
 
-  it "sets from_model properly" do
-    line_double = double("line").as_null_object
-    association = ParseAssociationLine.call(@from_model, line_double)
-    expect(association.from_model).to eq @from_model
-  end
+  describe "call" do
 
-  context "belongs_to association" do
+    it "sets from_model properly" do
+      line_double = double("line").as_null_object
+      association = ParseAssociationLine.call(@from_model, line_double)
+      expect(association.from_model).to eq(@from_model)
+    end
 
     context "no options" do
 
-      before(:all) do
-        @line = "belongs_to :project"
-      end
-
       it "parses type properly" do
-        association = ParseAssociationLine.call(@from_model, @line)
-        expect(association.type).to eq("belongs_to")
+        line = "some_association :project"
+        association = ParseAssociationLine.call(@from_model, line)
+        expect(association.type).to eq("some_association")
       end
 
       it "parses to_model properly" do
-        association = ParseAssociationLine.call(@from_model, @line)
+        line = "some_association :project"
+        association = ParseAssociationLine.call(@from_model, line)
         expect(association.to_model).to eq("project")
       end
 
       it "parses through_model properly" do
-        association = ParseAssociationLine.call(@from_model, @line)
+        line = "some_association :project"
+        association = ParseAssociationLine.call(@from_model, line)
         expect(association.through_model).to eq(nil)
       end
 
@@ -41,13 +40,13 @@ describe "ParseAssociationLine" do
     context "with class_name option" do
 
       it "parses to_model properly with hashrocket syntax" do
-        line = "belongs_to :project, :class_name => 'Membership'"
+        line = "some_association :project, :class_name => 'Membership'"
         association = ParseAssociationLine.call(@from_model, line)
         expect(association.to_model).to eq("membership")
       end
 
       it "parses to_model properly with hash syntax" do
-        line = "belongs_to :project, class_name: 'Membership'"
+        line = "some_association :project, class_name: 'Membership'"
         association = ParseAssociationLine.call(@from_model, line)
         expect(association.to_model).to eq("membership")
       end
@@ -55,13 +54,13 @@ describe "ParseAssociationLine" do
       context "with additional options" do
 
         it "parses to_model properly with hashrocket syntax" do
-          line = "has_one :project, :option_one => :thing_one, :class_name => 'Membership', :option_two => :thing_two"
+          line = "some_association :project, :option_one => :thing_one, :class_name => 'Membership', :option_two => :thing_two"
           association = ParseAssociationLine.call(@from_model, line)
           expect(association.to_model).to eq("membership")
         end
 
         it "parses to_model properly with hash syntax" do
-          line = "has_one :project, option_one: :thing_one, class_name: 'Membership', option_two: :thing_two"
+          line = "some_association :project, option_one: :thing_one, class_name: 'Membership', option_two: :thing_two"
           association = ParseAssociationLine.call(@from_model, line)
           expect(association.to_model).to eq("membership")
         end
@@ -69,43 +68,16 @@ describe "ParseAssociationLine" do
 
     end
 
-  end
-
-  context "has_one association" do
-
-    context "no options" do 
-
-      before(:all) do
-        @line = "has_one :project"
-      end
-
-      it "parses type properly" do
-        association = ParseAssociationLine.call(@from_model, @line)
-        expect(association.type).to eq("has_one")
-      end
-
-      it "parses to_model properly" do
-        association = ParseAssociationLine.call(@from_model, @line)
-        expect(association.to_model).to eq("project")
-      end
-
-      it "parses through_model properly" do
-        association = ParseAssociationLine.call(@from_model, @line)
-        expect(association.through_model).to eq(nil)
-      end
-
-    end
-
     context "with through option" do
 
       it "parses through_model properly with hashrocket syntax" do
-        line = "has_one :project, :through => :membership"
+        line = "some_association :project, :through => :membership"
         association = ParseAssociationLine.call(@from_model, line)
         expect(association.through_model).to eq("membership")
       end
 
       it "parses through_model properly with hash syntax" do
-        line = "has_one :project, through: :membership"
+        line = "some_association :project, through: :membership"
         association = ParseAssociationLine.call(@from_model, line)
         expect(association.through_model).to eq("membership")
       end
@@ -113,103 +85,17 @@ describe "ParseAssociationLine" do
       context "with additional options" do
 
         it "parses through_model properly with hashrocket syntax" do
-          line = "has_one :project, :option_one => :thing_one, :through => :membership, :option_two => :thing_two"
+          line = "some_association :project, :option_one => :thing_one, :through => :membership, :option_two => :thing_two"
           association = ParseAssociationLine.call(@from_model, line)
           expect(association.through_model).to eq("membership")
         end
 
         it "parses through_model properly with hash syntax" do
-          line = "has_one :project, option_one: :thing_one, through: :membership, option_two: :thing_two"
+          line = "some_association :project, option_one: :thing_one, through: :membership, option_two: :thing_two"
           association = ParseAssociationLine.call(@from_model, line)
           expect(association.through_model).to eq("membership")
         end
 
-      end
-
-    end
-
-  end
-
-  context "has_many association" do
-
-    context "no options" do 
-
-      before(:all) do
-        @line = "has_many :projects"
-      end
-
-      it "parses type properly" do
-        association = ParseAssociationLine.call(@from_model, @line)
-        expect(association.type).to eq("has_many")
-      end
-
-      it "parses to_model properly" do
-        association = ParseAssociationLine.call(@from_model, @line)
-        expect(association.to_model).to eq("project")
-      end
-
-      it "parses through_model properly" do
-        association = ParseAssociationLine.call(@from_model, @line)
-        expect(association.through_model).to eq(nil)
-      end
-
-    end
-
-    context "with through option" do
-
-      it "parses through_model properly with hashrocket syntax" do
-        line = "has_many :projects, :through => :membership"
-        association = ParseAssociationLine.call(@from_model, line)
-        expect(association.through_model).to eq("membership")
-      end
-
-      it "parses through_model properly with hash syntax" do
-        line = "has_many :projects, through: :membership"
-        association = ParseAssociationLine.call(@from_model, line)
-        expect(association.through_model).to eq("membership")
-      end
-
-      context "with additional options" do
-
-        it "parses through_model properly with hashrocket syntax" do
-          line = "has_many :projects, :option_one => :thing_one, :through => :membership, :option_two => :thing_two"
-          association = ParseAssociationLine.call(@from_model, line)
-          expect(association.through_model).to eq("membership")
-        end
-
-        it "parses through_model properly with hash syntax" do
-          line = "has_many :projects, option_one: :thing_one, through: :membership, option_two: :thing_two"
-          association = ParseAssociationLine.call(@from_model, line)
-          expect(association.through_model).to eq("membership")
-        end
-
-      end
-
-    end
-
-  end
-
-  context "has_and_belongs_to_many association" do
-
-    context "no options" do
-
-      before(:all) do
-        @line = "has_and_belongs_to_many :projects"
-      end
-
-      it "parses type properly" do
-        association = ParseAssociationLine.call(@from_model, @line)
-        expect(association.type).to eq("has_and_belongs_to_many")
-      end
-
-      it "parses to_model properly" do
-        association = ParseAssociationLine.call(@from_model, @line)
-        expect(association.to_model).to eq("project")
-      end
-
-      it "parses through_model properly" do
-        association = ParseAssociationLine.call(@from_model, @line)
-        expect(association.through_model).to eq(nil)
       end
 
     end
