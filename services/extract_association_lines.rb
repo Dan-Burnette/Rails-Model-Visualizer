@@ -2,15 +2,21 @@ require_relative "../models/association"
 
 class ExtractAssociationLines < ApplicationService
 
-  def initialize(lines)
-    @lines = lines
+  def initialize(content)
+    @content = content
+    puts "extracting lines from content:"
+    puts content.inspect
   end
 
   def call
-    @lines.select { |l| defines_association?(l) }
+    lines.select { |l| defines_association?(l) }
   end
 
   private
+
+  def lines
+    @content.split("\n")
+  end
 
   def defines_association?(line)
     return false if line.empty?

@@ -16,15 +16,13 @@ get '/show_all' do
     # return
   end
 
-  model_file_contents = FetchRepositoryModelFileContents.call(params[:start_url])
-  puts "CONTENTS ARE"
-  puts model_file_contents.inspect
+  models_to_file_contents = FetchRepositoryModelFileContents.call(params[:start_url])
+  puts "models to file contents"
+  puts models_to_file_contents
 
   models_to_associations = {}
-  model_urls.each_with_index do |url, i|
-    model = model_name(url)
-    file_lines = ScrapeModelFileLines.call(params[:start_url], url) 
-    association_lines = ExtractAssociationLines.call(file_lines) 
+  models_to_file_contents.each do |model, file_contents|
+    association_lines = ExtractAssociationLines.call(file_contents) 
     associations = association_lines.map { |l| ParseAssociationLine.call(model, l) }
     models_to_associations[model] = associations
   end
@@ -81,8 +79,5 @@ def inline_svg(file_name)
   File.read(file_path) 
 end
 
-def model_name(url)
-  url.split('/').last.gsub(".rb", "")
-end
 
 
