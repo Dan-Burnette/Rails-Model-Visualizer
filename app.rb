@@ -1,5 +1,6 @@
 require_relative "services/fetch_repository_model_urls"
-require_relative "services/extract_model_associations"
+require_relative "services/extract_association_lines"
+require_relative "services/parse_association_line"
 require_relative "services/scrape_model_file_lines"
 require_relative "services/get_schema_data"
 require_relative "services/create_graph"
@@ -17,8 +18,15 @@ get '/show_all' do
   end
 
   model_urls = FetchRepositoryModelUrls.call(params[:start_url])
-  models_to_file_lines = ScrapeModelFileLines.call(model_urls)
-  models_to_associations = ExtractModelAssociations.call(models_to_file_lines)
+
+  models_to_associations = {}
+  model_urls.each_with_index do |url, i|
+    model = model_name(url)
+    file_lines = ScrapeModelFileLines.call(url) 
+    association_lines = ExtractAssociationLines.call(file_lines) 
+    associations = association_lines.map { |l| ParseAssociationLine.call(model, l) }
+    models_to_associations[model] = associations
+  end
 
   puts "models_to_associations"
   puts models_to_associations.inspect
@@ -71,4 +79,9 @@ def inline_svg(file_name)
   file_path = "public/images/#{file_name}"
   File.read(file_path) 
 end
+
+def model_name(url)
+  url.split('/').last.gsub(".rb", "")
+end
+
 

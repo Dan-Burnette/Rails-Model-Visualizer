@@ -4,21 +4,17 @@ class ScrapeModelFileLines < ApplicationService
   # scraping in inherently not future proof as they may change their HTML setup
   # on github, ruining this code in the future.
 
-  def initialize(model_urls)
-    @urls = model_urls
+  def initialize(model_url)
+    @url = model_url
+    puts "url is " 
+    puts @url.inspect
   end
 
   def call
-    models_to_lines = {}
-    @urls.each { |url| models_to_lines[model_name(url)] = scrape_lines(url) }
-    models_to_lines
+    scrape_lines(@url)
   end
 
   private
-
-  def model_name(url)
-    url.split('/').last.gsub(".rb", "")
-  end
 
   def scrape_lines(url)
     scraped_data = Wombat.crawl do
