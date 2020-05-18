@@ -6,7 +6,7 @@ class ParseAssociationLine < ApplicationService
 
   def initialize(model, association_line)
     @model = model
-    @line = association_line
+    @line_terms = association_line.delete("=>:,'\"").split(" ")
   end
 
   def call
@@ -21,18 +21,22 @@ class ParseAssociationLine < ApplicationService
   private
 
   def parse_type
-    @line.split(" ")[0]
+    @line_terms[0]
   end
 
   def parse_to_model
-    @line.split(" ")[1].delete(":,").singularize
+    if @line_terms.include?("class_name")
+      class_name_index = @line_terms.index { |term| term == "class_name" }
+      @line_terms[class_name_index + 1].downcase
+    else
+      @line_terms[1].singularize
+    end
   end
 
   def parse_through_model
-    return nil if !@line.include?("through")
-    terms = @line.delete("=>:,").split(" ")
-    through_piece_index = terms.index { |term| term == "through" }
-    terms[through_piece_index + 1]
+    return nil if !@line_terms.include?("through")
+    through_piece_index = @line_terms.index { |term| term == "through" }
+    @line_terms[through_piece_index + 1]
   end
 
 end
