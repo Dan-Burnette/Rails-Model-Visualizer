@@ -1,7 +1,6 @@
-require_relative "services/fetch_repository_model_urls"
+require_relative "services/fetch_repository_model_file_contents"
 require_relative "services/extract_association_lines"
 require_relative "services/parse_association_line"
-require_relative "services/scrape_model_file_lines"
 require_relative "services/get_schema_data"
 require_relative "services/create_graph"
 
@@ -17,12 +16,14 @@ get '/show_all' do
     # return
   end
 
-  model_urls = FetchRepositoryModelUrls.call(params[:start_url])
+  model_file_contents = FetchRepositoryModelFileContents.call(params[:start_url])
+  puts "CONTENTS ARE"
+  puts model_file_contents.inspect
 
   models_to_associations = {}
   model_urls.each_with_index do |url, i|
     model = model_name(url)
-    file_lines = ScrapeModelFileLines.call(url) 
+    file_lines = ScrapeModelFileLines.call(params[:start_url], url) 
     association_lines = ExtractAssociationLines.call(file_lines) 
     associations = association_lines.map { |l| ParseAssociationLine.call(model, l) }
     models_to_associations[model] = associations
