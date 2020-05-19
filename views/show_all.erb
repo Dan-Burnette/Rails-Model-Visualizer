@@ -5,11 +5,13 @@
 </nav>
 
 <% @model_to_data.each do |m, data|%>
-	<div hidden class=<%=m%>> <%=data %> </div>
+  <div hidden class=<%=m%>> <%=data %> </div>
 <% end %>
 
 <div class="mouse tooltip">Mouse-tracking HTML Tip</div>
 
-<div class="model-graph"> <%= inline_svg("graph.svg") %> </div>
+
+<!-- Create a div where the graph will take place -->
+<div id="graph" data-graph=<%=@graph_json%>></div>
 
 
