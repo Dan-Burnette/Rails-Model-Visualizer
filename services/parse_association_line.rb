@@ -20,9 +20,9 @@ class ParseAssociationLine < ApplicationService
   end
 
   def to_model
-    if @line_terms.include? "class_name"
+    if @line_terms.include?("class_name")
       option("class_name").downcase
-    elsif @line_terms.include? "source"
+    elsif @line_terms.include?("source")
       option("source")
     else
       @line_terms[1].singularize

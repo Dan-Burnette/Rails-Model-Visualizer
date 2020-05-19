@@ -1,45 +1,48 @@
-require "active_support/inflector"
-
 class CreateGraph < ApplicationService
 
   def initialize(title, models_to_associations)
     @title = title
     @models = models_to_associations.keys
-    @associations = models_to_associations.values
-    @graph = GraphViz.new(:G, :type => :digraph )
+    @associations = models_to_associations.values.flatten
   end
 
-
   def call
-    set_graph_title
-
-    @models.each_with_index do |model, i|
-      associations = @associations[i]
-      create_association_edges(model, associations)
-    end
-
-    @graph.output(:svg => "public/images/graph.svg")
+    initialize_graph
+    create_model_nodes
+    create_association_edges
+    output_graph
   end
 
   private
 
-  def set_graph_title
-    @graph[:label] = "< <FONT POINT-SIZE='80'>" + "#{@title}" + "</FONT> >"
+  def initialize_graph
+    @graph = GraphViz.new(:G, type: :digraph, label: graph_title)
   end
 
-  def create_association_edges(model, associations)
-    associations.each do |association|
-      edge = @graph.add_edges(model, association.to_model)
+  def graph_title
+    "< <FONT POINT-SIZE='80'>" + "#{@title}" + "</FONT> >"
+  end
 
-      label = "#{association.type}"
-      if association.through_model
-        edge[:style] = "dashed"
-        label += " #{association.to_model} through #{association.through_model.pluralize}"
-      end
-
-      edge[:label] = label
-      edge[:fontsize] = 10
+  def create_model_nodes
+    @models.each do |model|
+      @graph.add_nodes(model, label: model, style: "filled", color: "teal")
     end
+  end
+
+  def create_association_edges
+    @associations.each do |association|
+      @graph.add_edges(
+        association.from_model,
+        association.to_model,
+        label: association.label,
+        style: association.through_model ? "dashed" : "solid",
+        fontsize: 10,
+      )
+    end
+  end
+
+  def output_graph
+    @graph.output(svg: "public/images/graph.svg")
   end
 
 end

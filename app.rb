@@ -10,13 +10,13 @@ end
 
 get '/visualize' do
 
-  if (!url_exist?(params[:start_url]))
-    # flash[:alert] = "An invalid URL was entered"
-    # redirect_to :root
-    # return
+  if !url_exist?(root_url)
+    error_message = "An invalid URL was entered"
+  elsif  !url_exist?(schema_url)
+    error_message = "Can't find the DB schema file in this repository!"
   end
 
-  models_to_file_contents = FetchRepositoryModelFileContents.call(params[:start_url])
+  models_to_file_contents = FetchRepositoryModelFileContents.call(params[:repo_root_url])
 
   models_to_associations = {}
   models_to_file_contents.each do |model, file_contents|
@@ -25,36 +25,21 @@ get '/visualize' do
     models_to_associations[model] = associations
   end
 
-  # From these URLS, find the models and their URLs. Also identify those
-  # which extend activeRecord::Base through an intermediate class
-  # model_info = ScrapeModelData.call(model_urls)
-  # models = model_info[:models]
-  # model_to_model_it_extends = model_info[:model_to_model_it_extends]
-
- # puts "Model info"
-  # puts model_info.inspect
-
-  # Scrape each model page for their ActiveRecord assocations
-  # all_relationships = GetModelAssociations.run(model_urls)
-
-  # puts "all relationships"
-  # puts all_relationships.inspect
-
-  # Scrape the Schema and map each table to its model
-  schema_url = params[:start_url] + '/blob/master/db/schema.rb'
-  if (url_exist?(schema_url))
-    @model_to_data = GetSchemaData.run(schema_url)
-  else
-    redirect_to :root
-    flash[:alert] = "That project doesn't have a DB schema file! Not going to work...try another!"
-    return
-  end
+  @model_to_data = GetSchemaData.run(schema_url)
 
   # Graphing it
-  graph_title = params[:start_url].split('/')[-1]
+  graph_title = params[:repo_root_url].split('/')[-1]
   CreateGraph.call(graph_title, models_to_associations)
 
   erb :show_all
+end
+
+def root_url
+  params[:repo_root_url]
+end
+
+def schema_url
+  schema_url = root_url + '/blob/master/db/schema.rb'
 end
 
 #For checking if the schema can be found
