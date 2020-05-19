@@ -1,3 +1,5 @@
+require "active_support/inflector"
+
 class CreateGraph < ApplicationService
 
   def initialize(title, models_to_associations)
@@ -82,14 +84,16 @@ class CreateGraph < ApplicationService
       #   nodeToConnect = other_parts
       # end
 
-
       edge = @graph.add_edges(node, association.to_model)
-      edge[:label] =  "xxx" 
-      edge[:fontsize] = 10
 
+      label = "#{association.type}"
       if association.through_model
         edge[:style] = "dashed"
+        label += " #{association.to_model} through #{association.through_model.pluralize}"
       end
+
+      edge[:label] = label
+      edge[:fontsize] = 10
 
     end
   end
