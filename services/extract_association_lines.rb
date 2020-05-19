@@ -1,5 +1,3 @@
-require_relative "../models/association"
-
 class ExtractAssociationLines < ApplicationService
 
   def initialize(content)

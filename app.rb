@@ -1,4 +1,7 @@
-require_relative "services/fetch_repository_model_file_contents"
+require "base64"
+require_relative "models/github_repository"
+require_relative "models/association"
+require_relative "services/application_service"
 require_relative "services/extract_association_lines"
 require_relative "services/parse_association_line"
 require_relative "services/get_schema_data"
@@ -16,7 +19,8 @@ get '/visualize' do
     error_message = "Can't find the DB schema file in this repository!"
   end
 
-  models_to_file_contents = FetchRepositoryModelFileContents.call(params[:repo_root_url])
+  repository = GithubRepository.new(root_url)
+  models_to_file_contents = repository.models_to_contents
 
   models_to_associations = {}
   models_to_file_contents.each do |model, file_contents|
@@ -25,10 +29,12 @@ get '/visualize' do
     models_to_associations[model] = associations
   end
 
+  schema_content = repository.schema_content
+  puts "schema content is"
+  puts schema_content.inspect
   @model_to_data = GetSchemaData.run(schema_url)
 
-  # Graphing it
-  graph_title = params[:repo_root_url].split('/')[-1]
+  graph_title = root_url.split('/')[-1]
   CreateGraph.call(graph_title, models_to_associations)
 
   erb :show_all
