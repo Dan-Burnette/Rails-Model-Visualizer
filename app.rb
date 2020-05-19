@@ -52,7 +52,7 @@ get '/visualize' do
 
   # Graphing it
   graph_title = params[:start_url].split('/')[-1]
-  @graph_json = CreateGraph.call(graph_title, models_to_associations)
+  CreateGraph.call(graph_title, models_to_associations)
 
   erb :show_all
 end
