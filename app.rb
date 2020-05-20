@@ -28,14 +28,12 @@ get '/visualize' do
     models_to_associations[model] = associations
   end
 
-  @model_to_data = ParseSchema.call(repository.schema_content)
-  puts "@model_to_data"
-  puts @model_to_data.inspect
+  @model_to_table = ParseSchema.call(repository.schema_content)
 
   graph_title = root_url.split('/')[-1]
   CreateGraph.call(graph_title, models_to_associations)
 
-  erb :show_all
+  erb :visualize
 end
 
 def root_url

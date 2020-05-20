@@ -25,7 +25,7 @@ class CreateGraph < ApplicationService
 
   def create_model_nodes
     @models.each do |model|
-      @graph.add_nodes(model, label: model, style: "filled", color: "teal")
+      @graph.add_nodes(model, label: model, style: "filled", color: "#FFA630")
     end
   end
 

@@ -1,0 +1,17 @@
+<nav> 
+  <li>
+    <a href="/">Visualize another project</a>
+  </li>
+</nav>
+
+<% @model_to_table.each do |model, table_lines| %>
+  <div hidden id=<%="#{model}"%>>
+    <h4>Schema</h4>
+    <% table_lines.each do |line| %>
+      <p><%=line%></p>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="model-graph"> <%= inline_svg("graph.svg") %> </div>
+
