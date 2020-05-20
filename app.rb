@@ -4,7 +4,7 @@ require_relative "models/association"
 require_relative "services/application_service"
 require_relative "services/extract_association_lines"
 require_relative "services/parse_association_line"
-require_relative "services/get_schema_data"
+require_relative "services/parse_schema"
 require_relative "services/create_graph"
 
 get '/' do
@@ -20,19 +20,17 @@ get '/visualize' do
   end
 
   repository = GithubRepository.new(root_url)
-  models_to_file_contents = repository.models_to_contents
 
   models_to_associations = {}
-  models_to_file_contents.each do |model, file_contents|
+  repository.models_to_contents.each do |model, file_contents|
     association_lines = ExtractAssociationLines.call(file_contents) 
     associations = association_lines.map { |l| ParseAssociationLine.call(model, l) }
     models_to_associations[model] = associations
   end
 
-  schema_content = repository.schema_content
-  puts "schema content is"
-  puts schema_content.inspect
-  @model_to_data = GetSchemaData.run(schema_url)
+  @model_to_data = ParseSchema.call(repository.schema_content)
+  puts "@model_to_data"
+  puts @model_to_data.inspect
 
   graph_title = root_url.split('/')[-1]
   CreateGraph.call(graph_title, models_to_associations)
