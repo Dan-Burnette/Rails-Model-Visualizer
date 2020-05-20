@@ -13,22 +13,10 @@ get '/' do
 end
 
 get '/visualize_repo' do
-  repository = GithubRepository.new(root_url)
-
-  models_to_associations = {}
-  repository.models_to_file_contents.each do |model, file_contents|
-    models_to_associations[model] = ParseAssociations.call(model, file_contents)
-  end
-
-  CreateGraph.call(graph_title, models_to_associations)
-
-  @models_to_column_lines = ParseSchemaTables.call(repository.schema_file_content)
-
+  repo = GithubRepository.new(root_url)
+  CreateGraph.call(graph_title, models_to_associations(repo))
+  @models_to_column_lines = ParseSchemaTables.call(repo.schema_file_content)
   erb :visualize
-end
-
-def graph(repo)
-
 end
 
 def root_url
@@ -37,6 +25,13 @@ end
 
 def graph_title
   root_url.split('/')[-1]
+end
+
+def models_to_associations(repo)
+  repo.models_to_file_contents.inject({}) do |result, (model, file_contents)|
+    result[model] = ParseAssociations.call(model, file_contents)
+    result
+  end
 end
 
 def inline_svg(file_name)
