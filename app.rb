@@ -4,7 +4,7 @@ require_relative "models/association"
 require_relative "services/application_service"
 require_relative "services/extract_association_lines"
 require_relative "services/parse_association_line"
-require_relative "services/parse_schema"
+require_relative "services/parse_schema_tables"
 require_relative "services/create_graph"
 
 get '/' do
@@ -28,7 +28,7 @@ get '/visualize' do
     models_to_associations[model] = associations
   end
 
-  @model_to_table = ParseSchema.call(repository.schema_content)
+  @tables_to_column_lines = ParseSchemaTables.call(repository.schema_content)
 
   graph_title = root_url.split('/')[-1]
   CreateGraph.call(graph_title, models_to_associations)

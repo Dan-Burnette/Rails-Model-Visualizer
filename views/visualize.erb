@@ -4,10 +4,10 @@
   </li>
 </nav>
 
-<% @model_to_table.each do |model, table_lines| %>
-  <div hidden id=<%="#{model}"%>>
+<% @tables_to_column_lines.each do |table, column_lines| %>
+  <div hidden id=<%="#{table}"%>>
     <h4>Schema</h4>
-    <% table_lines.each do |line| %>
+    <% column_lines.each do |line| %>
       <p><%=line%></p>
     <% end %>
   </div>
