@@ -5,16 +5,16 @@ class ParseSchemaTables < ApplicationService
   end
 
   def call
-    tables_to_column_lines
+    table_models_to_column_lines
   end
 
   private
 
-  def tables_to_column_lines
+  def table_models_to_column_lines
     table_definition_lines.inject({}) do |result, definition_line|
-      table_name = table_name(definition_line)
+      table_model_name = table_model_name(definition_line)
       column_lines = table_column_lines(definition_line)
-      result[table_name] = column_lines
+      result[table_model_name] = column_lines
       result
     end
   end
@@ -23,8 +23,10 @@ class ParseSchemaTables < ApplicationService
     @lines.select { |l| l.include?("create_table") }
   end
 
-  def table_name(definition_line)
-    definition_line.split(" ")[1].delete(",'\"").singularize
+  def table_model_name(definition_line)
+    terms = definition_line.split(" ")
+    name = terms[1].delete(",'\"")
+    name.singularize
   end
 
   def table_column_lines(definition_line)

@@ -8,7 +8,7 @@ class GithubRepository
     )
   end
 
-  def models_to_contents
+  def models_to_file_contents
     model_file_contents.inject({}) do |result, content_response|
       model_name = file_name(content_response)
       decoded_content = decoded_file_content(content_response)
@@ -17,7 +17,7 @@ class GithubRepository
     end
   end
 
-  def schema_content
+  def schema_file_content
     content_response = file_contents(schema_path)
     decoded_file_content(content_response)
   end

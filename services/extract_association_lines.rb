@@ -1,7 +1,7 @@
 class ExtractAssociationLines < ApplicationService
 
-  def initialize(content)
-    @content = content
+  def initialize(file_content)
+    @content = file_content
   end
 
   def call
