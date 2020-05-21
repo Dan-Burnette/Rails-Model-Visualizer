@@ -63,12 +63,17 @@ class GithubRepository
   end
 
   def tree
-    @tree ||= @client.tree(@repo, master_branch_sha, recursive: true)[:tree]
+    @tree ||= @client.tree(@repo, default_branch_sha, recursive: true)[:tree]
   end
 
-  def master_branch_sha
-    branch_data = @client.branch(@repo, "master")
+  def default_branch_sha
+    branch_data = @client.branch(@repo, default_branch)
     branch_data[:commit][:sha]
+  end
+
+  def default_branch
+    repository_data = @client.repository(@repo)
+    repository_data[:default_branch]
   end
 
 end

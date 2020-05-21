@@ -10,28 +10,28 @@ end
 
 get '/visualize_repo' do
   begin
-    repo = GithubRepository.new(root_url)
+    repo = GithubRepository.new(repo_url)
     CreateGraph.call(graph_title, models_to_associations(repo))
     @models_to_column_lines = ParseSchemaTables.call(repo.schema_file_content)
     erb :visualize
   rescue Octokit::NotFound, Octokit::InvalidRepository => error
     @error_message = "Couldn't find that repository. Is it entered correctly?"
-    @attempted_url = root_url
+    @attempted_url = repo_url
     erb :index
   rescue StandardError => error
-    Rollbar.error(error, url: root_url)
+    Rollbar.error(error, url: repo_url)
     @error_message = "Something went wrong visualizing that repository. I'll look into a fix."
-    @attempted_url = root_url
+    @attempted_url = repo_url
     erb :index
   end
 end
 
-def root_url
+def repo_url
   params[:repo_root_url]
 end
 
 def graph_title
-  root_url.split('/')[-1]
+  repo_url.split('/')[-1]
 end
 
 def models_to_associations(repo)
