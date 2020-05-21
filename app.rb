@@ -24,7 +24,7 @@ get '/visualize_repo' do
     erb :index
   rescue StandardError => error
     Rollbar.error(error, url: root_url)
-    @error_message = "Something went wrong visualizing that repository. The developer has been notified."
+    @error_message = "Something went wrong visualizing that repository. I'll look into a fix."
     @attempted_url = root_url
     erb :index
   end
