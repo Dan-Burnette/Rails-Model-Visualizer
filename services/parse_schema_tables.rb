@@ -1,3 +1,5 @@
+require_relative "application_service"
+
 class ParseSchemaTables < ApplicationService
 
   def initialize(schema_content)

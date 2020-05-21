@@ -1,3 +1,5 @@
+require_relative "application_service"
+
 class ExtractAssociationLines < ApplicationService
 
   def initialize(file_content)

@@ -1,10 +1,6 @@
-require "base64"
 require_relative "models/github_repository"
 require_relative "models/association"
-require_relative "services/application_service"
 require_relative "services/parse_associations"
-require_relative "services/extract_association_lines"
-require_relative "services/parse_association_line"
 require_relative "services/parse_schema_tables"
 require_relative "services/create_graph"
 

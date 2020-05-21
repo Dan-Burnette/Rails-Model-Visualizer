@@ -1,3 +1,5 @@
+require_relative "application_service"
+
 class CreateGraph < ApplicationService
 
   def initialize(title, models_to_associations)

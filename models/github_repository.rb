@@ -1,3 +1,5 @@
+require "base64"
+
 class GithubRepository
 
   def initialize(github_repo_url)
