@@ -1,4 +1,9 @@
+<% js_custom_add_file("https://unpkg.com/@popperjs/core@2") %>
+<% js_custom_add_file("https://unpkg.com/tippy.js@6") %>
+<% js_custom_add_file("https://unpkg.com/sanitize-html@1.24.0") %>
+<% js_custom_add_file("https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.5.0/dist/svg-pan-zoom.min.js") %>
 <% js_custom_add_file('javascripts/modelTableTooltips') %>
+<% js_custom_add_file('javascripts/zoomGraph') %>
 
 <% @models_to_column_lines.each do |model, column_lines| %>
   <div hidden id=<%="#{model}"%>>
