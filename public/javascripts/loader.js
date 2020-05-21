@@ -18,4 +18,9 @@ function showLoader() {
   hideNonLoaderElements();
   const loader = document.getElementById('loader');
   loader.style.display = 'block';
+
+  const longLoadMessage = document.getElementById('long-load-message');
+  window.setTimeout(function() {
+    longLoadMessage.style.display = 'block';
+  }, 10000);
 }

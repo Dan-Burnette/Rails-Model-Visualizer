@@ -81,6 +81,14 @@ button {
   }
 }
 
+#long-load-message {
+  font-family: 'Droid Sans Mono';
+  font-size: 1em;
+  text-align: center;
+  margin: 1em auto;
+  display: none;
+}
+
 .model-graph {
   text-align: center;
 }

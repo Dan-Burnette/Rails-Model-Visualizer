@@ -13,7 +13,7 @@ function initSVGZooming() {
   });
 
   window.addEventListener('resize', function() {
-    panZoomInstance.resize(); // update SVG cached size and controls positions
+    panZoomInstance.resize();
     panZoomInstance.fit();
     panZoomInstance.center();
   });
