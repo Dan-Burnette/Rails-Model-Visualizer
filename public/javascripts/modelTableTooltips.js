@@ -14,7 +14,7 @@ function initModelTableTooltips() {
     tippy(node, {
       allowHTML: true,
       content: sanitizeHtml(content),
-      placement: 'left',
+      placement: 'auto',
       theme: 'custom',
     });
   });
