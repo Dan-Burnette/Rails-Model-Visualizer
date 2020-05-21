@@ -1,11 +1,5 @@
 <% js_custom_add_file('javascripts/modelTableTooltips') %>
 
-<nav> 
-  <li>
-    <a href="/">Visualize another project</a>
-  </li>
-</nav>
-
 <% @models_to_column_lines.each do |model, column_lines| %>
   <div hidden id=<%="#{model}"%>>
     <h4>Schema</h4>
@@ -17,3 +11,6 @@
 
 <div class="model-graph"> <%= inline_svg("graph.svg") %> </div>
 
+<nav> 
+  <a href="/">Visualize another project</a>
+</nav>

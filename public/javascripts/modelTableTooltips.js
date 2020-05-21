@@ -33,8 +33,9 @@ function initSVGZooming() {
     minZoom: 0.1,
   });
 
-  // zoom out
-  // panZoomInstance.zoom(0.2);
-
-  console.log('panZoomInstance', panZoomInstance);
+  window.addEventListener('resize', function() {
+    panZoomInstance.resize(); // update SVG cached size and controls positions
+    panZoomInstance.fit();
+    panZoomInstance.center();
+  });
 }
