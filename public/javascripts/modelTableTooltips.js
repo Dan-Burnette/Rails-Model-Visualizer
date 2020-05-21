@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   initModelTableTooltips();
+  initSVGZooming();
 });
 
 function initModelTableTooltips() {
@@ -18,4 +19,22 @@ function initModelTableTooltips() {
       theme: 'custom',
     });
   });
+}
+
+// For large sized visualizations
+function initSVGZooming() {
+  console.log('init svg zoom');
+  const graph = document.querySelector('.model-graph svg');
+  const panZoomInstance = svgPanZoom(graph, {
+    zoomEnabled: true,
+    controlIconsEnabled: true,
+    fit: true,
+    center: true,
+    minZoom: 0.1,
+  });
+
+  // zoom out
+  // panZoomInstance.zoom(0.2);
+
+  console.log('panZoomInstance', panZoomInstance);
 }
