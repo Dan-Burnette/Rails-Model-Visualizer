@@ -6,7 +6,8 @@ body {
 .form-container,
 .examples,
 .error,
-.contact {
+.contact,
+.source {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -28,6 +29,11 @@ form {
   align-items: center;
 }
 
+.error {
+  color: red;
+  margin-bottom: 1rem;
+}
+
 input {
   font-size: 1em;
   border-radius: 0.5em;
@@ -40,10 +46,14 @@ button {
 
 .examples ul {
   padding: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   list-style-type: none;
 }
 
-.examples ul li {
+.examples ul li,
+.contact,
+.source {
   margin-top: 1em;
 }
 

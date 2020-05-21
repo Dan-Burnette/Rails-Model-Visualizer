@@ -35,6 +35,7 @@ GEM
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rexml (3.2.4)
+    rollbar (2.25.0)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -73,6 +74,7 @@ DEPENDENCIES
   inline_svg
   octokit (~> 4.0)
   rack-test
+  rollbar
   rspec
   ruby-graphviz
   sinatra

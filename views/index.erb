@@ -2,8 +2,9 @@
 
 <div class="form-container">
   <h2>Enter a Rails project's github URL</h2>
+  <div class="error"><%=@error_message%></div>
   <form action="/visualize_repo" method="get">
-    <input type="text" name="repo_root_url">
+    <input type="text" name="repo_root_url" value=<%=@attempted_url%>>
     <button type="submit">Visualize</button>
   </form>
 </div>
@@ -18,4 +19,5 @@
   </ul>
 </div>
 
+<div class="source"><a href="https://github.com/Dan-Burnette/Rails-Model-Visualizer">View source code</a></div>
 <div class="contact">Created by<br><a href='http://dan-burnette.com'>Dan Burnette</a></div>

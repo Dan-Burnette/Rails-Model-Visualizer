@@ -8,15 +8,15 @@ function initLoader() {
   form.addEventListener('submit', showLoader);
 }
 
-function showLoader() {
+function hideNonLoaderElements() {
   const stuffToHide = document.querySelectorAll(
-    '.form-container, .examples, .contact',
+    '.form-container, .examples, .source, .contact',
   );
-  console.log('stuffToHide', stuffToHide);
-
   stuffToHide.forEach(e => (e.style.display = 'none'));
-  // stuffToHide.style.display = 'none';
+}
 
+function showLoader() {
+  hideNonLoaderElements();
   const loader = document.getElementById('loader');
   loader.style.display = 'block';
 }
