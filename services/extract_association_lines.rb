@@ -1,4 +1,5 @@
 require_relative "application_service"
+require_relative "../models/association"
 
 class ExtractAssociationLines < ApplicationService
 
