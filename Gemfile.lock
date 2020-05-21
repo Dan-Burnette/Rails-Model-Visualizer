@@ -60,6 +60,16 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.8.1)
       tilt (~> 2.0)
+    sinatra-assets (0.1.1)
+    sinatra-js (0.1.5)
+      sinatra (>= 1.0)
+      sinatra-assets
+      sinatra-tags
+    sinatra-outputbuffer (0.1.0)
+      sinatra (>= 1.0.a)
+    sinatra-tags (0.1.1)
+      sinatra (>= 1.0)
+      sinatra-outputbuffer (>= 0.1.0)
     thread_safe (0.3.6)
     tilt (2.0.9)
     tzinfo (1.2.7)
@@ -78,6 +88,7 @@ DEPENDENCIES
   rspec
   ruby-graphviz
   sinatra
+  sinatra-js
 
 BUNDLED WITH
    1.17.1
