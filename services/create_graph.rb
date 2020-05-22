@@ -49,6 +49,7 @@ class CreateGraph < ApplicationService
         association.to_model,
         label: association.label,
         style: association.through_model ? "dashed" : "solid",
+        color: "#00a7e1",
         fontsize: 10,
         fontname: font_name
       )
