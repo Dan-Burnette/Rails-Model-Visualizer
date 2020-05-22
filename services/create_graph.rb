@@ -22,7 +22,7 @@ class CreateGraph < ApplicationService
       :G,
       type: :digraph,
       label: graph_title,
-      fontname: "Droid Sans Mono"
+      fontname: font_name
     )
   end
 
@@ -32,7 +32,13 @@ class CreateGraph < ApplicationService
 
   def create_model_nodes
     @models.each do |model|
-      @graph.add_nodes(model, label: model, style: "filled", color: "#FFA630")
+      @graph.add_nodes(
+        model,
+        label: model,
+        style: "filled",
+        color: "#FFA630",
+        fontname: font_name
+      )
     end
   end
 
@@ -44,12 +50,17 @@ class CreateGraph < ApplicationService
         label: association.label,
         style: association.through_model ? "dashed" : "solid",
         fontsize: 10,
+        fontname: font_name
       )
     end
   end
 
   def output_graph
     @graph.output(svg: "public/images/graph.svg")
+  end
+
+  def font_name
+    "Droid Sans Mono"
   end
 
 end
