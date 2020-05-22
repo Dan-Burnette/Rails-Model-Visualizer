@@ -18,7 +18,12 @@ class CreateGraph < ApplicationService
   private
 
   def initialize_graph
-    @graph = GraphViz.new(:G, type: :digraph, label: graph_title)
+    @graph = GraphViz.new(
+      :G,
+      type: :digraph,
+      label: graph_title,
+      fontname: "Droid Sans Mono"
+    )
   end
 
   def graph_title
