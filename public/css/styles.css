@@ -101,6 +101,10 @@ svg {
   border-radius: 0.5em;
 }
 
+.node {
+  cursor: pointer;
+}
+
 .tippy-box[data-theme~='custom'] {
   background-color: #00a7e1;
   opacity: 0.9;
