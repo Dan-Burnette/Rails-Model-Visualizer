@@ -1,6 +1,9 @@
 require 'rubygems'
 require 'bundler'
-require 'dotenv/load'
+
+if ENV.fetch("APP_ENV") == "development"
+  require 'dotenv/load'
+end
 
 Bundler.require
 

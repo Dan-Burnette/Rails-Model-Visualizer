@@ -17,3 +17,8 @@
 
 # Ignore env variable file used by dotenv in development
 .env
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
