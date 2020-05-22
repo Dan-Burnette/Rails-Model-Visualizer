@@ -6,13 +6,11 @@ gem "octokit", "~> 4.0"
 gem "activesupport"
 gem "ruby-graphviz"
 gem "rollbar"
+gem "dotenv"
 
 group :test do
   gem "rack-test"
   gem "rspec"
 end
 
-group :development do
-  gem "dotenv"
-end
 
