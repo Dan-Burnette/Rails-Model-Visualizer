@@ -26,9 +26,9 @@ class ParseAssociationLine < ApplicationService
   end
 
   def to_model
-    if @line_terms.include?("class_name")
+    if option_terms.include?("class_name")
       option("class_name").classify
-    elsif @line_terms.include?("source")
+    elsif option_terms.include?("source")
       option("source").classify
     elsif namespaced_to_model
       namespaced_to_model
@@ -42,19 +42,23 @@ class ParseAssociationLine < ApplicationService
   end
 
   def through_model
-    return nil if !@line_terms.include?("through")
-    through_term_index = @line_terms.index("through")
+    return nil if !option_terms.include?("through")
+    through_term_index = option_terms.index("through")
     @line_terms[through_term_index + 1].classify
   end
 
   def polymorphic?
-    return false if !@line_terms.include?("polymorphic")
+    return false if !option_terms.include?("polymorphic")
     option("polymorphic") == "true"
   end
 
+  def option_terms
+    @line_terms[2..-1]
+  end
+
   def option(name)
-    term_index = @line_terms.index(name)
-    @line_terms[term_index + 1]
+    term_index = option_terms.index(name)
+    option_terms[term_index + 1]
   end
 
   def namespaced_to_model
