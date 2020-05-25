@@ -11,38 +11,20 @@ class GithubRepository
     )
   end
 
-  def models_to_file_contents
-    model_file_contents.inject({}) do |result, content_response|
-      model_class = file_name(content_response).classify
-      decoded_content = decoded_file_content(content_response)
-      result[model_class] = decoded_content
-      result
-    end
+  def model_file_contents
+    model_paths.map { |path| file_contents(path) }
   end
 
   def schema_file_content
-    content_response = file_contents(schema_path)
-    decoded_file_content(content_response)
+    file_contents(schema_path)
   end
 
   private
 
   def file_contents(path)
-    @client.contents(@repo, path: path)
-  end
-
-  def file_name(content_response)
-    file_name = content_response[:name]
-    file_name.split('.')[0]
-  end
-
-  def decoded_file_content(content_response)
-    encoded_file_content = content_response[:content]
+    response = @client.contents(@repo, path: path)
+    encoded_file_content = response[:content]
     Base64.decode64(encoded_file_content)
-  end
-
-  def model_file_contents
-    model_paths.map { |path| file_contents(path) }
   end
 
   def model_paths

@@ -1,5 +1,6 @@
 require_relative "models/github_repository"
 require_relative "models/association"
+require_relative "services/parse_class_name"
 require_relative "services/parse_associations"
 require_relative "services/parse_schema_tables"
 require_relative "services/create_graph"
@@ -35,8 +36,10 @@ def repo_name
 end
 
 def models_to_associations(repo)
-  repo.models_to_file_contents.inject({}) do |result, (model, file_contents)|
-    result[model] = ParseAssociations.call(model, file_contents)
+  repo.model_file_contents.inject({}) do |result, file_contents|
+    class_name = ParseClassName.call(file_contents)
+    associations = ParseAssociations.call(class_name, file_contents)
+    result[class_name] = associations
     result
   end
 end

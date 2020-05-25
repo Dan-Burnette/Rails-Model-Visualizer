@@ -6,7 +6,7 @@ class ParseAssociationLine < ApplicationService
 
   def initialize(model, association_line)
     @model = model
-    @line_terms = association_line.delete("=>,'\"").split(" ").map { |t| t.delete_prefix(":") }
+    @line_terms = parse_terms(association_line)
   end
 
   def call
@@ -14,6 +14,11 @@ class ParseAssociationLine < ApplicationService
   end
 
   private
+
+  def parse_terms(line)
+    raw_terms = line.delete("=>,'\"").split(" ")
+    raw_terms.map { |t| t.delete_prefix(":").delete_suffix(":") }
+  end
 
   def type
     @line_terms[0]
@@ -32,7 +37,7 @@ class ParseAssociationLine < ApplicationService
   def through_model
     return nil if !@line_terms.include?("through")
     through_term_index = @line_terms.index("through")
-    @line_terms[through_term_index + 1]
+    @line_terms[through_term_index + 1].classify
   end
 
   def polymorphic?

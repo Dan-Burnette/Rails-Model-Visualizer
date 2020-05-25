@@ -26,7 +26,7 @@ describe "ParseAssociationLine" do
       it "parses to_model properly" do
         line = "some_association :project"
         association = ParseAssociationLine.call(@from_model, line)
-        expect(association.to_model).to eq("project")
+        expect(association.to_model).to eq("Project")
       end
 
       it "parses through_model properly" do
@@ -42,13 +42,13 @@ describe "ParseAssociationLine" do
       it "parses to_model properly with hashrocket syntax" do
         line = "some_association :project, :class_name => 'Membership'"
         association = ParseAssociationLine.call(@from_model, line)
-        expect(association.to_model).to eq("membership")
+        expect(association.to_model).to eq("Membership")
       end
 
       it "parses to_model properly with hash syntax" do
         line = "some_association :project, class_name: 'Membership'"
         association = ParseAssociationLine.call(@from_model, line)
-        expect(association.to_model).to eq("membership")
+        expect(association.to_model).to eq("Membership")
       end
 
     end
@@ -58,13 +58,13 @@ describe "ParseAssociationLine" do
       it "parses through_model properly with hashrocket syntax" do
         line = "some_association :members, :through => :group_projects"
         association = ParseAssociationLine.call(@from_model, line)
-        expect(association.through_model).to eq("group_projects")
+        expect(association.through_model).to eq("GroupProject")
       end
 
       it "parses through_model properly with hash syntax" do
         line = "some_association :members, through: :group_projects"
         association = ParseAssociationLine.call(@from_model, line)
-        expect(association.through_model).to eq("group_projects")
+        expect(association.through_model).to eq("GroupProject")
       end
 
       context "with source option" do
@@ -72,13 +72,13 @@ describe "ParseAssociationLine" do
         it "parses to_model properly with hashrocket syntax" do
           line = "some_association :members, :through => :group_projects :source => :person"
           association = ParseAssociationLine.call(@from_model, line)
-          expect(association.to_model).to eq("person")
+          expect(association.to_model).to eq("Person")
         end
 
         it "parses to_model properly with hash syntax" do
           line = "some_association :members, through: :group_projects, source: :person"
           association = ParseAssociationLine.call(@from_model, line)
-          expect(association.to_model).to eq("person")
+          expect(association.to_model).to eq("Person")
         end
 
       end
