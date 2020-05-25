@@ -6,6 +6,9 @@ class CreateGraph < ApplicationService
     @title = title
     @models = models_to_associations.keys
     @associations = models_to_associations.values.flatten
+    @associations.each do |a|
+      puts a.inspect
+    end
   end
 
   def call
