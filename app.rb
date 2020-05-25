@@ -20,7 +20,7 @@ get '/visualize_repo' do
     @attempted_url = repo_url
     erb :index
   rescue StandardError => error
-    Rollbar.error(error, url: repo_url)
+    handle_unexpected_error(error)
     @error_message = "Something went wrong visualizing that repository. I'll look into a fix."
     @attempted_url = repo_url
     erb :index
@@ -42,6 +42,15 @@ def models_to_associations(repo)
     result[class_name] = associations
     result
   end
+end
+
+
+def handle_unexpected_error(error)
+  production? ? Rollbar.error(error, url: repo_url) : raise(error)
+end
+
+def production?
+  ENV.fetch("APP_ENV") == "production"
 end
 
 def inline_svg(file_name)

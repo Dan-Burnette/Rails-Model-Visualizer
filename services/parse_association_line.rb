@@ -29,9 +29,15 @@ class ParseAssociationLine < ApplicationService
       option("class_name").classify
     elsif @line_terms.include?("source")
       option("source").classify
+    elsif namespaced?
+      namespace + "::#{to_model_term.classify}"
     else
-      @line_terms[1].classify
+      to_model_term.classify
     end
+  end
+
+  def to_model_term
+    @line_terms[1]
   end
 
   def through_model
@@ -48,6 +54,14 @@ class ParseAssociationLine < ApplicationService
   def option(name)
     term_index = @line_terms.index(name)
     @line_terms[term_index + 1]
+  end
+
+  def namespaced?
+    @model.include?("::")
+  end
+
+  def namespace
+    @model.split("::")[0...-1].join("::")
   end
 
 end
