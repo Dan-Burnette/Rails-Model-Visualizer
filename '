@@ -5,7 +5,7 @@ require_relative "../models/association"
 class ParseAssociationLine < ApplicationService
 
   def initialize(model_classes, model, association_line)
-    @model_classes = model_classes
+    @model_clases = model_classes
     @model = model
     @line_terms = parse_terms(association_line)
   end

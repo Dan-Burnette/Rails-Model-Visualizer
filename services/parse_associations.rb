@@ -4,14 +4,15 @@ require_relative "parse_association_line"
 
 class ParseAssociations < ApplicationService
 
-  def initialize(model, file_content)
+  def initialize(model_classes, model, file_content)
+    @model_classes = model_classes
     @model = model
     @content = file_content
   end
 
   def call
     lines = ExtractAssociationLines.call(@content) 
-    lines.map { |line| ParseAssociationLine.call(@model, line) }
+    lines.map { |line| ParseAssociationLine.call(@model_classes, @model, line) }
   end
 
 end

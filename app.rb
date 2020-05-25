@@ -36,14 +36,17 @@ def repo_name
 end
 
 def models_to_associations(repo)
-  repo.model_file_contents.inject({}) do |result, file_contents|
-    class_name = ParseClassName.call(file_contents)
-    associations = ParseAssociations.call(class_name, file_contents)
-    result[class_name] = associations
-    result
-  end
-end
+  model_file_contents = repo.model_file_contents
+  model_classes = model_file_contents.map { |contents| ParseClassName.call(contents) }
 
+  result = {}
+  model_file_contents.each_with_index do |file_content, i|
+    class_name = model_classes[i]
+    associations = ParseAssociations.call(model_classes, class_name, file_content)
+    result[class_name] = associations
+  end
+  result
+end
 
 def handle_unexpected_error(error)
   production? ? Rollbar.error(error, url: repo_url) : raise(error)
