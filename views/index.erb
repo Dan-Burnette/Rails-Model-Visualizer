@@ -3,7 +3,7 @@
 <h1 class="title">Rails Model Visualizer</h1>
 
 <div class="form-container">
-  <h2>Enter a Rails project's github URL</h2>
+  <h2>Enter a Rails project's github URL:</h2>
   <div class="error"><%=@error_message%></div>
   <form action="/visualize_repo" method="get">
     <input type="text" name="repo_root_url" value=<%=@attempted_url%>>

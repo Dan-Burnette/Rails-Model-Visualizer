@@ -6,7 +6,7 @@ class ParseAssociationLine < ApplicationService
 
   def initialize(model, association_line)
     @model = model
-    @line_terms = association_line.delete("=>:,'\"").split(" ")
+    @line_terms = association_line.delete("=>,'\"").split(" ").map { |t| t.delete_prefix(":") }
   end
 
   def call
@@ -21,11 +21,11 @@ class ParseAssociationLine < ApplicationService
 
   def to_model
     if @line_terms.include?("class_name")
-      option("class_name").downcase
+      option("class_name").classify
     elsif @line_terms.include?("source")
-      option("source")
+      option("source").classify
     else
-      @line_terms[1].singularize
+      @line_terms[1].classify
     end
   end
 
@@ -37,7 +37,7 @@ class ParseAssociationLine < ApplicationService
 
   def option(name)
     term_index = @line_terms.index(name)
-    @line_terms[term_index + 1].downcase
+    @line_terms[term_index + 1]
   end
 
 end

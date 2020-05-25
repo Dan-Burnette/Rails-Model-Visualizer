@@ -1,4 +1,5 @@
 require "base64"
+require "active_support/inflector"
 
 class GithubRepository
 
@@ -12,9 +13,9 @@ class GithubRepository
 
   def models_to_file_contents
     model_file_contents.inject({}) do |result, content_response|
-      model_name = file_name(content_response)
+      model_class = file_name(content_response).classify
       decoded_content = decoded_file_content(content_response)
-      result[model_name] = decoded_content
+      result[model_class] = decoded_content
       result
     end
   end
