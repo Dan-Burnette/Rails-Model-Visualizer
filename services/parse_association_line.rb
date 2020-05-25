@@ -10,7 +10,7 @@ class ParseAssociationLine < ApplicationService
   end
 
   def call
-    Association.new(type, @model, to_model, through_model)
+    Association.new(type, @model, to_model, through_model, polymorphic?)
   end
 
   private
@@ -33,6 +33,11 @@ class ParseAssociationLine < ApplicationService
     return nil if !@line_terms.include?("through")
     through_term_index = @line_terms.index("through")
     @line_terms[through_term_index + 1]
+  end
+
+  def polymorphic?
+    return false if !@line_terms.include?("polymorphic")
+    option("polymorphic") == "true"
   end
 
   def option(name)

@@ -5,17 +5,20 @@ class Association
   PLURAL_TYPES = ["has_many", "has_and_belongs_to_many"]
   TYPES = SINGULAR_TYPES + PLURAL_TYPES
 
-  def initialize(type, from_model, to_model, through_model)
+  def initialize(type, from_model, to_model, through_model, polymorphic)
     @type = type
     @from_model = from_model
     @to_model = to_model
     @through_model = through_model
+    @polymorphic = polymorphic
   end
 
   def label
     label = "#{@type}"
     if @through_model 
       label += " #{to_model_inflection} \n through #{@through_model.pluralize}"
+    elsif @polymorphic
+      label += " (polymorphic)"
     end
     label
   end
