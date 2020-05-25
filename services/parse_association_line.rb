@@ -29,8 +29,6 @@ class ParseAssociationLine < ApplicationService
       option("class_name").classify
     elsif @line_terms.include?("source")
       option("source").classify
-    elsif namespaced?
-      namespace + "::#{to_model_term.classify}"
     else
       to_model_term.classify
     end
