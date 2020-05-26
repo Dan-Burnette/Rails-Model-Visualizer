@@ -31,7 +31,8 @@ class ParseClassName < ApplicationService
   # exception definitions, as it is common practice to define related exceptions
   # at the top of the file.
   def definition_line?(line)
-    is_definition = line.include?("class ") || line.include?("module ") 
+    terms = line.split(" ")
+    is_definition = terms.include?("class") || terms.include?("module") 
     error_definition = line.include?("Error") || line.include?("Exception")
     is_definition && !error_definition
   end
