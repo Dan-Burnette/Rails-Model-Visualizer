@@ -6,6 +6,7 @@ function initModelTableTooltips() {
   const modelNodes = document.querySelectorAll('.node');
   modelNodes.forEach(node => {
     const modelName = node.querySelector('title').textContent;
+    console.log('modelName', modelName);
     const tableDataNode = document.getElementById(modelName);
     const content = tableDataNode
       ? tableDataNode.innerHTML

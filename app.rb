@@ -13,7 +13,7 @@ get '/visualize_repo' do
   begin
     repo = GithubRepository.new(repo_url)
     CreateGraph.call(repo_name, models_to_associations(repo))
-    @models_to_column_lines = ParseSchemaTables.call(repo.schema_file_content)
+    @table_names_to_column_lines = ParseSchemaTables.call(repo.schema_file_content)
     erb :visualize
   rescue Octokit::NotFound, Octokit::InvalidRepository => error
     @error_message = "Couldn't find that repository. Is it entered correctly?"

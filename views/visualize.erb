@@ -5,8 +5,8 @@
 <% js_custom_add_file('javascripts/modelTableTooltips') %>
 <% js_custom_add_file('javascripts/zoomGraph') %>
 
-<% @models_to_column_lines.each do |model, column_lines| %>
-  <div hidden id=<%="#{model}"%>>
+<% @table_names_to_column_lines.each do |table_name, column_lines| %>
+  <div hidden id=<%="#{table_name}"%>>
     <h4>Schema</h4>
     <% column_lines.each do |line| %>
       <p><%=line%></p>
