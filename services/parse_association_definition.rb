@@ -2,12 +2,14 @@ require "active_support/inflector"
 require_relative "application_service"
 require_relative "../models/association"
 
-class ParseAssociationLine < ApplicationService
+class ParseAssociationDefinition < ApplicationService
 
   def initialize(model_classes, model, association_line)
     @model_classes = model_classes
     @model = model
     @line_terms = parse_terms(association_line)
+    puts "terms"
+    puts @line_terms.inspect
   end
 
   def call
@@ -17,7 +19,11 @@ class ParseAssociationLine < ApplicationService
   private
 
   def parse_terms(line)
-    raw_terms = line.delete("=>,'\"").split(" ")
+    without_scope = line.gsub(/lambda {.*?\}/, '')
+      .gsub(/-> {.*?\}/, '')
+      .gsub(/Proc.new {.*?\}/, '')
+
+    raw_terms = without_scope.delete("=>,'\"").split(" ")
     raw_terms.map { |t| t.delete_prefix(":").delete_suffix(":") }
   end
 

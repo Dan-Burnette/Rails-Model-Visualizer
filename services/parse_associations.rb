@@ -1,6 +1,6 @@
 require_relative "application_service"
 require_relative "extract_association_definitions"
-require_relative "parse_association_line"
+require_relative "parse_association_definition"
 
 class ParseAssociations < ApplicationService
 
@@ -12,7 +12,7 @@ class ParseAssociations < ApplicationService
 
   def call
     definitions = ExtractAssociationDefinitions.call(@file_content)
-    definitions.map { |l| ParseAssociationLine.call(@model_classes, @model, l) }
+    definitions.map { |d| ParseAssociationDefinition.call(@model_classes, @model, d) }
   end
 
 end
