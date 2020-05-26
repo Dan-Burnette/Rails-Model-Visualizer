@@ -15,6 +15,9 @@
 /log/*.log
 /tmp
 
+#Ignore graph svg that is regenerated each time
+public/images/graph.svg
+
 # Ignore env variable file used by dotenv in development
 .env
 
