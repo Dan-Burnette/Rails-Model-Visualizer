@@ -45,8 +45,6 @@ class ParseClassName < ApplicationService
     definition_lines = []
 
     current_line = top_definition_line
-    puts "top_definition_line"
-    puts current_line.inspect
     while definition_line?(current_line)
       definition_lines << current_line
       current_line = next_line(current_line)

@@ -8,8 +8,6 @@ class ParseAssociationDefinition < ApplicationService
     @model_classes = model_classes
     @model = model
     @line_terms = parse_terms(association_line)
-    puts "terms"
-    puts @line_terms.inspect
   end
 
   def call
@@ -32,8 +30,6 @@ class ParseAssociationDefinition < ApplicationService
   end
 
   def to_model
-    puts "option_keys are"
-    puts option_keys.inspect
     if option_keys.include?("class_name")
       option("class_name").classify
     elsif option_keys.include?("source")
