@@ -23,7 +23,7 @@ class ExtractAssociationDefinitions < ApplicationService
   def defines_association?(line)
     return false if line.empty?
     first_word = line.split(' ')[0]
-    Association::TYPES.any? { |type | first_word.include? type }
+    Association::TYPES.any? { |type | first_word == type }
   end
 
   def association_lines(definition_start_line)

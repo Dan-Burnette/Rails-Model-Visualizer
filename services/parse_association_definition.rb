@@ -32,9 +32,9 @@ class ParseAssociationDefinition < ApplicationService
   end
 
   def to_model
-    if option_keys.include?("class_name")
+    if @line_terms.include?("class_name")
       option("class_name").classify
-    elsif option_keys.include?("source")
+    elsif @line_terms.include?("source")
       option("source").classify
     elsif namespaced_to_model
       namespaced_to_model
@@ -48,19 +48,14 @@ class ParseAssociationDefinition < ApplicationService
   end
 
   def through_model
-    return nil if !option_keys.include?("through")
+    return nil if !@line_terms.include?("through")
     through_term_index = @line_terms.index("through")
     @line_terms[through_term_index + 1].classify
   end
 
   def polymorphic?
-    return false if !option_keys.include?("polymorphic")
+    return false if !@line_terms.include?("polymorphic")
     option("polymorphic") == "true"
-  end
-
-  def option_keys
-    option_terms = @line_terms[2..-1]
-    option_terms.select.with_index { |t, i| i.even? }
   end
 
   def option(name)
