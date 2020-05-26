@@ -27,8 +27,13 @@ class ParseClassName < ApplicationService
     terms[1].delete(",'\"")
   end
 
+  # Identify the line where the main class definition begins. Skip over any
+  # exception definitions, as it is common practice to define related exceptions
+  # at the top of the file.
   def definition_line?(line)
-    line.include?("class ") || line.include?("module ")
+    is_definition = line.include?("class ") || line.include?("module ") 
+    error_definition = line.include?("Error") || line.include?("Exception")
+    is_definition && !error_definition
   end
 
   def top_definition_line
@@ -39,6 +44,8 @@ class ParseClassName < ApplicationService
     definition_lines = []
 
     current_line = top_definition_line
+    puts "top_definition_line"
+    puts current_line.inspect
     while definition_line?(current_line)
       definition_lines << current_line
       current_line = next_line(current_line)
