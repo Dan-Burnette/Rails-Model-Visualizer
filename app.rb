@@ -5,11 +5,29 @@ require_relative "services/parse_associations"
 require_relative "services/parse_schema_tables"
 require_relative "services/create_graph"
 
-get '/' do
+get "/" do
+  @client_id = ENV.fetch("GITHUB_OAUTH_APP_CLIENT_ID")
   erb :index
 end
 
-get '/visualize_repo' do
+get "/github_authorization" do
+  client_id = ENV.fetch("GITHUB_OAUTH_APP_CLIENT_ID")
+  client_secret = ENV.fetch("GITHUB_OAUTH_APP_CLIENT_SECRET")
+  session_code = params[:code]
+  puts "got session_code" 
+  puts session_code.inspect
+
+  # session_code = request.env['rack.request.query_hash']['code']
+  result = Octokit.exchange_code_for_token(session_code, client_id, client_secret)
+  session[:access_token] = result[:access_token]
+
+  puts "ACCESS TOKEN"
+  puts session[:access_token]
+
+  redirect "/"
+end
+
+get "visualize_repo" do
   begin
     repo = GithubRepository.new(repo_url)
     @table_names_to_column_lines = ParseSchemaTables.call(repo.schema_file_content)
