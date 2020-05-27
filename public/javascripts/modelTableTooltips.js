@@ -5,12 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
 function initModelTableTooltips() {
   const modelNodes = document.querySelectorAll('.node');
   modelNodes.forEach(node => {
-    const modelName = node.querySelector('title').textContent;
-    console.log('modelName', modelName);
-    const tableDataNode = document.getElementById(modelName);
+    const tableName = node.querySelector('title').textContent;
+    const tableDataNode = document.getElementById(tableName);
     const content = tableDataNode
       ? tableDataNode.innerHTML
-      : 'This model has no table';
+      : "Couldn't find table for this model.";
 
     tippy(node, {
       allowHTML: true,

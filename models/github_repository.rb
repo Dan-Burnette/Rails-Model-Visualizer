@@ -2,6 +2,7 @@ require "base64"
 require "active_support/inflector"
 
 class GithubRepository
+  class NoSchemaFound < StandardError; end
 
   def initialize(github_repo_url)
     @repo = Octokit::Repository.from_url(github_repo_url)
@@ -42,7 +43,7 @@ class GithubRepository
   end
 
   def schema_element
-    tree.find { |e| e[:path].include?("schema.rb") }
+    raise NoSchemaFound unless tree.find { |e| e[:path] == "db/schema.rb" }
   end
 
   def tree

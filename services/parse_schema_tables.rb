@@ -27,7 +27,7 @@ class ParseSchemaTables < ApplicationService
 
   def table_name(definition_line)
     terms = definition_line.split(" ")
-    name = terms[1].delete(",'\"")
+    terms[1].delete(",'\"")
   end
 
   def table_column_lines(definition_line)
