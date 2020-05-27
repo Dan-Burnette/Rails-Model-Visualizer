@@ -10,6 +10,7 @@ function initSVGZooming() {
     fit: true,
     center: true,
     minZoom: 0.1,
+    maxZoom: 100,
   });
 
   window.addEventListener('resize', function() {
