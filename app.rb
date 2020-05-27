@@ -5,31 +5,29 @@ require_relative "services/parse_associations"
 require_relative "services/parse_schema_tables"
 require_relative "services/create_graph"
 
+CLIENT_ID = ENV.fetch("GITHUB_OAUTH_APP_CLIENT_ID")
+CLIENT_SECRET = ENV.fetch("GITHUB_OAUTH_APP_CLIENT_SECRET")
+
+enable :sessions
+
 get "/" do
-  @client_id = ENV.fetch("GITHUB_OAUTH_APP_CLIENT_ID")
   erb :index
 end
 
-get "/github_authorization" do
-  client_id = ENV.fetch("GITHUB_OAUTH_APP_CLIENT_ID")
-  client_secret = ENV.fetch("GITHUB_OAUTH_APP_CLIENT_SECRET")
+get "/private_repo_auth" do
+  redirect Octokit::Client.new.authorize_url(CLIENT_ID, scope: "repo")
+end
+
+get "/github_auth" do
   session_code = params[:code]
-  puts "got session_code" 
-  puts session_code.inspect
-
-  # session_code = request.env['rack.request.query_hash']['code']
-  result = Octokit.exchange_code_for_token(session_code, client_id, client_secret)
+  result = Octokit.exchange_code_for_token(session_code, CLIENT_ID, CLIENT_SECRET)
   session[:access_token] = result[:access_token]
-
-  puts "ACCESS TOKEN"
-  puts session[:access_token]
-
   redirect "/"
 end
 
-get "visualize_repo" do
+get "/visualize_repo" do
   begin
-    repo = GithubRepository.new(repo_url)
+    repo = GithubRepository.new(repo_url, session[:access_token])
     @table_names_to_column_lines = ParseSchemaTables.call(repo.schema_file_content)
     CreateGraph.call(repo_name, models_to_associations(repo))
     erb :visualize
