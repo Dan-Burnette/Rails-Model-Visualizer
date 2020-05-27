@@ -45,18 +45,14 @@ class ParseClassName < ApplicationService
     definition_lines = []
 
     current_line = top_definition_line
+    line_index =  @lines.index(current_line)
     while definition_line?(current_line)
       definition_lines << current_line
-      current_line = next_line(current_line)
+      line_index += 1
+      current_line = @lines[line_index]
     end
 
     definition_lines
-  end
-
-  # PROBLEMO - matches duplicate lines and finds the first!
-  def next_line(current_line)
-    next_index = @lines.index(current_line) + 1
-    @lines[next_index]
   end
 
 end
