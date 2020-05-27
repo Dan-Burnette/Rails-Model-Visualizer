@@ -3,13 +3,9 @@ require "base64"
 class GithubRepository
   class NoSchemaFound < StandardError; end
 
-  def initialize(github_repo_url, access_token)
-    puts "access token is:"
-    puts access_token.inspect
-    @client = access_token ? user_client(access_token) : app_client
+  def initialize(client, github_repo_url)
+    @client = client
     @repo = Octokit::Repository.from_url(github_repo_url)
-    puts "repo"
-    puts @repo.inspect
   end
 
   def model_file_contents
@@ -21,14 +17,6 @@ class GithubRepository
   end
 
   private
-
-  def user_client(access_token)
-    Octokit::Client.new(access_token: access_token)
-  end
-
-  def app_client
-    Octokit::Client.new(client_id: CLIENT_ID, client_secret: CLIENT_SECRET)
-  end
 
   def file_contents(path)
     response = @client.contents(@repo, path: path)

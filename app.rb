@@ -1,9 +1,11 @@
 require_relative "models/github_repository"
 require_relative "models/association"
+require_relative "services/create_github_client"
 require_relative "services/parse_class_name"
 require_relative "services/parse_associations"
 require_relative "services/parse_schema_tables"
 require_relative "services/create_graph"
+
 
 CLIENT_ID = ENV.fetch("GITHUB_OAUTH_APP_CLIENT_ID")
 CLIENT_SECRET = ENV.fetch("GITHUB_OAUTH_APP_CLIENT_SECRET")
@@ -19,15 +21,18 @@ get "/private_repo_auth" do
 end
 
 get "/github_auth" do
-  session_code = params[:code]
-  result = Octokit.exchange_code_for_token(session_code, CLIENT_ID, CLIENT_SECRET)
+  code = params[:code]
+  result = Octokit.exchange_code_for_token(code, CLIENT_ID, CLIENT_SECRET)
   session[:access_token] = result[:access_token]
+  session[:access_token] = "XXXX"
   redirect "/"
 end
 
 get "/visualize_repo" do
+  client = CreateGithubClient.call(session[:access_token])
+
   begin
-    repo = GithubRepository.new(repo_url, session[:access_token])
+    repo = GithubRepository.new(client, repo_url)
     @table_names_to_column_lines = ParseSchemaTables.call(repo.schema_file_content)
     CreateGraph.call(repo_name, models_to_associations(repo))
     erb :visualize
