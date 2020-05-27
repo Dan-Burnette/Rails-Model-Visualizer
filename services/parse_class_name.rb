@@ -53,6 +53,7 @@ class ParseClassName < ApplicationService
     definition_lines
   end
 
+  # PROBLEMO - matches duplicate lines and finds the first!
   def next_line(current_line)
     next_index = @lines.index(current_line) + 1
     @lines[next_index]

@@ -43,7 +43,8 @@ class GithubRepository
   end
 
   def schema_element
-    raise NoSchemaFound unless tree.find { |e| e[:path] == "db/schema.rb" }
+    element = tree.find { |e| e[:path] == "db/schema.rb" }
+    element ? element : raise(NoSchemaFound)
   end
 
   def tree

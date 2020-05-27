@@ -33,18 +33,15 @@ class ParseSchemaTables < ApplicationService
   def table_column_lines(definition_line)
     column_lines = []
 
-    current_line = next_line(definition_line)
+    line_index = @lines.index(definition_line) + 1
+    current_line = @lines[line_index]
     while current_line.include?("t.")
       column_lines << current_line
-      current_line = next_line(current_line)
+      line_index += 1
+      current_line = @lines[line_index]
     end
 
     column_lines
-  end
-
-  def next_line(current_line)
-    next_index = @lines.index(current_line) + 1
-    @lines[next_index]
   end
 
 end
