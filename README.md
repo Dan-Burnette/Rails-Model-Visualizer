@@ -1,4 +1,4 @@
-# Rails-Model-Visualizer
+# Rails Model Visualizer
 Visualize a rails project by entering it's github URL. 
 
 It's intended to be a quick way to get your head around the structure of a new project. 
