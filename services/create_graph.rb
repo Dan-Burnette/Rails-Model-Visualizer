@@ -42,14 +42,6 @@ class CreateGraph < ApplicationService
     end
   end
 
-  def node_identifier(model)
-    model_table_name(model)
-  end
-
-  def model_table_name(model)
-    model.tableize
-  end
-
   def create_association_edges
     @associations.each do |association|
       @graph.add_edges(
@@ -66,6 +58,14 @@ class CreateGraph < ApplicationService
 
   def output_graph
     @graph.output(svg: "public/images/graph.svg")
+  end
+
+  def node_identifier(model)
+    model_table_name(model)
+  end
+
+  def model_table_name(model)
+    model.tableize
   end
 
   def font_name
