@@ -11,5 +11,5 @@ There may be issues with certain repositories, but it seems to work properly on 
 
 The initial version of this project was done as my coding bootcamp graduation project in 2014 and was instrumental in landing my first job. In this 2020 version I redid everything, utilizing the github API instead of web scraping the data, and accounting for more edge cases when parsing the repositories.
 
-I'm an independent/freelance full stack web developer and I'm currently seeking new opportunities. Check out my main project <a href="https://scientificmealplanner.com">The Scientific Meal Planner<a>, as well as my <a href="dan-burnette.com">personal site</a> to get in touch
+I'm an independent/freelance full stack web developer and I'm currently seeking new opportunities. Check out my main project <a href="https://scientificmealplanner.com">The Scientific Meal Planner<a>, as well as my <a href="http://dan-burnette.com">personal site</a> to get in touch
 
