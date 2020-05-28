@@ -11,9 +11,16 @@
   </form>
 </div>
 
-<a href="/private_repo_auth">
-  Sign in with GitHub first to visualize your private repositories
-</a>
+<div class="github-status">
+  <% if session[:access_token] %>
+    You're all set to visualize private repositories.<br>You can
+    <a target="_blank" href="https://github.com/settings/connections/applications/<%=CLIENT_ID%>">revoke access here</a>.
+  <% else %>
+    <a href="/private_repo_auth">
+      Sign in with GitHub to visualize private repositories
+    </a>
+  <% end %>
+</div>
 
 <div id="loader">Visualizing</div>
 <div id="long-load-message">

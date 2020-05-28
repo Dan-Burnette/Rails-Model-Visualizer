@@ -1,11 +1,9 @@
 require_relative "models/github_repository"
 require_relative "models/association"
-require_relative "services/create_github_client"
 require_relative "services/parse_class_name"
 require_relative "services/parse_associations"
 require_relative "services/parse_schema_tables"
 require_relative "services/create_graph"
-
 
 CLIENT_ID = ENV.fetch("GITHUB_OAUTH_APP_CLIENT_ID")
 CLIENT_SECRET = ENV.fetch("GITHUB_OAUTH_APP_CLIENT_SECRET")
@@ -24,15 +22,15 @@ get "/github_auth" do
   code = params[:code]
   result = Octokit.exchange_code_for_token(code, CLIENT_ID, CLIENT_SECRET)
   session[:access_token] = result[:access_token]
-  session[:access_token] = "XXXX"
   redirect "/"
 end
 
 get "/visualize_repo" do
-  client = CreateGithubClient.call(session[:access_token])
+  github_client = Octokit::Client.new(client_id: CLIENT_ID, client_secret: CLIENT_SECRET)
+  set_user_access_token(github_client) if session[:access_token]
 
   begin
-    repo = GithubRepository.new(client, repo_url)
+    repo = GithubRepository.new(github_client, repo_url)
     @table_names_to_column_lines = ParseSchemaTables.call(repo.schema_file_content)
     CreateGraph.call(repo_name, models_to_associations(repo))
     erb :visualize
@@ -49,6 +47,15 @@ get "/visualize_repo" do
     @error_message = "Something went wrong visualizing that repository. I'll look into a fix."
     @attempted_url = repo_url
     erb :index
+  end
+end
+
+def set_user_access_token(github_client)
+  begin
+    github_client.check_application_authorization(session[:access_token])
+    github_client.access_token = session[:access_token]
+  rescue Octokit::Unauthorized, Octokit::NotFound
+    session[:access_token] = nil
   end
 end
 

@@ -9,7 +9,7 @@ function initLoader() {
 
 function hideNonLoaderElements() {
   const stuffToHide = document.querySelectorAll(
-    '.form-container, .examples, .source, .contact',
+    '.form-container, .github-status, .examples, .source, .contact',
   );
   stuffToHide.forEach(e => (e.style.display = 'none'));
 }
