@@ -1,0 +1,323 @@
+<svg width="1695pt" height="638pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" style="overflow: hidden; "><g id="viewport-20200528212626408" class="svg-pan-zoom_viewport" transform="matrix(0.7386474096060971,0,0,0.7386474096060971,0.000013595880773209501,193.37147633565502)" style="transform: matrix(0.738647, 0, 0, 0.738647, 1.35959e-05, 193.371);">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 634)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-634 1690.99,-634 1690.99,4 -4,4"></polygon>
+<text text-anchor="start" x="281.993" y="-29" font-family="Droid Sans Mono" font-size="14.00"> </text>
+<text text-anchor="start" x="290.993" y="-29" font-family="Droid Sans Mono" font-size="80.00">Scientific-Meal-Planner</text>
+<text text-anchor="start" x="1395.99" y="-29" font-family="Droid Sans Mono" font-size="14.00"> </text>
+<!-- alternative_suggestions -->
+<g id="node1" class="node"><title>alternative_suggestions</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="165.489" cy="-612" rx="123.478" ry="18"></ellipse>
+<text text-anchor="middle" x="165.489" y="-608.3" font-family="Droid Sans Mono" font-size="14.00">AlternativeSuggestion</text>
+</g>
+<!-- foods -->
+<g id="node10" class="node"><title>foods</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="207.489" cy="-529" rx="32.4942" ry="18"></ellipse>
+<text text-anchor="middle" x="207.489" y="-525.3" font-family="Droid Sans Mono" font-size="14.00">Food</text>
+</g>
+<!-- alternative_suggestions&#45;&gt;foods -->
+<g id="edge1" class="edge"><title>alternative_suggestions-&gt;foods</title>
+<path fill="none" stroke="#00a7e1" d="M136.507,-594.48C125.675,-586.113 117.509,-575.518 124.489,-565 134.013,-550.648 150.705,-542.167 166.635,-537.162"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="167.675,-540.506 176.384,-534.473 165.813,-533.758 167.675,-540.506"></polygon>
+<text text-anchor="middle" x="154.989" y="-568" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- application_records -->
+<g id="node2" class="node"><title>application_records</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="785.489" cy="-612" rx="102.082" ry="18"></ellipse>
+<text text-anchor="middle" x="785.489" y="-608.3" font-family="Droid Sans Mono" font-size="14.00">ApplicationRecord</text>
+</g>
+<!-- categories -->
+<g id="node3" class="node"><title>categories</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="519.489" cy="-446" rx="53.8905" ry="18"></ellipse>
+<text text-anchor="middle" x="519.489" y="-442.3" font-family="Droid Sans Mono" font-size="14.00">Category</text>
+</g>
+<!-- serving_satisfiers -->
+<g id="node18" class="node"><title>serving_satisfiers</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="447.489" cy="-529" rx="96.6831" ry="18"></ellipse>
+<text text-anchor="middle" x="447.489" y="-525.3" font-family="Droid Sans Mono" font-size="14.00">ServingSatisfier</text>
+</g>
+<!-- categories&#45;&gt;serving_satisfiers -->
+<g id="edge2" class="edge"><title>categories-&gt;serving_satisfiers</title>
+<path fill="none" stroke="#00a7e1" d="M478.889,-458.053C467.09,-463.331 455.504,-470.989 448.489,-482 445.079,-487.352 443.69,-493.811 443.394,-500.176"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="439.911,-500.717 443.767,-510.585 446.907,-500.466 439.911,-500.717"></polygon>
+<text text-anchor="middle" x="472.989" y="-485" font-family="Droid Sans Mono" font-size="10.00">has_many</text>
+</g>
+<!-- combos -->
+<g id="node4" class="node"><title>combos</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="1136.49" cy="-446" rx="37.8943" ry="18"></ellipse>
+<text text-anchor="middle" x="1136.49" y="-442.3" font-family="Droid Sans Mono" font-size="14.00">Combo</text>
+</g>
+<!-- recipes -->
+<g id="node16" class="node"><title>recipes</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="974.489" cy="-529" rx="42.7926" ry="18"></ellipse>
+<text text-anchor="middle" x="974.489" y="-525.3" font-family="Droid Sans Mono" font-size="14.00">Recipe</text>
+</g>
+<!-- combos&#45;&gt;recipes -->
+<g id="edge3" class="edge"><title>combos-&gt;recipes</title>
+<path fill="none" stroke="#00a7e1" d="M1166.63,-457.194C1186.88,-465.646 1207.8,-478.58 1195.49,-493 1174.31,-517.8 1085.83,-525.125 1027.45,-527.229"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="1027.17,-523.736 1017.28,-527.554 1027.39,-530.733 1027.17,-523.736"></polygon>
+<text text-anchor="middle" x="1267.99" y="-485" font-family="Droid Sans Mono" font-size="10.00">has_and_belongs_to_many</text>
+</g>
+<!-- contact_forms -->
+<g id="node5" class="node"><title>contact_forms</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="975.489" cy="-612" rx="69.5877" ry="18"></ellipse>
+<text text-anchor="middle" x="975.489" y="-608.3" font-family="Droid Sans Mono" font-size="14.00">ContactForm</text>
+</g>
+<!-- cooking_transformations -->
+<g id="node6" class="node"><title>cooking_transformations</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="123.489" cy="-446" rx="123.478" ry="18"></ellipse>
+<text text-anchor="middle" x="123.489" y="-442.3" font-family="Droid Sans Mono" font-size="14.00">CookingTransformation</text>
+</g>
+<!-- cooking_transformations&#45;&gt;foods -->
+<g id="edge4" class="edge"><title>cooking_transformations-&gt;foods</title>
+<path fill="none" stroke="#00a7e1" d="M119.625,-464.098C118.503,-473.401 118.833,-484.675 124.489,-493 134.168,-507.248 150.882,-515.714 166.786,-520.737"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="165.942,-524.135 176.514,-523.44 167.816,-517.39 165.942,-524.135"></polygon>
+<text text-anchor="middle" x="154.989" y="-485" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- cooking_transformations&#45;&gt;foods -->
+<g id="edge5" class="edge"><title>cooking_transformations-&gt;foods</title>
+<path fill="none" stroke="#00a7e1" d="M160.89,-463.264C169.721,-468.342 178.569,-474.594 185.489,-482 190.808,-487.692 195.069,-494.906 198.372,-501.924"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="195.178,-503.357 202.291,-511.21 201.627,-500.635 195.178,-503.357"></polygon>
+<text text-anchor="middle" x="223.989" y="-485" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- daily_cook_meal_plans -->
+<g id="node7" class="node"><title>daily_cook_meal_plans</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="1165.49" cy="-612" rx="102.082" ry="18"></ellipse>
+<text text-anchor="middle" x="1165.49" y="-608.3" font-family="Droid Sans Mono" font-size="14.00">DailyCookMealPlan</text>
+</g>
+<!-- days -->
+<g id="node8" class="node"><title>days</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="941.489" cy="-363" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="941.489" y="-359.3" font-family="Droid Sans Mono" font-size="14.00">Day</text>
+</g>
+<!-- meals -->
+<g id="node12" class="node"><title>meals</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="1061.49" cy="-280" rx="32.4942" ry="18"></ellipse>
+<text text-anchor="middle" x="1061.49" y="-276.3" font-family="Droid Sans Mono" font-size="14.00">Meal</text>
+</g>
+<!-- days&#45;&gt;meals -->
+<g id="edge8" class="edge"><title>days-&gt;meals</title>
+<path fill="none" stroke="#00a7e1" d="M967.63,-358.302C989.178,-354.046 1019.36,-345.15 1039.49,-327 1045.36,-321.701 1049.82,-314.495 1053.13,-307.36"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="1056.47,-308.443 1056.96,-297.86 1049.97,-305.826 1056.47,-308.443"></polygon>
+<text text-anchor="middle" x="1071.99" y="-319" font-family="Droid Sans Mono" font-size="10.00">has_many</text>
+</g>
+<!-- meal_plans -->
+<g id="node13" class="node"><title>meal_plans</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="863.489" cy="-280" rx="53.8905" ry="18"></ellipse>
+<text text-anchor="middle" x="863.489" y="-276.3" font-family="Droid Sans Mono" font-size="14.00">MealPlan</text>
+</g>
+<!-- days&#45;&gt;meal_plans -->
+<g id="edge6" class="edge"><title>days-&gt;meal_plans</title>
+<path fill="none" stroke="#00a7e1" d="M914.369,-362.635C886.273,-361.649 843.583,-355.191 822.489,-327 816.208,-318.606 820.744,-309.897 828.736,-302.345"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="831.274,-304.794 836.836,-295.777 826.865,-299.357 831.274,-304.794"></polygon>
+<text text-anchor="middle" x="852.989" y="-319" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- preps -->
+<g id="node15" class="node"><title>preps</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="1205.49" cy="-280" rx="32.4942" ry="18"></ellipse>
+<text text-anchor="middle" x="1205.49" y="-276.3" font-family="Droid Sans Mono" font-size="14.00">Prep</text>
+</g>
+<!-- days&#45;&gt;preps -->
+<g id="edge7" class="edge"><title>days-&gt;preps</title>
+<path fill="none" stroke="#00a7e1" d="M967.515,-357.889C999.351,-352.492 1054.67,-341.921 1100.49,-327 1125.48,-318.861 1152.64,-306.876 1173.07,-297.179"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="1174.74,-300.259 1182.24,-292.769 1171.71,-293.951 1174.74,-300.259"></polygon>
+<text text-anchor="middle" x="1153.99" y="-319" font-family="Droid Sans Mono" font-size="10.00">has_many</text>
+</g>
+<!-- recipe_sets -->
+<g id="node17" class="node"><title>recipe_sets</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="747.489" cy="-446" rx="59.2899" ry="18"></ellipse>
+<text text-anchor="middle" x="747.489" y="-442.3" font-family="Droid Sans Mono" font-size="14.00">RecipeSet</text>
+</g>
+<!-- days&#45;&gt;recipe_sets -->
+<g id="edge9" class="edge"><title>days-&gt;recipe_sets</title>
+<path fill="none" stroke="#00a7e1" d="M920.323,-374.605C900.639,-384.307 870.387,-398.81 843.489,-410 827.891,-416.489 810.612,-422.994 795.062,-428.605"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="793.873,-425.313 785.634,-431.974 796.229,-431.905 793.873,-425.313"></polygon>
+<text text-anchor="middle" x="889.989" y="-402" font-family="Droid Sans Mono" font-size="10.00">has_one</text>
+</g>
+<!-- dev_logs -->
+<g id="node9" class="node"><title>dev_logs</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="1328.49" cy="-612" rx="42.7926" ry="18"></ellipse>
+<text text-anchor="middle" x="1328.49" y="-608.3" font-family="Droid Sans Mono" font-size="14.00">DevLog</text>
+</g>
+<!-- foods&#45;&gt;alternative_suggestions -->
+<g id="edge12" class="edge"><title>foods-&gt;alternative_suggestions</title>
+<path fill="none" stroke="#00a7e1" d="M199.836,-546.753C195.733,-555.538 190.501,-566.434 185.489,-576 183.93,-578.976 182.252,-582.066 180.556,-585.123"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="177.384,-583.621 175.507,-594.048 183.477,-587.068 177.384,-583.621"></polygon>
+<text text-anchor="middle" x="215.989" y="-568" font-family="Droid Sans Mono" font-size="10.00">has_many</text>
+</g>
+<!-- foods&#45;&gt;cooking_transformations -->
+<g id="edge10" class="edge"><title>foods-&gt;cooking_transformations</title>
+<path fill="none" stroke="#00a7e1" d="M175.883,-524.192C140.328,-519.182 85.9084,-509.08 73.489,-493 66.9645,-484.552 71.3002,-476.329 79.6335,-469.227"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="81.7713,-472.001 87.8134,-463.298 77.6627,-466.333 81.7713,-472.001"></polygon>
+<text text-anchor="middle" x="94.989" y="-485" font-family="Droid Sans Mono" font-size="10.00">has_one</text>
+</g>
+<!-- unhealthy_sources -->
+<g id="node20" class="node"><title>unhealthy_sources</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="356.489" cy="-446" rx="90.9839" ry="18"></ellipse>
+<text text-anchor="middle" x="356.489" y="-442.3" font-family="Droid Sans Mono" font-size="14.00">UnhealthySource</text>
+</g>
+<!-- foods&#45;&gt;unhealthy_sources -->
+<g id="edge11" class="edge"><title>foods-&gt;unhealthy_sources</title>
+<path fill="none" stroke="#00a7e1" d="M229.796,-515.873C252.99,-503.264 289.749,-483.282 317.711,-468.081"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="319.71,-470.978 326.825,-463.126 316.367,-464.828 319.71,-470.978"></polygon>
+<text text-anchor="middle" x="315.989" y="-485" font-family="Droid Sans Mono" font-size="10.00">has_many</text>
+</g>
+<!-- ingredients -->
+<g id="node11" class="node"><title>ingredients</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="601.489" cy="-612" rx="64.189" ry="18"></ellipse>
+<text text-anchor="middle" x="601.489" y="-608.3" font-family="Droid Sans Mono" font-size="14.00">Ingredient</text>
+</g>
+<!-- ingredients&#45;&gt;foods -->
+<g id="edge13" class="edge"><title>ingredients-&gt;foods</title>
+<path fill="none" stroke="#00a7e1" d="M537.1,-610.447C474.197,-608.334 376.384,-600.826 295.489,-576 274.631,-569.599 252.888,-558.284 236.233,-548.478"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="237.911,-545.402 227.542,-543.226 234.291,-551.394 237.911,-545.402"></polygon>
+<text text-anchor="middle" x="325.989" y="-568" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- ingredients&#45;&gt;recipes -->
+<g id="edge14" class="edge"><title>ingredients-&gt;recipes</title>
+<path fill="none" stroke="#00a7e1" d="M647.25,-599.335C656.237,-597.33 665.626,-595.434 674.489,-594 760.407,-580.097 785.213,-597.742 869.489,-576 894.111,-569.648 920.31,-558.179 940.379,-548.282"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="942.067,-551.35 949.422,-543.725 938.917,-545.099 942.067,-551.35"></polygon>
+<text text-anchor="middle" x="932.989" y="-568" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- ingredients&#45;&gt;recipe_sets -->
+<g id="edge15" class="edge"><title>ingredients-&gt;recipe_sets</title>
+<path fill="none" stroke="#00a7e1" d="M599.29,-593.64C597.524,-572.14 597.744,-535.378 615.489,-511 633.71,-485.968 664.394,-470.277 691.594,-460.701"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="693.035,-463.911 701.428,-457.444 690.834,-457.266 693.035,-463.911"></polygon>
+<text text-anchor="middle" x="645.989" y="-526.5" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- ingredients&#45;&gt;serving_satisfiers -->
+<g id="edge16" class="edge"><title>ingredients-&gt;serving_satisfiers</title>
+<path fill="none" stroke="#00a7e1" d="M537.129,-610.598C474.739,-608.677 386.4,-601.385 364.489,-576 353.998,-563.846 363.523,-554.28 379.344,-547.092"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="380.715,-550.313 388.694,-543.342 378.11,-543.816 380.715,-550.313"></polygon>
+<text text-anchor="middle" x="394.989" y="-568" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- ingredients&#45;&gt;serving_satisfiers -->
+<g id="edge17" class="edge"><title>ingredients-&gt;serving_satisfiers</title>
+<path fill="none" stroke="#00a7e1" d="M541.915,-604.893C504.215,-599.672 460.41,-590.627 448.489,-576 444.25,-570.799 442.685,-564.058 442.496,-557.348"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="446.009,-557.256 443.144,-547.056 439.022,-556.816 446.009,-557.256"></polygon>
+<text text-anchor="middle" x="517.989" y="-568" font-family="Droid Sans Mono" font-size="10.00">has_and_belongs_to_many</text>
+</g>
+<!-- meals&#45;&gt;days -->
+<g id="edge18" class="edge"><title>meals-&gt;days</title>
+<path fill="none" stroke="#00a7e1" d="M1032.33,-288.216C1014.34,-293.706 991.522,-302.63 974.489,-316 967.154,-321.758 960.723,-329.566 955.534,-337.113"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="952.472,-335.406 950.033,-345.716 958.369,-339.177 952.472,-335.406"></polygon>
+<text text-anchor="middle" x="1004.99" y="-319" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- meals&#45;&gt;recipes -->
+<g id="edge19" class="edge"><title>meals-&gt;recipes</title>
+<path fill="none" stroke="#00a7e1" d="M1092.18,-286.151C1146.27,-295.276 1253.19,-313.556 1256.49,-316 1433.21,-446.913 1353.62,-479.661 1341.49,-493 1320.8,-515.761 1124.22,-524.075 1027.59,-526.804"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="1027.34,-523.309 1017.44,-527.08 1027.53,-530.307 1027.34,-523.309"></polygon>
+<text text-anchor="middle" x="1384.99" y="-402" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- meal_plans&#45;&gt;days -->
+<g id="edge21" class="edge"><title>meal_plans-&gt;days</title>
+<path fill="none" stroke="#00a7e1" d="M878.481,-297.305C886.684,-306.158 897.067,-317.255 906.489,-327 910.698,-331.353 915.242,-335.962 919.618,-340.356"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="917.185,-342.873 926.733,-347.464 922.132,-337.92 917.185,-342.873"></polygon>
+<text text-anchor="middle" x="930.989" y="-319" font-family="Droid Sans Mono" font-size="10.00">has_many</text>
+</g>
+<!-- users -->
+<g id="node22" class="node"><title>users</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="863.489" cy="-197" rx="32.4942" ry="18"></ellipse>
+<text text-anchor="middle" x="863.489" y="-193.3" font-family="Droid Sans Mono" font-size="14.00">User</text>
+</g>
+<!-- meal_plans&#45;&gt;users -->
+<g id="edge20" class="edge"><title>meal_plans-&gt;users</title>
+<path fill="none" stroke="#00a7e1" d="M837.056,-264.126C826.079,-255.855 817.023,-244.852 822.489,-233 825.215,-227.088 829.487,-221.805 834.264,-217.245"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="836.648,-219.812 842.035,-210.689 832.135,-214.462 836.648,-219.812"></polygon>
+<text text-anchor="middle" x="852.989" y="-236" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- minimalist_meal_plans -->
+<g id="node14" class="node"><title>minimalist_meal_plans</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="1496.49" cy="-612" rx="107.482" ry="18"></ellipse>
+<text text-anchor="middle" x="1496.49" y="-608.3" font-family="Droid Sans Mono" font-size="14.00">MinimalistMealPlan</text>
+</g>
+<!-- preps&#45;&gt;days -->
+<g id="edge22" class="edge"><title>preps-&gt;days</title>
+<path fill="none" stroke="#00a7e1" d="M1201.25,-298.064C1197.86,-308.083 1192.04,-320.098 1182.49,-327 1150.65,-350.008 1038.03,-358.056 978.695,-360.739"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="978.455,-357.246 968.612,-361.166 978.752,-364.239 978.455,-357.246"></polygon>
+<text text-anchor="middle" x="1221.99" y="-319" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- preps&#45;&gt;recipes -->
+<g id="edge23" class="edge"><title>preps-&gt;recipes</title>
+<path fill="none" stroke="#00a7e1" d="M1236.94,-285.169C1302.44,-295.543 1445.34,-327.862 1419.49,-410 1405.98,-452.927 1400.42,-470.423 1361.49,-493 1306.14,-525.099 1120.34,-528.846 1027.79,-528.633"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="1027.54,-525.132 1017.52,-528.592 1027.51,-532.132 1027.54,-525.132"></polygon>
+<text text-anchor="middle" x="1451.99" y="-402" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- recipes&#45;&gt;combos -->
+<g id="edge26" class="edge"><title>recipes-&gt;combos</title>
+<path fill="none" stroke="#00a7e1" d="M998.394,-513.794C1020.28,-500.804 1049.69,-483.398 1052.49,-482 1067.07,-474.707 1083.54,-467.607 1098.01,-461.729"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="1099.68,-464.832 1107.67,-457.867 1097.08,-458.332 1099.68,-464.832"></polygon>
+<text text-anchor="middle" x="1121.99" y="-485" font-family="Droid Sans Mono" font-size="10.00">has_and_belongs_to_many</text>
+</g>
+<!-- recipes&#45;&gt;ingredients -->
+<g id="edge24" class="edge"><title>recipes-&gt;ingredients</title>
+<path fill="none" stroke="#00a7e1" d="M936.554,-537.857C879.582,-549.709 768.569,-573.012 674.489,-594 669.458,-595.122 664.237,-596.304 659.004,-597.5"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="657.935,-594.155 648.974,-599.807 659.504,-600.977 657.935,-594.155"></polygon>
+<text text-anchor="middle" x="830.989" y="-568" font-family="Droid Sans Mono" font-size="10.00">has_many</text>
+</g>
+<!-- recipes&#45;&gt;recipe_sets -->
+<g id="edge25" class="edge"><title>recipes-&gt;recipe_sets</title>
+<path fill="none" stroke="#00a7e1" d="M944.188,-516.105C928.316,-509.654 908.661,-501.315 891.489,-493 882.359,-488.579 880.876,-485.847 871.489,-482 849.771,-473.099 825.024,-465.614 803.38,-459.881"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="804.234,-456.486 793.676,-457.371 802.481,-463.263 804.234,-456.486"></polygon>
+<text text-anchor="middle" x="960.989" y="-485" font-family="Droid Sans Mono" font-size="10.00">has_and_belongs_to_many</text>
+</g>
+<!-- recipe_sets&#45;&gt;days -->
+<g id="edge27" class="edge"><title>recipe_sets-&gt;days</title>
+<path fill="none" stroke="#00a7e1" d="M754.851,-428.09C760.046,-418.129 767.959,-406.122 778.489,-399 816.078,-373.578 868.762,-366.167 903.953,-364.241"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="904.433,-367.724 914.277,-363.805 904.138,-360.73 904.433,-367.724"></polygon>
+<text text-anchor="middle" x="808.989" y="-402" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- recipe_sets&#45;&gt;ingredients -->
+<g id="edge29" class="edge"><title>recipe_sets-&gt;ingredients</title>
+<path fill="none" stroke="#00a7e1" d="M734.943,-463.651C730.636,-469.43 725.813,-475.972 721.489,-482 701.01,-510.551 700.05,-520.934 676.489,-547 662.864,-562.074 645.749,-576.929 631.311,-588.527"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="628.846,-586.013 623.165,-594.956 633.183,-591.508 628.846,-586.013"></polygon>
+<text text-anchor="middle" x="726.989" y="-526.5" font-family="Droid Sans Mono" font-size="10.00">has_many</text>
+</g>
+<!-- recipe_sets&#45;&gt;recipes -->
+<g id="edge28" class="edge"><title>recipe_sets-&gt;recipes</title>
+<path fill="none" stroke="#00a7e1" d="M732.552,-463.735C725.99,-473.147 721.24,-484.647 728.489,-493 752.945,-521.182 856.685,-527.258 921.387,-528.236"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="921.378,-531.736 931.418,-528.351 921.459,-524.736 921.378,-531.736"></polygon>
+<text text-anchor="middle" x="797.989" y="-485" font-family="Droid Sans Mono" font-size="10.00">has_and_belongs_to_many</text>
+</g>
+<!-- serving_satisfiers&#45;&gt;categories -->
+<g id="edge30" class="edge"><title>serving_satisfiers-&gt;categories</title>
+<path fill="none" stroke="#00a7e1" d="M476.037,-511.754C483.668,-506.472 491.46,-500.113 497.489,-493 502.335,-487.283 506.381,-480.317 509.627,-473.553"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="513.023,-474.522 513.811,-463.956 506.606,-471.725 513.023,-474.522"></polygon>
+<text text-anchor="middle" x="535.989" y="-485" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- subscriptions -->
+<g id="node19" class="node"><title>subscriptions</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="863.489" cy="-114" rx="75.2868" ry="18"></ellipse>
+<text text-anchor="middle" x="863.489" y="-110.3" font-family="Droid Sans Mono" font-size="14.00">Subscription</text>
+</g>
+<!-- subscriptions&#45;&gt;users -->
+<g id="edge31" class="edge"><title>subscriptions-&gt;users</title>
+<path fill="none" stroke="#00a7e1" d="M871.815,-132.052C874.129,-137.636 876.326,-143.959 877.489,-150 878.753,-156.563 877.857,-163.52 876.028,-169.983"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="872.659,-169.01 872.564,-179.604 879.245,-171.381 872.659,-169.01"></polygon>
+<text text-anchor="middle" x="908.989" y="-153" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- unhealthy_sources&#45;&gt;foods -->
+<g id="edge32" class="edge"><title>unhealthy_sources-&gt;foods</title>
+<path fill="none" stroke="#00a7e1" d="M354.941,-464.019C353.182,-473.767 349.438,-485.512 341.489,-493 317.094,-515.98 279.541,-524.311 250.389,-527.134"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="249.765,-523.672 240.068,-527.941 250.311,-530.651 249.765,-523.672"></polygon>
+<text text-anchor="middle" x="379.989" y="-485" font-family="Droid Sans Mono" font-size="10.00">belongs_to</text>
+</g>
+<!-- units -->
+<g id="node21" class="node"><title>units</title>
+<ellipse fill="#ffa630" stroke="#ffa630" cx="1654.49" cy="-612" rx="32.4942" ry="18"></ellipse>
+<text text-anchor="middle" x="1654.49" y="-608.3" font-family="Droid Sans Mono" font-size="14.00">Unit</text>
+</g>
+<!-- users&#45;&gt;meal_plans -->
+<g id="edge34" class="edge"><title>users-&gt;meal_plans</title>
+<path fill="none" stroke="#00a7e1" d="M874.929,-213.965C878.385,-219.689 881.729,-226.371 883.489,-233 885.291,-239.786 883.974,-246.86 881.324,-253.368"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="878.143,-251.902 876.696,-262.398 884.372,-255.095 878.143,-251.902"></polygon>
+<text text-anchor="middle" x="908.989" y="-236" font-family="Droid Sans Mono" font-size="10.00">has_many</text>
+</g>
+<!-- users&#45;&gt;subscriptions -->
+<g id="edge33" class="edge"><title>users-&gt;subscriptions</title>
+<path fill="none" stroke="#00a7e1" d="M842.647,-182.774C835.504,-177.037 828.344,-169.64 824.489,-161 820.823,-152.785 824.012,-144.902 829.866,-138.054"></path>
+<polygon fill="#00a7e1" stroke="#00a7e1" points="832.33,-140.54 837.067,-131.063 827.454,-135.518 832.33,-140.54"></polygon>
+<text text-anchor="middle" x="848.989" y="-153" font-family="Droid Sans Mono" font-size="10.00">has_many</text>
+</g>
+</g>
+</g><defs><style id="svg-pan-zoom-controls-styles" type="text/css">.svg-pan-zoom-control { cursor: pointer; fill: black; fill-opacity: 0.333; } .svg-pan-zoom-control:hover { fill-opacity: 0.8; } .svg-pan-zoom-control-background { fill: white; fill-opacity: 0.5; } .svg-pan-zoom-control-background { fill-opacity: 0.8; }</style></defs><g id="svg-pan-zoom-controls" transform="translate(1182 782) scale(0.75)" class="svg-pan-zoom-control"><g id="svg-pan-zoom-zoom-in" transform="translate(30.5 5) scale(0.015)" class="svg-pan-zoom-control"><rect x="0" y="0" width="1500" height="1400" class="svg-pan-zoom-control-background"></rect><path d="M1280 576v128q0 26 -19 45t-45 19h-320v320q0 26 -19 45t-45 19h-128q-26 0 -45 -19t-19 -45v-320h-320q-26 0 -45 -19t-19 -45v-128q0 -26 19 -45t45 -19h320v-320q0 -26 19 -45t45 -19h128q26 0 45 19t19 45v320h320q26 0 45 19t19 45zM1536 1120v-960 q0 -119 -84.5 -203.5t-203.5 -84.5h-960q-119 0 -203.5 84.5t-84.5 203.5v960q0 119 84.5 203.5t203.5 84.5h960q119 0 203.5 -84.5t84.5 -203.5z" class="svg-pan-zoom-control-element"></path></g><g id="svg-pan-zoom-reset-pan-zoom" transform="translate(5 35) scale(0.4)" class="svg-pan-zoom-control"><rect x="2" y="2" width="182" height="58" class="svg-pan-zoom-control-background"></rect><path d="M33.051,20.632c-0.742-0.406-1.854-0.609-3.338-0.609h-7.969v9.281h7.769c1.543,0,2.701-0.188,3.473-0.562c1.365-0.656,2.048-1.953,2.048-3.891C35.032,22.757,34.372,21.351,33.051,20.632z" class="svg-pan-zoom-control-element"></path><path d="M170.231,0.5H15.847C7.102,0.5,0.5,5.708,0.5,11.84v38.861C0.5,56.833,7.102,61.5,15.847,61.5h154.384c8.745,0,15.269-4.667,15.269-10.798V11.84C185.5,5.708,178.976,0.5,170.231,0.5z M42.837,48.569h-7.969c-0.219-0.766-0.375-1.383-0.469-1.852c-0.188-0.969-0.289-1.961-0.305-2.977l-0.047-3.211c-0.03-2.203-0.41-3.672-1.142-4.406c-0.732-0.734-2.103-1.102-4.113-1.102h-7.05v13.547h-7.055V14.022h16.524c2.361,0.047,4.178,0.344,5.45,0.891c1.272,0.547,2.351,1.352,3.234,2.414c0.731,0.875,1.31,1.844,1.737,2.906s0.64,2.273,0.64,3.633c0,1.641-0.414,3.254-1.242,4.84s-2.195,2.707-4.102,3.363c1.594,0.641,2.723,1.551,3.387,2.73s0.996,2.98,0.996,5.402v2.32c0,1.578,0.063,2.648,0.19,3.211c0.19,0.891,0.635,1.547,1.333,1.969V48.569z M75.579,48.569h-26.18V14.022h25.336v6.117H56.454v7.336h16.781v6H56.454v8.883h19.125V48.569z M104.497,46.331c-2.44,2.086-5.887,3.129-10.34,3.129c-4.548,0-8.125-1.027-10.731-3.082s-3.909-4.879-3.909-8.473h6.891c0.224,1.578,0.662,2.758,1.316,3.539c1.196,1.422,3.246,2.133,6.15,2.133c1.739,0,3.151-0.188,4.236-0.562c2.058-0.719,3.087-2.055,3.087-4.008c0-1.141-0.504-2.023-1.512-2.648c-1.008-0.609-2.607-1.148-4.796-1.617l-3.74-0.82c-3.676-0.812-6.201-1.695-7.576-2.648c-2.328-1.594-3.492-4.086-3.492-7.477c0-3.094,1.139-5.664,3.417-7.711s5.623-3.07,10.036-3.07c3.685,0,6.829,0.965,9.431,2.895c2.602,1.93,3.966,4.73,4.093,8.402h-6.938c-0.128-2.078-1.057-3.555-2.787-4.43c-1.154-0.578-2.587-0.867-4.301-0.867c-1.907,0-3.428,0.375-4.565,1.125c-1.138,0.75-1.706,1.797-1.706,3.141c0,1.234,0.561,2.156,1.682,2.766c0.721,0.406,2.25,0.883,4.589,1.43l6.063,1.43c2.657,0.625,4.648,1.461,5.975,2.508c2.059,1.625,3.089,3.977,3.089,7.055C108.157,41.624,106.937,44.245,104.497,46.331z M139.61,48.569h-26.18V14.022h25.336v6.117h-18.281v7.336h16.781v6h-16.781v8.883h19.125V48.569z M170.337,20.14h-10.336v28.43h-7.266V20.14h-10.383v-6.117h27.984V20.14z" class="svg-pan-zoom-control-element"></path></g><g id="svg-pan-zoom-zoom-out" transform="translate(30.5 70) scale(0.015)" class="svg-pan-zoom-control"><rect x="0" y="0" width="1500" height="1400" class="svg-pan-zoom-control-background"></rect><path d="M1280 576v128q0 26 -19 45t-45 19h-896q-26 0 -45 -19t-19 -45v-128q0 -26 19 -45t45 -19h896q26 0 45 19t19 45zM1536 1120v-960q0 -119 -84.5 -203.5t-203.5 -84.5h-960q-119 0 -203.5 84.5t-84.5 203.5v960q0 119 84.5 203.5t203.5 84.5h960q119 0 203.5 -84.5 t84.5 -203.5z" class="svg-pan-zoom-control-element"></path></g></g></svg>
