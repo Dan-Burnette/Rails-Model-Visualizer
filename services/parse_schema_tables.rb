@@ -1,7 +1,6 @@
-require_relative "application_service"
+require_relative 'application_service'
 
 class ParseSchemaTables < ApplicationService
-
   def initialize(schema_content)
     @lines = schema_content.split("\n")
   end
@@ -22,11 +21,11 @@ class ParseSchemaTables < ApplicationService
   end
 
   def table_definition_lines
-    @lines.select { |l| l.include?("create_table") }
+    @lines.select { |l| l.include?('create_table') }
   end
 
   def table_name(definition_line)
-    terms = definition_line.split(" ")
+    terms = definition_line.split(' ')
     terms[1].delete(",'\"")
   end
 
@@ -35,7 +34,7 @@ class ParseSchemaTables < ApplicationService
 
     line_index = @lines.index(definition_line) + 1
     current_line = @lines[line_index]
-    while current_line.include?("t.")
+    while current_line.include?('t.')
       column_lines << current_line
       line_index += 1
       current_line = @lines[line_index]
@@ -43,5 +42,4 @@ class ParseSchemaTables < ApplicationService
 
     column_lines
   end
-
 end

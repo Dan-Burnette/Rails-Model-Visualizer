@@ -1,9 +1,8 @@
-require "active_support/inflector"
-require_relative "application_service"
-require_relative "../models/association"
+require 'active_support/inflector'
+require_relative 'application_service'
+require_relative '../models/association'
 
 class ParseAssociationDefinition < ApplicationService
-
   def initialize(model_classes, model, association_line)
     @model_classes = model_classes
     @model = model
@@ -17,12 +16,14 @@ class ParseAssociationDefinition < ApplicationService
   private
 
   def parse_terms(line)
-    without_scope = line.gsub(/lambda {.*?\}/, '')
-      .gsub(/-> {.*?\}/, '')
-      .gsub(/Proc.new {.*?\}/, '')
+    without_scope =
+      line.gsub(/lambda {.*?\}/, '').gsub(/-> {.*?\}/, '').gsub(
+        /Proc.new {.*?\}/,
+        ''
+      )
 
-    raw_terms = without_scope.delete("=>,'\"").split(" ")
-    raw_terms.map { |t| t.delete_prefix(":").delete_suffix(":") }
+    raw_terms = without_scope.delete("=>,'\"").split(' ')
+    raw_terms.map { |t| t.delete_prefix(':').delete_suffix(':') }
   end
 
   def type
@@ -30,10 +31,10 @@ class ParseAssociationDefinition < ApplicationService
   end
 
   def to_model
-    if option_keys.include?("class_name")
-      option("class_name").classify
-    elsif option_keys.include?("source")
-      option("source").classify
+    if option_keys.include?('class_name')
+      option('class_name').classify
+    elsif option_keys.include?('source')
+      option('source').classify
     elsif namespaced_to_model
       namespaced_to_model
     else
@@ -46,14 +47,14 @@ class ParseAssociationDefinition < ApplicationService
   end
 
   def through_model
-    return nil if !option_terms.include?("through")
-    through_term_index = option_terms.index("through")
+    return nil if !option_terms.include?('through')
+    through_term_index = option_terms.index('through')
     option_terms[through_term_index + 1].classify
   end
 
   def polymorphic?
-    return false if !option_terms.include?("polymorphic")
-    option("polymorphic") == "true"
+    return false if !option_terms.include?('polymorphic')
+    option('polymorphic') == 'true'
   end
 
   def option_keys
@@ -74,7 +75,6 @@ class ParseAssociationDefinition < ApplicationService
   end
 
   def namespace
-    @model.split("::")[0...-1].join("::")
+    @model.split('::')[0...-1].join('::')
   end
-
 end

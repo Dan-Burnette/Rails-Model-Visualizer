@@ -1,4 +1,4 @@
-require "base64"
+require 'base64'
 
 class GithubRepository
   class NoSchemaFound < StandardError; end
@@ -30,7 +30,7 @@ class GithubRepository
 
   def model_elements
     tree.select do |e|
-      e[:path].include?("app/models") && e[:path].include?(".rb") 
+      e[:path].include?('app/models') && e[:path].include?('.rb')
     end
   end
 
@@ -39,7 +39,7 @@ class GithubRepository
   end
 
   def schema_element
-    element = tree.find { |e| e[:path] == "db/schema.rb" }
+    element = tree.find { |e| e[:path] == 'db/schema.rb' }
     element ? element : raise(NoSchemaFound)
   end
 
@@ -56,6 +56,4 @@ class GithubRepository
     repository_data = @client.repository(@repo)
     repository_data[:default_branch]
   end
-
 end
-

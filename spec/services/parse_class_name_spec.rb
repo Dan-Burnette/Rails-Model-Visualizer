@@ -1,33 +1,31 @@
 require File.expand_path '../../spec_helper.rb', __FILE__
-require_relative "../../services/parse_class_name"
+require_relative '../../services/parse_class_name'
 
-describe "ParseClassName" do
+describe 'ParseClassName' do
+  before(:all) {}
 
-  before(:all) do
-  end
-
-  it "works with a standard class definition" do
+  it 'works with a standard class definition' do
     contents = "class Test \n other stuff"
     result = ParseClassName.call(contents)
-    expect(result).to eq("Test")
+    expect(result).to eq('Test')
   end
 
-  it "works with a class definition namespaced under a module" do
+  it 'works with a class definition namespaced under a module' do
     contents = "module TestModule \n class Test \n other stuff"
     result = ParseClassName.call(contents)
-    expect(result).to eq("TestModule::Test")
+    expect(result).to eq('TestModule::Test')
   end
 
-  it "works with a class definition namespaced under another class" do
+  it 'works with a class definition namespaced under another class' do
     contents = "class TestClass \n class Test \n other stuff"
     result = ParseClassName.call(contents)
-    expect(result).to eq("TestClass::Test")
+    expect(result).to eq('TestClass::Test')
   end
 
-  it "works with any combination of namespaced classes/modules" do
-    contents = "module TestModuleOne \n module TestModuleTwo \n class TestClassOne \n other stuff"
+  it 'works with any combination of namespaced classes/modules' do
+    contents =
+      "module TestModuleOne \n module TestModuleTwo \n class TestClassOne \n other stuff"
     result = ParseClassName.call(contents)
-    expect(result).to eq("TestModuleOne::TestModuleTwo::TestClassOne")
+    expect(result).to eq('TestModuleOne::TestModuleTwo::TestClassOne')
   end
-
 end

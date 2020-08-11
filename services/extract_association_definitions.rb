@@ -1,8 +1,7 @@
-require_relative "application_service"
-require_relative "../models/association"
+require_relative 'application_service'
+require_relative '../models/association'
 
 class ExtractAssociationDefinitions < ApplicationService
-
   def initialize(file_content)
     @lines = file_content.split("\n")
   end
@@ -23,7 +22,7 @@ class ExtractAssociationDefinitions < ApplicationService
   def defines_association?(line)
     return false if line.empty?
     first_word = line.split(' ')[0]
-    Association::TYPES.any? { |type | first_word == type }
+    Association::TYPES.any? { |type| first_word == type }
   end
 
   def association_lines(definition_start_line)
@@ -40,7 +39,7 @@ class ExtractAssociationDefinitions < ApplicationService
   end
 
   def line_ends_with_comma?(line)
-    line.strip[-1] == ","
+    line.strip[-1] == ','
   end
 
   def next_line(current_line)
@@ -49,7 +48,6 @@ class ExtractAssociationDefinitions < ApplicationService
   end
 
   def combine_multiline_associations_to_single_line(lines)
-    lines.join(" ")
+    lines.join(' ')
   end
-
 end

@@ -1,8 +1,8 @@
 class Association
   attr_reader :type, :from_model, :to_model, :through_model
 
-  SINGULAR_TYPES = ["belongs_to", "has_one"]
-  PLURAL_TYPES = ["has_many", "has_and_belongs_to_many"]
+  SINGULAR_TYPES = %w[belongs_to has_one]
+  PLURAL_TYPES = %w[has_many has_and_belongs_to_many]
   TYPES = SINGULAR_TYPES + PLURAL_TYPES
 
   def initialize(type, from_model, to_model, through_model, polymorphic)
@@ -15,10 +15,10 @@ class Association
 
   def label
     label = "#{@type}"
-    if @through_model 
+    if @through_model
       label += " #{to_model_inflection} \n through #{@through_model.pluralize}"
     elsif @polymorphic
-      label += " (polymorphic)"
+      label += ' (polymorphic)'
     end
     label
   end
@@ -28,5 +28,4 @@ class Association
   def to_model_inflection
     SINGULAR_TYPES.include?(@type) ? @to_model.singularize : @to_model.pluralize
   end
-
 end
