@@ -1,7 +1,7 @@
 # Rails Model Visualizer
 Visualize a rails project by entering it's github URL.
 
-railsmodelvisualizer.com
+[Rails Model Visualizer](https://railsmodelvisualizer.com)
 
 For example, here is the output when visualizing one of my other apps, The Scientific Meal Planner:
 
