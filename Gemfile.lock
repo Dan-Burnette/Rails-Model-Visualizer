@@ -67,7 +67,7 @@ GEM
       sinatra-outputbuffer (>= 0.1.0)
     thread_safe (0.3.6)
     tilt (2.0.9)
-    tzinfo (1.2.7)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     zeitwerk (2.3.0)
 
